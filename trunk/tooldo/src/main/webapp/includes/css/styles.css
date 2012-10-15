@@ -1,0 +1,95 @@
+@charset "utf-8"; 
+html{overflow-y:scroll}
+body{
+	background:url('../../images/secure/bg_header.jpg') repeat-x top; 
+	color:#8A8A8A; 
+	font-family:Tahoma,Verdana,Arial,Helvetica,sans-serif; 
+	font-size:11px; margin:0; padding:0; 
+	text-align:left;
+}
+span{margin:0; padding:0}
+img{border:none}
+a{color:#797979; text-decoration:none}
+a:hover{text-decoration:none}
+h1{font-size:16px; color:#1e5c90; margin:5px 0; padding:0}
+input, textarea{border:1px solid #CCC; padding:3px; font-size:11px}
+.input_txt{width:275px;heihgt:13px}
+.select_box {width:98%}
+.select {border:1px solid #b1b1b1; padding:3px; font-size:11px;}
+
+#principal{width:950px; height:auto; margin:0 auto; text-align:left !important}
+	#principal #header{width:940px; height:83px}
+	#principal #header #logotipo{float:left; padding:5px; height:70px; width:210px}
+		#principal #header #menu_preferencias{background:url(../../images/secure/bg_menu_pref.jpg) no-repeat; float:right; width:600px; height:53px; text-align:center}
+		#principal #header #menu_preferencias ul{margin:0 0 0 5px; padding:0}
+		#principal #header #menu_preferencias li{display:inline}
+		
+	#principal #bookmark{float:right; width:940px; height:47px; padding:10px 5px}
+		#principal #bookmark #titulo_bookmark{float:left; width:200px; height:47px}
+		#principal #bookmark #icones_bookmark{float:left; width:940px; height:47px}
+		#principal #bookmark #icones_bookmark input{border:none; padding:0; margin:0}
+		#principal #bookmark #icones_bookmark img{margin:0 29px; border:none}
+		#principal #bookmark #icones_bookmark .img-left{margin:0 20px 0 0}
+		#principal #bookmark #icones_bookmark .img-right{margin:0 0 0 20px}
+		#principal #bookmark #icones_bookmark ul{margin:5px 0; padding:0}
+		#principal #bookmark #icones_bookmark  li{display:inline; margin:0 11px}
+		
+	#principal #menu_titulo{float:left; margin:0 0 0 0; width:940px; height:45px}
+		#principal #menu_titulo #menu{float:left; width:192px}
+		#principal #menu_titulo #menu_open{display:none; background-color:#FFF; border-top:none; border-bottom:4px solid #FFF; border-left:4px solid #FFF; border-right:4px solid #FFF; left:50%; height:auto; margin-left:-475px; position:absolute; top:184px; width:184px; z-index:100}
+		#principal #menu_titulo #menu_open .ulModulo{margin:0; padding:0; list-style:none}
+		#principal #menu_titulo #menu_open .liModulo{padding:7px 0 0 10px; background-color:#ebf1f3; list-style:none; height:20px; font-size:11px; font-weight:bold; border-top:0px solid #FFF; border-bottom:3px solid #FFF}
+		#principal #menu_titulo #menu_open .ulPagina{list-style:none; padding:0; margin:0}
+		#principal #menu_titulo #menu_open .liPagina{padding:3px 0 3px 20px; margin:0; height:15px; background-color:#f8f8f8; border-bottom:2px solid #FFF; list-style:none}
+		#principal #menu_titulo #menu_open .liPagina:hover{background-color:#e7e7e7}
+		#principal #menu_titulo #titulo{float:right; width:940px; background-color:#FFF; height:34px}
+		
+	#principal #filtro{float:left; margin:10px 0 0 0; background:url(../../images/secure/bg_fitros.jpg) repeat-x; width:940px; height:50px}
+	#principal #breadcrumb{float:left; margin:10px 0 0 0; width:930px; padding:10px; height:40px}
+		#principal #breadcrumb #btnCadastro{float:left}
+		#principal #breadcrumb #breadcrumb_content{float:right; font-style:italic}
+	
+	#principal #main-content{float:left}
+	#principal #main-content .toolBarLink{border:none}
+		
+	#principal #detalhes{float:left; width:940px}
+	#principal #detalhes input[type=text]{width:97%; border:1px solid #CCC; padding:3px; font-size:11px; height:17px}
+	#principal #detalhes input[type=text]:focus{background-color:#EFEFEF; border:1px solid #666}
+	#principal #detalhes input[type=password]{width:97%; border:1px solid #CCC; padding:3px; font-size:11px; height:17px}
+	#principal #detalhes input[type=password]:focus{background-color:#EFEFEF; border:1px solid #666}
+	#principal #detalhes textarea{width:97%; border:1px solid #CCC; padding:3px; font-size:11px}
+	#principal #detalhes textarea:focus{background-color:#EFEFEF; border:1px solid #666}
+	#principal #tableContent{margin:10px 0 0 0; float:left; width:940px}
+	
+	#principal #paginador{background-color:#F7F7F7; float:left; height:18px; margin:10px 0 0 0; padding:10px; width:930px; letter-spacing:0.2em; text-align:center}
+	#principal #paginador a{font-weight:bold}
+	#principal #paginador a:hover{font-weight:bold; text-decoration:none}
+
+.border_gray_top{border-top:1px solid #ced1d4}
+.floatleft{float:left}
+.floatright{float:right}
+.displaynone{display:none}
+.linhaPar{background-color:#EFEFEF}
+.linhaImpar{background-color:#FFF}
+.verticalalign{vertical-align:middle}
+.fonteazul{color:#1e5c90}
+.fonteVermelha{color:#F00}
+.bgVerde{background-color:#DFFFE0}
+.bgVermelho{background-color:#FFDFDF}
+.marginright20px{margin-right:20px}
+.diverror{border:0px; background-color:#FFEFEF; padding:5px; color:#900 !important;text-align:left;-moz-border-radius:4px;-webkit-border-radius:4px}
+.divsucess{border:0px; background-color:#F3FFEF; padding:5px; color:#447F17 !important;text-align:left;-moz-border-radius:4px;-webkit-border-radius:4px}
+.erro{border:1px solid #900 !important}
+.ac_results{text-align:left}
+
+.rich-messages{border:1px solid #666;}
+span.rich-messages-marker, span.rich-messages-marker0 *{margin:0 5px 0 0;vertical-align:text-bottom}
+
+#loading{background-color:#dee7ff; border:3px solid #1E5C90; color:#1E5C90; font-weight:bold; left:50%; margin-left:-200px; position:fixed; padding:5px 5px; text-align:left; top:0; width:130px}
+#_erro{padding:9px; font-weight:bold; margin:0 0 10px 0; width:98%; border:1px solid #900; background-color:#FFEFEF; color:#900}
+#_sucess{padding:9px; font-weight:bold; margin:0 0 10px 0; width:98%}
+
+#conjunto_tags{margin:0}
+	#conjunto_tags .tags{margin:5px; float:left; padding:3px; border:2px solid #CCC}
+	#conjunto_tags .spanTagsRight{background:url(../../images/secure/xit.gif) right; width:10px; height:10px; float:left; margin:3px 5px 0 0}
+	#conjunto_tags .spanTagsLeft{background:url(../../images/secure/xit.gif) left; width:10px; height:10px; float:left; margin:3px 5px 0 0}

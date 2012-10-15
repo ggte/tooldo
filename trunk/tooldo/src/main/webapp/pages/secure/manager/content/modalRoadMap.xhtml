@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:sec="http://www.springframework.org/security/facelets/tags">
+
+<ui:composition>
+
+	<rich:popupPanel modal="true" id="panelRoadMap" width="520" height="550" domElementAttachment="form" resizeable="true">
+		
+        <f:facet name="header"><h:outputText value="Roteiro"/></f:facet>
+        
+        <f:facet name="controls">
+        	<h:graphicImage value="/images/common/close.png" styleClass="hidelink" onclick="#{rich:component('panelRoadMap')}.hide(); return false;"/>
+        </f:facet>
+
+	       	<a4j:outputPanel id="outPnlRoadMap" ajaxRendered="false">
+	       		
+	       		<rich:messages errorClass="diverror" infoClass="divsucess" layout="list" >
+					<f:facet name="errorMarker"><h:graphicImage url="/images/secure/icons/icone-error.gif"/></f:facet>
+				    <f:facet name="infoMarker"><h:graphicImage url="/images/secure/icons/icone-success.png"/></f:facet>
+				</rich:messages>
+	       	
+       			<h:outputText value="Roteiro:" style="font-weight: bold;" /> <br/>
+       			
+       			<sec:ifAnyGranted roles="ROLE_ADMINISTRATOR,ROLE_CONTENT_ROADMAP">
+       				<h:inputTextarea value="#{contentBean.content.roadMap.roadmap}" style="width:90%; height:130px" />
+				</sec:ifAnyGranted>
+				<sec:ifNotGranted roles="ROLE_ADMINISTRATOR,ROLE_CONTENT_ROADMAP">
+					<h:outputText value="#{contentBean.content.roadMap.roadmap}" />
+				</sec:ifNotGranted>
+				
+				<br/>
+				
+				<h:outputText value="Arquivo: " style="font-weight: bold;" /><br/>
+				<a4j:outputPanel id="outPutShowUploaded">
+
+	         	 	<a4j:outputPanel id="outPutShowUploadedDetail" rendered="#{contentBean.showUploadedFile}">
+
+	         	 		<h:outputText value="${contentBean.content.roadMap.attachment.file}" />
+	         	 		<h:graphicImage url="/images/public/spacer.gif" width="15px"/>
+
+		            	<h:commandButton image="/images/secure/icons/icone-download.png" action="${contentBean.downloadAttachment}"
+		            		style="border:0px;vertical-align:middle;margin-bottom=13px;"/>
+
+		            	<h:graphicImage url="/images/public/spacer.gif" width="15px"/>
+
+						<sec:ifAnyGranted roles="ROLE_ADMINISTRATOR,ROLE_CONTENT_ROADMAP">
+			            	<a4j:commandButton style="border: 0px; vertical-align: middle; margin-bottom: 13px;" 
+			            		render="outPutShowUploaded"
+								action="#{contentBean.removeFile}" execute="@this"
+								value="Remover Anexo" title="Remover Anexo" 
+								image="/images/secure/btn_excluir.gif"/>
+						</sec:ifAnyGranted>
+						
+	         	 	</a4j:outputPanel>
+	             </a4j:outputPanel>
+	             
+	             <sec:ifAnyGranted roles="ROLE_ADMINISTRATOR,ROLE_CONTENT_ROADMAP">
+
+	      			<rich:fileUpload fileUploadListener="#{contentBean.uploadListener}" listHeight="120px"
+	      					id="fileUploadRoadMap" acceptedTypes="jpg, gif, png, bmp, pdf, xls" maxFilesQuantity="1">
+		                <a4j:ajax event="uploadcomplete" execute="@none" render="outPutShowUploaded" />
+		            </rich:fileUpload>
+		            
+		        </sec:ifAnyGranted>
+		        
+		        <br/><br/>
+		        <sec:ifAnyGranted roles="ROLE_ADMINISTRATOR,ROLE_CONTENT_ROADMAP">
+       				<a4j:commandButton oncomplete="#{rich:component('panelRoadMap')}.hide();" value="Salvar" execute="@this" />
+       			</sec:ifAnyGranted>
+       			
+	       	</a4j:outputPanel>
+    </rich:popupPanel>
+
+</ui:composition>
+</html>

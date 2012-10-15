@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+
+<ui:composition>
+	<rich:popupPanel modal="true" onmaskclick="#{rich:component('panelHistory')}.hide()" id="panelHistory" width="820" height="360" resizeable="true">
+		
+		<f:facet name="header"><h:outputText value="Histórico"/></f:facet>
+		
+		<f:facet name="controls">
+			<h:graphicImage value="/images/common/close.png" styleClass="hidelink" onclick="#{rich:component('panelHistory')}.hide(); return false;" />
+		</f:facet>
+		
+		<h:form id="modalHistory" prependId="true">
+			
+			<a4j:outputPanel id="outPnlHistory" ajaxRendered="false">
+				
+				<rich:messages id="outMsgMessageR" errorClass="diverror" infoClass="divsucess" layout="list" globalOnly="true">
+					<f:facet name="errorMarker"><h:graphicImage url="/images/secure/icons/icone-error.gif" /></f:facet>
+					<f:facet name="infoMarker"><h:graphicImage url="/images/secure/icons/icone-success.png" /></f:facet>
+				</rich:messages>
+				
+				<rich:dataTable value="#{workflowBean.historys}" var="record" rows="10" style="width: 770px;" id="dtHistory">
+					
+					<rich:column style="width: 50px;">
+						<f:facet name="header"><h:outputText value="Criado" /></f:facet>
+						<h:outputText value="#{record.created}"><f:convertDateTime type="date" dateStyle="short" pattern="dd/MM/yyyy" /></h:outputText>
+					</rich:column>		
+					
+					<rich:column style="width: 200px;">
+						<f:facet name="header"><h:outputText value="Fase" /></f:facet>
+						<h:outputText value="#{record.stage.phase.name}"/>
+					</rich:column>	
+					
+					<rich:column style="width: 200px;">
+						<f:facet name="header"><h:outputText value="Realizado por" /></f:facet>
+						<h:outputText value="#{record.user.name}"/>
+					</rich:column>
+					
+					<rich:column style="width: 50px; text-align: center;">
+						<f:facet name="header"><h:outputText value="Aprovado?" /></f:facet>
+						<h:graphicImage rendered="#{record.accept}" value="/images/secure/icons/icone-enable.png" style="border:0" title="Aprovado" />
+						<h:graphicImage rendered="#{!record.accept}" value="/images/secure/icons/icone-disable.png" style="border:0" title="Readequar" />
+					</rich:column>
+					
+					<rich:column style="width: 270px;">
+						<f:facet name="header"><h:outputText value="Comentários" /></f:facet>
+						<h:outputText value="#{record.comments}"/>
+					</rich:column>						
+
+					<f:facet name="footer">
+						<rich:dataScroller id="dsHistory" renderIfSinglePage="false"/>
+					</f:facet>
+				</rich:dataTable>
+					
+			</a4j:outputPanel>
+			
+		</h:form>
+	</rich:popupPanel>
+</ui:composition>
+</html>

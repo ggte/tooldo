@@ -1,0 +1,221 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:sec="http://www.springframework.org/security/facelets/tags">
+<ui:composition template="/template/secure/main.xhtml">
+
+	<ui:define name="title">
+		<h:outputText rendered="#{contentBean.page != null}"
+			value="#{contentBean.page.topic.theme.discipline.course.name}" />
+		<h:outputText rendered="#{contentBean.page != null}" value=" > " />
+		<h:outputText rendered="#{contentBean.page != null}"
+			value="#{contentBean.page.topic.theme.discipline.name}" />
+		<h:outputText rendered="#{contentBean.page != null}" value=" > " />
+		<h:outputText rendered="#{contentBean.page != null}"
+			value="#{contentBean.page.topic.theme.name}" />
+		<h:outputText rendered="#{contentBean.page != null}" value=" > " />
+		<h:outputText rendered="#{contentBean.page != null}"
+			value="#{contentBean.page.topic.name}" />
+		<h:outputText rendered="#{contentBean.page != null}" value=" > " />
+		<h:outputText rendered="#{contentBean.page != null}"
+			value="#{contentBean.page.name}" />
+		<h:outputText rendered="#{contentBean.page != null}" value=" > " />
+		<h:outputText value="Conteúdo" />
+	</ui:define>
+
+	<ui:define name="breadcrumb">
+		<h:form>
+			<sec:ifNotGranted roles="ROLE_WORKFLOW_ONLY">
+
+				<h:commandLink action="#{disciplineBean.getDisciplineByCourse}" title="Curso"
+					rendered="#{contentBean.page != null}" value="#{contentBean.page.topic.theme.discipline.course.name}">
+					<f:param name="idCourse" value="#{contentBean.page.topic.theme.discipline.course.id}"/>
+				</h:commandLink>
+				<h:outputText rendered="#{contentBean.page != null}" value=" > " />
+
+				<h:commandLink  action="#{themeBean.getThemeByDiscipline}" title="Disciplina"
+					rendered="#{contentBean.page != null}" value="#{contentBean.page.topic.theme.discipline.name}">
+					<f:param name="idDiscipline" value="#{contentBean.page.topic.theme.discipline.id}"/>
+				</h:commandLink>
+				<h:outputText rendered="#{contentBean.page != null}" value=" > " />
+
+			</sec:ifNotGranted>
+
+			<sec:ifAllGranted roles="ROLE_WORKFLOW_ONLY">
+
+				<h:commandLink  action="#{workflowBean.pageWorkflow}" title="Pendências de Aprovação"
+					rendered="#{contentBean.page != null}" value="Pendências de Aprovação">
+				</h:commandLink>
+				<h:outputText rendered="#{contentBean.page != null}" value=" > " />
+
+			</sec:ifAllGranted>
+
+			<h:commandLink  action="#{topicBean.getTopicByTheme}" title="Tema"
+				rendered="#{contentBean.page != null}" value="#{contentBean.page.topic.theme.name}">
+				<f:param name="idTheme" value="#{contentBean.page.topic.theme.id}"/>
+			</h:commandLink>
+			<h:outputText rendered="#{contentBean.page != null}" value=" > " />
+
+			<h:commandLink  action="#{pageBean.getPageByTopic}" title="Tópico"
+				rendered="#{contentBean.page != null}" value="#{contentBean.page.topic.name}">
+				<f:param name="idTopic" value="#{contentBean.page.topic.id}"/>
+			</h:commandLink>
+			<h:outputText rendered="#{contentBean.page != null}" value=" > " />
+
+			<h:outputText rendered="#{contentBean.page != null}" value="#{contentBean.page.name}" />
+		</h:form>
+
+	</ui:define>
+	
+	<ui:define name="head">
+
+		<script type="text/javascript">
+			//<![CDATA[
+			var qtde_questions = #{contentBean.content.questionsSize};
+
+			function onClickRadioAlternative(e) {
+				var ix = e.id.split(':')[2];
+				var ixval = e.id.split(':')[6];
+
+				//alert(ixval);
+				
+				if(ixval == 0) {
+					$("[id^='formContenManager:questionsRepeat:" + ix + "'] input[type='radio']").each(
+						function() {
+							var ixix = $(this).attr('id').split(':')[5];
+							if(ixix == 1) 
+								$(this).attr('checked', true);
+						}
+					);
+					e.checked = true;
+				}
+			}
+			//]]>
+	 	</script>
+		
+	</ui:define>
+
+	<ui:define name="body">
+		
+		<ui:include src="/pages/secure/manager/content/modalMessage.xhtml" />
+
+		<h:form id="formContenManager">
+		
+			<ui:include src="/pages/secure/manager/content/modalRoadMap.xhtml" />
+
+			<rich:messages errorClass="diverror" infoClass="divsucess" layout="list" >
+				<f:facet name="errorMarker"><h:graphicImage url="/images/secure/icons/icone-error.gif"/></f:facet>
+				<f:facet name="infoMarker"><h:graphicImage url="/images/secure/icons/icone-success.png"/></f:facet>
+			</rich:messages>
+			
+			<table>
+				<tr>
+					<td>
+				
+				<h:panelGrid columns="2" cellpadding="5" cellspacing="1">
+				
+					<h:graphicImage url="/images/public/spacer.gif" width="90px" height="1px"/>
+					<h:graphicImage url="/images/public/spacer.gif" width="633px" height="1px"/>
+					
+					<h:outputLabel value="Tipo de Conteúdo:" for="selectItem" />
+					
+					<h:selectOneMenu styleClass="select_box" label="Tipo de Conteúdo" id="selectItem" 
+						valueChangeListener="#{contentBean.tipoConteudoValueChanged}"
+						value="#{contentBean.content.typeContent.id}" onchange="submit();">
+						
+						<f:selectItem itemValue="0" itemLabel="-- Selecione --"/>
+						<f:selectItems value="#{contentBean.typeContentItem}" />
+						
+					</h:selectOneMenu>
+					
+					<h:outputText id="textContent" value="Conteúdo:" />
+					<h:panelGrid columns="1">
+						
+						<rich:editor id="content" value="#{contentBean.content.content}" 
+							width="600" height="400" toolbar="custom"
+							rendered="#{(contentBean.content.typeContent.id != 4) and (contentBean.content.typeContent.id != 0) and (contentBean.content.typeContent.id != null)}">
+							<f:facet name="config">
+			                    filebrowserUploadUrl: '${facesContext.externalContext.requestContextPath}/ckeditor/uploader?Type=File',
+								filebrowserImageUploadUrl: '${facesContext.externalContext.requestContextPath}/ckeditor/uploader?Type=Image',
+								filebrowserFlashUploadUrl: '${facesContext.externalContext.requestContextPath}/ckeditor/uploader?Type=Flash',
+								extraPlugins: 'equation',
+								toolbar_custom:
+		                        [
+		                            { name: 'document', items : [ 'Source','NewPage','Preview' ] },
+		                            { name: 'clipboard', items : [ 'Cut','Copy','Paste','PasteText','PasteFromWord','-','Undo','Redo' ] },
+		                            { name: 'editing', items : [ 'Find','Replace','-','SelectAll','-','Scayt' ] },
+		                            { name: 'insert', items : [ 'equation','Image','Flash','Table','HorizontalRule','Smiley','SpecialChar','PageBreak','Iframe' ] }, 
+		                            '/',
+		                            { name: 'styles', items : [ 'Styles','Format' ] },
+		                            { name: 'basicstyles', items : [ 'Bold','Italic','Strike','-','RemoveFormat' ] },
+		                            { name: 'paragraph', items : [ 'NumberedList','BulletedList','-','Outdent','Indent','-','Blockquote' ] },
+		                            { name: 'links', items : [ 'Link','Unlink','Anchor' ] },
+		                            { name: 'tools', items : [ 'Maximize' ] }
+		                        ]
+			            	</f:facet>
+						</rich:editor>
+						
+						<a4j:outputPanel id="questionsOutPanel" ajaxRendered="false" rendered="#{contentBean.content.typeContent.id == 4}">
+							<ui:include src="/pages/secure/manager/content/questions.xhtml" />
+						</a4j:outputPanel>
+						
+					</h:panelGrid>
+					
+				</h:panelGrid>
+					
+					</td>
+					<td valign="top">
+						
+				<h:panelGrid columns="2" style="vertical-align: top;">
+						
+					<h:outputText value="Roteiro" />
+					<a4j:commandButton oncomplete="#{rich:component('panelRoadMap')}.show();" 
+						rendered="#{!contentBean.content.hasRoadMap}"
+						style="border:0px;vertical-align:middle;" 
+						execute="@this" value="Roteiro" image="/images/secure/icons/icone-roadmap.png" />
+						
+					<a4j:commandButton oncomplete="#{rich:component('panelRoadMap')}.show();" 
+						rendered="#{contentBean.content.hasRoadMap}"
+						style="border:0px;vertical-align:middle;" 
+						execute="@this" value="Roteiro" image="/images/secure/icons/icone-map-alert.gif" />
+						
+					<h:outputText value="Visualizar" />
+					<h:commandLink id="btnPreviewContent" action="#{contentBean.preview}" target="_blank">
+						<h:graphicImage value="/images/secure/icons/icone-preview.png" title="Visualizar Conteúdo" />
+					</h:commandLink>
+					
+				</h:panelGrid>
+						
+					</td>
+				</tr>
+			</table>
+			
+			<!--
+				contentBean.content.page.locked == true and contentBean.content.page.userLocked == true) || 
+				(contentBean.content.page.topic.theme.startWorflow == false)"
+			-->
+			<div align="center">
+				<sec:ifAnyGranted roles="ROLE_ADMINISTRATOR,ROLE_PAGE_MODIFY">
+				
+					<sec:ifAllGranted roles="ROLE_ADMINISTRATOR">
+						<h:commandButton value="Salvar" 
+							onclick="javascript:loadTextArea();" action="#{contentBean.save}" execute="formContenManager"/>
+					</sec:ifAllGranted>
+					
+					<sec:ifNotGranted roles="ROLE_ADMINISTRATOR">
+						<h:commandButton value="Salvar"
+							rendered="#{(contentBean.content.page.locked == true and contentBean.content.page.userLocked == true) || (contentBean.content.page.topic.theme.startWorflow == false)}"
+							onclick="javascript:loadTextArea();" action="#{contentBean.save}" execute="formContenManager" />
+					</sec:ifNotGranted>
+					
+				</sec:ifAnyGranted>
+			</div>
+		</h:form>
+		
+	</ui:define>
+</ui:composition>
+</html>

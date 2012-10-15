@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:sec="http://www.springframework.org/security/facelets/tags">
+<ui:composition>
+	
+	<ui:include src="/pages/secure/modalPreference.xhtml" />
+	
+	<div id="header">
+		<div id="logotipo">
+			<a href="${facesContext.externalContext.requestContextPath}/pages/secure/main.jsf">
+				<!-- h:graphicImage value="/images/secure/logotipo.jpg" / -->
+			</a>
+		</div>
+
+		<div id="menu_preferencias">
+			<span style="padding: 12px 0px 0px 20px;" class="floatleft">
+				<strong>Autenticado como:<br /></strong> <h:outputText value="#{credentialBean.credential.name}" />
+			</span>
+			<h:form id="formMenuPreference">
+				<ul>
+					<li><h:graphicImage value="/images/secure/sep_menu_pref.jpg" alt=" " /></li>
+					<li><h:commandButton image="/images/secure/btn_inicio.jpg" title="Inicio" action="#{workflowBean.pageWorkflow}" /></li>
+					<li><h:graphicImage value="/images/secure/sep_menu_pref.jpg" alt=" " /></li>
+					<li>
+						<a4j:commandButton image="/images/secure/btn_preferencias.jpg" 
+							execute="@this"
+							style="border:0" title="Preferências" 
+							onclick="#{rich:component('panelPreference')}.show();" />
+					</li>
+					<li><h:graphicImage value="/images/secure/sep_menu_pref.jpg" alt=" " /></li>
+					<li><a href="${facesContext.externalContext.requestContextPath}/j_spring_security_logout"><h:graphicImage value="/images/secure/btn_fazer_logoff.jpg" alt="Fazer Logoff" /></a></li>
+				</ul>
+			</h:form>
+		</div>
+	</div>
+
+	<div id="bookmark">
+		<div id="icones_bookmark">
+			<h:form id="formIconsBookmark">
+					<sec:ifAnyGranted roles="ROLE_ADMINISTRATOR">
+						<h:commandButton title="Cursos" image="/images/secure/btnCursos.jpg" alt="Cursos" action="#{courseBean.loadCourse}" styleClass="img-left" />
+					</sec:ifAnyGranted>
+					<sec:ifNotGranted roles="ROLE_WORKFLOW_ONLY">
+						<h:commandButton title="Disciplinas"  image="/images/secure/btnDisciplina.jpg" alt="Disciplina" action="#{disciplineBean.loadDiscipline}" />
+					</sec:ifNotGranted>
+					<sec:ifAnyGranted roles="ROLE_ADMINISTRATOR">
+						<h:commandButton title="Usuários" image="/images/secure/btnUsuarios.jpg" alt="Usuários" action="#{userBean.list}" />
+						<h:commandButton  title="Perfil" image="/images/secure/btnPerfil.jpg" alt="Perfil" action="#{profileBean.list}" />
+					</sec:ifAnyGranted>
+			</h:form>
+		</div>
+	</div>
+
+</ui:composition>
+</html>

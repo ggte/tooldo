@@ -1,0 +1,148 @@
+body {
+	font-family:Arial, Helvetica, sans-serif;
+	font-size: 13px;
+	background:url(../img/bg-cinza.jpg) top left #FFF repeat-x;
+	color:#4e4e4e;
+	}
+
+a:focus{ outline: none;}
+
+#content-middle{width:100%;
+  	height: auto !important;
+  	height: 100%;
+	min-height: 100%;
+	margin: 0 auto;
+	overflow: hidden !important;
+	overflow: visible;
+	background:url(../img/bg-top-cinza.jpg) center top no-repeat;
+	padding-bottom: 35px;  /* deve ser a mesma altura do rodapé */
+	}
+
+/* Topo */
+#content-middle div#top-middle{
+	width:100%;
+	margin: 0 auto;
+	}
+#top-middle div#topo, #top-middle div#descricao{
+	width:750px;
+	margin: 0 auto;
+	padding:0 53px 0 53px;
+	}
+
+#top-middle div#topo{height:67px;}
+#top-middle div#descricao{height:80px; color:#fff; font-size:14px; font-weight:bold;}
+
+#top-middle div#topo img.marge{ margin:0 15px 0 15px;}
+
+#titulo{ float:left; width:200px; padding:28px 0 28px 10px ;}
+#disciplina{
+	float:left;
+	width:238px;
+	height:44px;
+	padding:13px 10px 7px 10px;
+	margin:14px 0 0 10px;
+	background:url(../img/bg-descricao.png) no-repeat top center;
+	}
+#tema{float:right; width:230px;margin-top:27px; padding-right:15px; }
+#tema span{ font-size:13px;}
+/* Fim Topo */
+
+/* Conteúdo */
+#content-middle div#middle{
+	width:857px;
+	min-height: 560px;
+  	height: auto !important;
+  	height: 560px;
+	margin: 0 auto;
+	overflow: hidden !important;
+	overflow: visible;
+	background:url(../img/top-cinza.png) top center no-repeat;
+	}
+
+#middle div#conteudo{
+	width:757px;
+	float:left;
+	min-height: 540px;
+  	height: auto !important;
+  	height: 540px;
+	overflow: hidden !important;
+	color:#6b6c6c;
+	margin: 18px 0px 0 54px;
+	padding-bottom:30px;
+	font-size:11px;
+	background:url(../img/linha-cinza.jpg) top center repeat-y #F00;
+	}
+
+#fim-conteudo{
+	background:url(../img/borda-cinza.jpg) bottom center no-repeat;
+	width:757px;
+	margin: 0 0px 0 54px;
+	float:left;
+	height:40px;
+	}
+
+#fim-conteudo div#paginacao{
+	float:right;
+	background:url(../img/bg-paginacao.gif) bottom center no-repeat;
+	height:37px;
+	width:367px;
+	margin-right:124px;
+	}
+#paginacao table{ margin-top:3px;}
+#paginacao table tr td.bg{ background:url(../img/bg-txt.png) center center no-repeat; height:27px; width:249px;}
+#paginacao table tr td img{ margin: 0 10px 0 10px;}
+#paginacao table tr td p{color:#444444; font-size:14px;}
+/* Fim Conteúdo */
+
+/* Texto */
+#texto{
+	float:right;
+	width:520px;
+	padding:0 35px 0 35px;
+	font-size:13px;
+}
+
+#texto h1{
+	font-size:18px;
+	color:#50504f;
+	border-bottom:1px dotted #999;
+	padding:13px 0 13px 13px;
+	margin-bottom:15px;
+	}
+#texto hr{ height:1px; border-bottom:1px solid #C5C5C5; width:520px; float:left; }
+#texto div#div-p { padding: 15px 15px 15px 15px; text-align:left; width:490px; float:left;}
+#texto div#div-p:hover { background-color:#e8e8e8;}
+#texto div#div-p p, #texto div#div-p a { color:#4e4e4e; text-decoration:none;}
+
+.outro, .outro a, .outro a:hover{
+	font-size:11px;
+	color:#4e4e4e;
+	text-decoration:underline;
+	font-weight:bold;
+	}
+#texto #div-txt{ float:left; text-align:justify; line-height:18px;}
+#texto #txt-img{ float:left; padding: 0 15px 15px 0;}
+
+/* Fim Texto */
+
+/* Bottom */
+#bottom{
+	font-size:10px;
+	width:100%;
+	height:35px;
+	margin: 0 auto;
+	position: relative;
+    margin-top: -35px; /* A mesma altura do rodapé, o valor deve ser negativo */
+  	clear:both;
+	color:#89898A;
+	font-size:11px;
+	}
+
+#bottom div#bottom-middle{
+	width:730px;
+	height:15px;
+	margin:auto;
+	text-align:right;
+	padding:10px 10px 10px 10px;
+	}
+/* Fim Bottom */

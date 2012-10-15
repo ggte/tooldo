@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:a4j="http://richfaces.org/a4j"
+	  xmlns:rich="http://richfaces.org/rich">
+<f:view contentType="text/html">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/xhtml; charset=ISO-8859-1"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<!-- enable full-screen mode -->
+	<meta name="apple-mobile-web-app-capable" content="yes"/>
+	<!-- controls the appearance of the status bar in full-screen mode -->
+	<meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+	
+	<title>
+		<h:outputText value="TOOLDO :: "/><ui:insert name="title" />
+	</title>
+	
+	<link href="#{facesContext.externalContext.requestContextPath}/includes/css/jquery.mobile-1.1.1.min.css" rel="stylesheet" media="all" />
+	<script src="${facesContext.externalContext.requestContextPath}/includes/js/jquery-1.7.2.min.js" language="javascript"></script>
+	<script src="${facesContext.externalContext.requestContextPath}/includes/js/jquery.mobile-1.1.1.min.js" language="javascript"></script>
+	
+	
+	<style>
+		input, select, textarea, button, keygen, isindex, legend, a {
+			font-size: 16px !important;
+		}
+	</style>
+	
+</h:head>
+<h:body>
+	<div data-role="page" id="contents">
+		<div data-role="header">
+			<a href="#nav" data-icon="back" data-role="button" data-transition="slide" data-inline="true"><h:outputText value="Tópicos" /></a>
+			<h1><ui:insert name="discipline" /> - <ui:insert name="theme" /></h1>
+			<h2><ui:insert name="topic" /></h2>
+		</div>
+		
+		<div data-role="content" id="content">
+			<h2><ui:insert name="titleBody" /></h2>
+			<ui:insert name="body"/>
+		</div>
+		
+		<div data-role="footer">
+			<div data-role="navbar" style="height: 35px;">
+				<ui:insert name="footer"/>
+			</div>
+		</div>
+	</div>
+	
+	<div data-role="page" id="nav">
+		<div data-role="header">
+			<a href="#contents" data-icon="back" data-role="button" data-rel="back" data-inline="true"><h:outputText value="Conteúdo" /></a>
+			<h1><h:outputText value="Tópicos" /></h1>
+		</div>
+		<div data-role="content">
+			<ui:insert name="topics" />
+		</div>
+	</div>
+
+</h:body>
+</f:view>
+</html>

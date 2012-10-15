@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:a4j="http://richfaces.org/a4j"
+	  xmlns:rich="http://richfaces.org/rich">
+<f:view contentType="text/html">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/xhtml; charset=ISO-8859-1"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<!-- enable full-screen mode -->
+	<meta name="apple-mobile-web-app-capable" content="yes"/>
+	<!-- controls the appearance of the status bar in full-screen mode -->
+	<meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+	
+	<title>
+		<h:outputText value="TOOLDO :: "/><ui:insert name="title" />
+	</title>
+	
+	<link href="#{facesContext.externalContext.requestContextPath}/includes/css/jquery.mobile-1.1.1.min.css" rel="stylesheet" media="all" />
+	<script src="${facesContext.externalContext.requestContextPath}/includes/js/jquery-1.7.2.min.js" language="javascript"></script>
+	<script src="${facesContext.externalContext.requestContextPath}/includes/js/jquery.mobile-1.1.1.min.js" language="javascript"></script>
+	
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$('#content').click(
+				function() {
+					if($('#nav').is(":visible")) {
+						exibeMenu();	
+					}
+				}
+			);
+		});
+		
+		function exibeMenu() {
+			if($('#nav').is(":visible")) {
+				$('#nav').fadeOut();
+				$('#topiclabel').html('Mostrar Tópicos');
+			} else {
+				$('#nav').fadeIn();
+				$('#topiclabel').html('Ocultar Tópicos');
+			}
+		}
+
+	</script>
+	<style>
+		input, select, textarea, button, keygen, isindex, legend, a {
+			font-size: 16px !important;
+		}
+		
+		#nav {
+			position: absolute; 
+			top: 40px; 
+			left: 0; 
+			width: 90%;
+			height: 500px; 
+			overflow: auto; 
+			border: 3px solid #ccc;
+			display: none;
+			z-index: 2;
+			box-shadow: 0 3px 8px 3px #333;
+			background-color: white;
+		}
+	</style>
+	
+</h:head>
+<h:body>
+	<div data-role="page">
+		<div data-role="header">
+			<a href="javascript:exibeMenu();" data-icon="plus"><h:outputText value="Mostrar Tópicos" id="topiclabel"/></a>
+			<h1><ui:insert name="discipline" /> - <ui:insert name="theme" /></h1>
+			<h2><ui:insert name="topic" /></h2>
+		</div>
+		
+		<div data-role="nav" id="nav">
+			<ui:insert name="topics" />
+		</div>
+		
+		<div data-role="content" id="content">
+			<h2><ui:insert name="titleBody" /></h2>
+			<ui:insert name="body"/>
+		</div>
+		
+		<div data-role="footer">
+			<div data-role="navbar" style="height: 35px;">
+				<ui:insert name="footer"/>
+			</div>
+		</div>
+	</div>
+
+</h:body>
+</f:view>
+</html>

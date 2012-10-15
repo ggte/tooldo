@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PROCESS model-entity="JSFProcess">
+ <PROCESS-ITEM NAME="rules:#pages#secure#*" PATH="/pages/secure/*"
+  SHAPE="32,1633,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#pages#secure#*:0" NAME="item"
+   PATH="/pages/secure/*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="preview-content-page::#pages#secure#manager#content#preview.xhtml"
+    NAME="output" PATH="/pages/secure/manager/content/preview.xhtml"
+    TARGET="rules:#pages#secure#manager#content#preview.xhtml"
+    TITLE="preview-content-page" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="home::#pages#secure#main.jsf" NAME="output1"
+    PATH="/pages/secure/main.jsf" TARGET="rules:#pages#secure#main.jsf"
+    TITLE="home" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="disciplineSuccess::#pages#secure#admin#discipline#main.jsf"
+    NAME="output2" PATH="/pages/secure/admin/discipline/main.jsf"
+    TARGET="rules:#pages#secure#admin#discipline#main.jsf"
+    TITLE="disciplineSuccess" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="courseSuccess::#pages#secure#admin#course#main.jsf"
+    NAME="output3" PATH="/pages/secure/admin/course/main.jsf"
+    TARGET="rules:#pages#secure#admin#course#main.jsf"
+    TITLE="courseSuccess" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="themeSuccess::#pages#secure#manager#theme#main.jsf"
+    NAME="output4" PATH="/pages/secure/manager/theme/main.jsf"
+    TARGET="rules:#pages#secure#manager#theme#main.jsf"
+    TITLE="themeSuccess" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="topicSuccess::#pages#secure#manager#topic#main.jsf"
+    NAME="output5" PATH="/pages/secure/manager/topic/main.jsf"
+    TARGET="rules:#pages#secure#manager#topic#main.jsf"
+    TITLE="topicSuccess" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="pageSuccess::#pages#secure#manager#page#main.jsf" NAME="output6"
+    PATH="/pages/secure/manager/page/main.jsf"
+    TARGET="rules:#pages#secure#manager#page#main.jsf"
+    TITLE="pageSuccess" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="listUsers::#pages#secure#admin#user#main.jsf" NAME="output7"
+    PATH="/pages/secure/admin/user/main.jsf"
+    TARGET="rules:#pages#secure#admin#user#main.jsf" TITLE="listUsers" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="editUser::#pages#secure#admin#user#form.jsf"
+    NAME="output8" PATH="/pages/secure/admin/user/form.jsf"
+    TARGET="rules:#pages#secure#admin#user#form.jsf" TITLE="editUser" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="resetPassword::#pages#secure#resetPassword.jsf" NAME="output9"
+    PATH="/pages/secure/resetPassword.jsf"
+    TARGET="rules:#pages#secure#resetPassword.jsf" TITLE="resetPassword" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="workflow-main-page::#pages#secure#main.jsf"
+    NAME="output10" PATH="/pages/secure/main.jsf"
+    TARGET="rules:#pages#secure#main.jsf" TITLE="workflow-main-page" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#pages#secure#main.xhtml"
+  PATH="/pages/secure/main.xhtml" SHAPE="32,17,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#pages#secure#main.xhtml:0" NAME="item"
+   PATH="/pages/secure/main.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="Success::#pages#secure#main.xhtml"
+    NAME="output" PATH="/pages/secure/main.xhtml"
+    TARGET="rules:#pages#secure#main.xhtml" TITLE="Success" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="profileSuccess::#pages#secure#admin#profile#main.jsf"
+    NAME="output4" PATH="/pages/secure/admin/profile/main.jsf"
+    TARGET="rules:#pages#secure#admin#profile#main.jsf"
+    TITLE="profileSuccess" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#pages#secure#admin#course#main.xhtml"
+  PATH="/pages/secure/admin/course/main.xhtml" SHAPE="32,193,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#pages#secure#admin#course#main.xhtml:0"
+   NAME="item" PATH="/pages/secure/admin/course/main.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="Success::#pages#secure#admin#course#main.jsf" NAME="output"
+    PATH="/pages/secure/admin/course/main.jsf"
+    TARGET="rules:#pages#secure#admin#course#main.jsf" TITLE="Success" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="profileSuccess::#pages#secure#admin#profile#main.jsf"
+    NAME="output4" PATH="/pages/secure/admin/profile/main.jsf"
+    TARGET="rules:#pages#secure#admin#profile#main.jsf"
+    TITLE="profileSuccess" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#pages#secure#admin#discipline#main.xhtml"
+  PATH="/pages/secure/admin/discipline/main.xhtml"
+  SHAPE="640,400,50,121" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#pages#secure#admin#discipline#main.xhtml:0"
+   NAME="item" PATH="/pages/secure/admin/discipline/main.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="Success::#pages#secure#admin#discipline#main.jsf" NAME="output2"
+    PATH="/pages/secure/admin/discipline/main.jsf"
+    TARGET="rules:#pages#secure#admin#discipline#main.jsf"
+    TITLE="Success" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="profileSuccess::#pages#secure#admin#profile#main.jsf"
+    NAME="output4" PATH="/pages/secure/admin/profile/main.jsf"
+    TARGET="rules:#pages#secure#admin#profile#main.jsf"
+    TITLE="profileSuccess" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#pages#secure#manager#theme#main.xhtml"
+  PATH="/pages/secure/manager/theme/main.xhtml" SHAPE="32,384,50,137" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#pages#secure#manager#theme#main.xhtml:0"
+   NAME="item" PATH="/pages/secure/manager/theme/main.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="Success::#pages#secure#manager#theme#main.jsf" NAME="output3"
+    PATH="/pages/secure/manager/theme/main.jsf"
+    TARGET="rules:#pages#secure#manager#theme#main.jsf" TITLE="Success" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="profileSuccess::#pages#secure#admin#profile#main.jsf"
+    NAME="output5" PATH="/pages/secure/admin/profile/main.jsf"
+    TARGET="rules:#pages#secure#admin#profile#main.jsf"
+    TITLE="profileSuccess" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#pages#secure#manager#topic#main.xhtml"
+  PATH="/pages/secure/manager/topic/main.xhtml" SHAPE="976,400,50,137" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#pages#secure#manager#topic#main.xhtml:0"
+   NAME="item" PATH="/pages/secure/manager/topic/main.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="Success::#pages#secure#manager#topic#main.jsf" NAME="output3"
+    PATH="/pages/secure/manager/topic/main.jsf"
+    TARGET="rules:#pages#secure#manager#topic#main.jsf" TITLE="Success" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="profileSuccess::#pages#secure#admin#profile#main.jsf"
+    NAME="output5" PATH="/pages/secure/admin/profile/main.jsf"
+    TARGET="rules:#pages#secure#admin#profile#main.jsf"
+    TITLE="profileSuccess" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#pages#secure#manager#page#main.xhtml"
+  PATH="/pages/secure/manager/page/main.xhtml" SHAPE="304,961,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#pages#secure#manager#page#main.xhtml:0"
+   NAME="item" PATH="/pages/secure/manager/page/main.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="contentSuccess::#pages#secure#manager#content#main.jsf"
+    NAME="output2" PATH="/pages/secure/manager/content/main.jsf"
+    TARGET="rules:#pages#secure#manager#content#main.jsf"
+    TITLE="contentSuccess" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="Success::#pages#secure#manager#page#main.jsf" NAME="output3"
+    PATH="/pages/secure/manager/page/main.jsf"
+    TARGET="rules:#pages#secure#manager#page#main.jsf" TITLE="Success" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="profileSuccess::#pages#secure#admin#profile#main.jsf"
+    NAME="output5" PATH="/pages/secure/admin/profile/main.jsf"
+    TARGET="rules:#pages#secure#admin#profile#main.jsf"
+    TITLE="profileSuccess" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#pages#secure#manager#content#main.xhtml"
+  PATH="/pages/secure/manager/content/main.xhtml" SHAPE="304,1537,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#pages#secure#manager#content#main.xhtml:0"
+   NAME="item" PATH="/pages/secure/manager/content/main.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="Success::#pages#secure#manager#page#main.jsf" NAME="output2"
+    PATH="/pages/secure/manager/page/main.jsf"
+    TARGET="rules:#pages#secure#manager#page#main.jsf" TITLE="Success" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="contentSuccess::#pages#secure#manager#content#main.jsf"
+    NAME="output4" PATH="/pages/secure/manager/content/main.jsf"
+    TARGET="rules:#pages#secure#manager#content#main.jsf"
+    TITLE="contentSuccess" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="profileSuccess::#pages#secure#admin#profile#main.jsf"
+    NAME="output3" PATH="/pages/secure/admin/profile/main.jsf"
+    TARGET="rules:#pages#secure#admin#profile#main.jsf"
+    TITLE="profileSuccess" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#pages#secure#admin#profile#main.xhtml"
+  PATH="/pages/secure/admin/profile/main.xhtml" SHAPE="304,1776,50,105" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#pages#secure#admin#profile#main.xhtml:0"
+   NAME="item" PATH="/pages/secure/admin/profile/main.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="Success::#pages#secure#admin#profile#main.jsf" NAME="output2"
+    PATH="/pages/secure/admin/profile/main.jsf"
+    TARGET="rules:#pages#secure#admin#profile#main.jsf" TITLE="Success" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="profileSuccess::#pages#secure#admin#profile#main.jsf"
+    NAME="output3" PATH="/pages/secure/admin/profile/main.jsf"
+    TARGET="rules:#pages#secure#admin#profile#main.jsf"
+    TITLE="profileSuccess" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#pages#secure#admin#user#main.xhtml"
+  PATH="/pages/secure/admin/user/main.xhtml" SHAPE="304,2785,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#pages#secure#admin#user#main.xhtml:0"
+   NAME="item" PATH="/pages/secure/admin/user/main.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="Success::#pages#secure#admin#user#main.jsf"
+    NAME="output2" PATH="/pages/secure/admin/user/main.jsf"
+    TARGET="rules:#pages#secure#admin#user#main.jsf" TITLE="Success" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="profileSuccess::#pages#secure#admin#profile#main.jsf"
+    NAME="output3" PATH="/pages/secure/admin/profile/main.jsf"
+    TARGET="rules:#pages#secure#admin#profile#main.jsf"
+    TITLE="profileSuccess" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#pages#secure#manager#page#main.jsf"
+  PATH="/pages/secure/manager/page/main.jsf" SHAPE="576,721,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#pages#secure#admin#user#main.jsf"
+  PATH="/pages/secure/admin/user/main.jsf" SHAPE="576,3441,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#pages#secure#admin#discipline#main.jsf"
+  PATH="/pages/secure/admin/discipline/main.jsf" SHAPE="904,104,50,25" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#pages#secure#admin#profile#main.jsf"
+  PATH="/pages/secure/admin/profile/main.jsf" SHAPE="576,2097,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#pages#secure#main.jsf"
+  PATH="/pages/secure/main.jsf" SHAPE="496,288,50,25" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#pages#secure#manager#theme#main.jsf"
+  PATH="/pages/secure/manager/theme/main.jsf" SHAPE="496,160,50,25" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#pages#secure#admin#course#main.jsf"
+  PATH="/pages/secure/admin/course/main.jsf" SHAPE="480,48,50,25" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#pages#secure#manager#topic#main.jsf"
+  PATH="/pages/secure/manager/topic/main.jsf" SHAPE="672,128,50,25" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#pages#secure#manager#content#main.jsf"
+  PATH="/pages/secure/manager/content/main.jsf" SHAPE="576,1185,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:*" PATH="*" SHAPE="1336,64,53,42" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:0" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="public-content-page::#pages#public#main.xhtml" NAME="output"
+    PATH="/pages/public/main.xhtml"
+    TARGET="rules:#pages#public#main.xhtml" TITLE="public-content-page" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#pages#public#main.xhtml"
+  PATH="/pages/public/main.xhtml" SHAPE="1712,33,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#pages#secure#manager#content#preview.xhtml"
+  PATH="/pages/secure/manager/content/preview.xhtml"
+  SHAPE="320,1985,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#pages#secure#admin#user#form.jsf"
+  PATH="/pages/secure/admin/user/form.jsf" SHAPE="320,1953,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#pages#secure#resetPassword.jsf"
+  PATH="/pages/secure/resetPassword.jsf" SHAPE="304,1825,0,0" model-entity="JSFProcessGroup"/>
+</PROCESS>

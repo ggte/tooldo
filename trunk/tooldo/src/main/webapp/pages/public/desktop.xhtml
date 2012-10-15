@@ -1,0 +1,131 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+<ui:composition template="/template/public/main.xhtml">
+
+	<ui:define name="title">TOOLDO :: <h:outputText value=" #{publicBean.titlePage}" /></ui:define>
+	<ui:define name="discipline"><h:outputText value="#{publicBean.theme.discipline.name}" /></ui:define>
+	<ui:define name="theme"><h:outputText value="#{publicBean.theme.name}" /></ui:define>
+
+	<ui:define name="title-img-discipline"> <h:graphicImage value="/images/public/#{publicBean.imageTitle}" /> </ui:define>
+
+	<ui:define name="cssFile">
+		<link href="#{facesContext.externalContext.requestContextPath}/includes/css/public-style.css" rel="stylesheet" media="all" />
+		<link href="#{facesContext.externalContext.requestContextPath}/includes/css/#{publicBean.theme.cssFile}" rel="stylesheet" media="all" />
+	</ui:define>
+
+	<ui:define name="menuLeft">
+		<div id="blsidebar_flotante">
+	        <div id="blsidebarflt_main" style="display:block;">
+	        	<h:form>
+		            <h1>Tópicos: </h1>
+	            	<ul>
+		            	<ui:repeat var="topic" value="#{publicBean.theme.topics}">
+			                <li><a href="#" class="mainMenu"><h:outputText value="» #{topic.name}" /></a>
+			                    <ul class="#{topic.id == publicBean.page.topic.id ? 'ulselected' : 'ulnotselected'}">
+			                    	<ui:repeat var="page" value="#{topic.pages}">
+										<li>
+											<h:commandLink action="#{publicBean.loadContentByPage}">
+												<f:param name="pageId" value="#{page.id}"/>
+												<h:outputText value="» #{page.name}"/>
+											</h:commandLink>
+										</li>
+			                    	</ui:repeat>
+			                    </ul>
+			                </li>
+			            </ui:repeat>
+		           </ul>
+	           </h:form>
+	        </div>
+	    </div><!-- Fim Menu -->
+	</ui:define>
+
+	<ui:define name="titleBody">
+		<h1><h:outputText value="#{publicBean.page.name}" /></h1>
+	</ui:define>
+
+	<ui:define name="body">
+
+		<div id="div-txt">
+        	<h:form>
+	        	<a4j:outputPanel id="outPanelContent" >
+		        	<a4j:outputPanel layout="block" id="conentWrap" style="width:540px;height:640px;overflow:hidden" styleClass="contentWrapClass">
+
+		        		<h:outputText value="#{publicBean.page.content.content}" escape="false" rendered="#{publicBean.page.content.typeContent.id != 4}"/>
+
+		        		<a4j:outputPanel id="conentQuestions" rendered="#{publicBean.page.content.typeContent.id == 4}">
+		        		
+		        			<a4j:repeat value="#{publicBean.page.content.questions}" var="q" id="questionsRepeat" 
+		        				rowKeyVar="row" rendered="#{publicBean.page.content.typeContent.id == 4}">
+								
+								<a4j:mediaOutput element="img" cacheable="false" session="false" rendered="#{q.image != null}"
+									createContent="#{questionContentBean.paintImageDynamicFromPublic}" value="#{q.image.file}" mimeType="#{q.image.mime}" />
+								
+								<h:outputText value="#{q.question}" escape="false" />
+								
+								<a4j:outputPanel rendered="#{publicBean.showTestResult}" layout="block" style="border-style:none;">
+									<h:graphicImage url="/includes/img/correct.png" style="float:left; padding:3px 8px;" rendered="#{q.correct}"/>
+									<h:graphicImage url="/includes/img/incorrect.png" style="float:left; padding:3px 8px;" rendered="#{!q.correct}"/>
+									<h:outputText value="Alternativa Escolhida: "/>
+									<strong><h:outputText value="#{q.alternative}"/></strong> <br/>
+									<h:outputText value="Comentários: " rendered="#{q.alternativeComments != ''}"/>
+									<strong><h:outputText value="#{q.alternativeComments}"/></strong>
+								</a4j:outputPanel>
+	            				
+	            				<h:selectOneRadio value="#{q.alternative}" layout="pageDirection" rendered="#{!publicBean.showTestResult}">
+	            					<f:selectItems value="#{q.alternativeItens}" />
+	            				</h:selectOneRadio>
+	            				
+								<h1></h1>
+							</a4j:repeat>
+
+	            			<h:commandButton action="#{questionContentBean.executeTestFromPublic}" value="Executar Teste" rendered="#{publicBean.page.content.typeContent.id == 4 and !publicBean.showTestResult}"/>
+	            			<h:commandButton action="#{questionContentBean.restartTestFromPublic}" value="Reiniciar Teste" rendered="#{publicBean.page.content.typeContent.id == 4 and publicBean.showTestResult}"/>
+
+		        		</a4j:outputPanel>
+
+		        	</a4j:outputPanel>
+	        	</a4j:outputPanel>
+        	</h:form>
+        </div>
+
+	</ui:define>
+
+	<ui:define name="footer">
+
+		<div id="paginacao">
+			<h:form>
+	       	<table align="center" width="100%">
+	           	<tr>
+	               	<td>
+	               		<h:commandLink action="#{publicBean.loadContentByPostion}" title="Anterior" rendered="#{publicBean.hasPrev}" >
+			            	<h:graphicImage url="/images/public/seta-prev.png" alt="Anterior" title="Anterior" style="border:0px"/>
+							<f:param name="position" id="positionPrev" value="#{publicBean.page.position}"/>
+							<f:param name="idTopic" id="idTopicPrev" value="#{publicBean.page.topic.id}"/>
+							<f:param name="isNext" id="isNextPrev" value="#{false}"/>
+						</h:commandLink>
+					</td>
+	                <td class="bg" align="center">
+	                	<p>Visualizando página  <b><h:outputText value="#{publicBean.page.position}"/> / <h:outputText value="#{publicBean.page.topic.totalPages}"/></b></p>
+	                </td>
+	                <td>
+	                   	<h:commandLink action="#{publicBean.loadContentByPostion}" title="Próximo" rendered="#{publicBean.hasNext}">
+	                   		<h:graphicImage url="/images/public/seta-next.png" alt="Próximo" title="Próximo" style="border:0px"/>
+							<f:param name="position" id="positionNext" value="#{publicBean.page.position}"/>
+							<f:param name="idTopic" id="idTopicNext" value="#{publicBean.page.topic.id}"/>
+							<f:param name="isNext" id="isNextNext" value="#{true}"/>
+						</h:commandLink>
+					</td>
+				</tr>
+			</table>
+			</h:form>
+		</div><!-- Fim paginacao -->
+
+
+	</ui:define>
+
+</ui:composition>
+</html>

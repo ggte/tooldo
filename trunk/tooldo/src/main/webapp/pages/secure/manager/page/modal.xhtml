@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+
+<ui:composition>
+	
+		<rich:popupPanel modal="true" id="panelSavePage" width="400" height="340">
+		
+	        <f:facet name="header"><h:outputText value="Cadastro de Página"/></f:facet>
+	        
+	        <f:facet name="controls">
+	        	<h:graphicImage value="/images/common/close.png" styleClass="hidelink" 
+	        		onclick="#{rich:component('panelSavePage')}.hide(); return false;"/>
+	        </f:facet>
+	        
+	       	<h:form id="formModalSavePage">
+	       	
+		       	<rich:messages id="otpMsg" errorClass="diverror" infoClass="divsucess" layout="list" >
+					<f:facet name="errorMarker"><h:graphicImage url="/images/secure/icons/icone-error.gif"/></f:facet>
+				    <f:facet name="infoMarker"><h:graphicImage url="/images/secure/icons/icone-success.png"/></f:facet>
+				</rich:messages>
+		       		
+	       		<h:panelGrid columns="2" id="pagePanelGrid">
+	       		
+	       			<h:outputText value="Autor:" />
+	       			<h:outputText value="#{pageBean.page.author.name}" />
+	       			
+	       			<h:outputText value="Tópico:" />
+	       			<h:outputText value="#{pageBean.page.topic.name}" />
+	       			
+	       			<h:outputLabel value="Nome:" for="name"/>
+	       			<h:inputText label="Nome" id="name" value="#{pageBean.page.name}" required="true" styleClass="input_txt" maxlength="100"/>
+	       			
+	       			<h:outputLabel value="Descrição:" for="description"/>
+	       			<h:inputText label="Descrição" id="description" value="#{pageBean.page.description}" styleClass="input_txt" maxlength="200" />
+	       			
+	       			<h:outputLabel value="Ativo:" for="enabled"/>
+	       			<h:selectOneRadio label="Ativo" required="true" id="enabled" value="#{pageBean.page.enabled}"  >
+       					<f:selectItem itemLabel="Sim" itemValue="#{true}"/>
+       					<f:selectItem itemLabel="Não" itemValue="#{false}"/>
+       				</h:selectOneRadio>
+       				
+	       		</h:panelGrid>
+			    
+			    <h:commandButton value="Salvar" action="#{pageBean.save}" execute="formModalSavePage"/>
+			    
+	       	</h:form>
+	       	
+	    </rich:popupPanel>
+	
+</ui:composition>
+</html>

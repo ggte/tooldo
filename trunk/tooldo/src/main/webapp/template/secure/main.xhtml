@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:a4j="http://richfaces.org/a4j"
+	  xmlns:rich="http://richfaces.org/rich">
+<f:view contentType="text/html">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/xhtml; charset=ISO-8859-1"/>
+	<title>
+		<h:outputText value="TOOLDO :: "/><ui:insert name="title"/>
+	</title>
+	
+	<h:outputScript name="jsf.js" library="javax.faces" />
+	<h:outputScript name="jquery.js" />
+	
+	<script type="text/javascript" src="${facesContext.externalContext.requestContextPath}/includes/js/jquery.maskedinput-1.2.2.min.js"></script>
+	
+	<ui:insert name="head"/>
+	
+	<ui:include src="/template/secure/dynamic-css.xhtml"/>
+</h:head>
+<h:body>
+
+	<a4j:outputPanel layout="block" styleClass="displaynone" id="loading">
+		<span id='loader'>
+			<h:graphicImage value="/images/secure/ajax-loader.gif" styleClass="verticalalign" />
+			<h:graphicImage url="/images/public/spacer.gif" width="10"/>
+			<h:outputText value="Carregando..." />
+		</span>
+	</a4j:outputPanel>
+
+	<div id="principal">
+	
+		<ui:include src="/template/secure/header.xhtml" />
+		
+		<div id="menu_titulo">
+			<div id="titulo" class="border_gray_top">
+				<h1><ui:insert name="breadcrumb"/></h1>
+			</div>
+		</div>	
+		<div id="main-content">
+			<ui:insert name="body"/>
+		</div>
+		
+		<div id="footer" align="center" style="padding-top: 50px; clear: both;">
+			<i><h:outputText value="Tooldo - versão 2.0.0 Beta 1" /></i>
+		</div>
+	</div>
+</h:body>
+</f:view>
+</html>

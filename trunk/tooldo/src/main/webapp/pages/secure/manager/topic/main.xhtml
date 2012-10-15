@@ -1,0 +1,202 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:sec="http://www.springframework.org/security/facelets/tags">
+<ui:composition template="/template/secure/main.xhtml">
+
+	<ui:define name="title">
+		<h:outputText rendered="#{topicBean.theme != null}" value="#{topicBean.theme.discipline.course.name}" />
+		<h:outputText rendered="#{topicBean.theme != null}" value=" > " />
+		<h:outputText rendered="#{topicBean.theme != null}" value="#{topicBean.theme.discipline.name}" />
+		<h:outputText rendered="#{topicBean.theme != null}" value=" > " />
+		<h:outputText rendered="#{topicBean.theme != null}" value="#{topicBean.theme.name}" />
+		<h:outputText rendered="#{topicBean.theme != null}" value=" > " />
+	</ui:define>
+
+	<ui:define name="breadcrumb">
+		<h:form>
+			<sec:ifNotGranted roles="ROLE_WORKFLOW_ONLY">
+
+				<h:commandLink action="#{disciplineBean.getDisciplineByCourse}" title="Curso"
+					rendered="#{topicBean.theme != null}" value="#{topicBean.theme.discipline.course.name}">
+					<f:param name="idCourse" value="#{topicBean.theme.discipline.course.id}"/>
+				</h:commandLink>
+				<h:outputText rendered="#{topicBean.theme != null}" value=" > " />
+
+				<h:commandLink  action="#{themeBean.getThemeByDiscipline}" title="Disciplina"
+					rendered="#{topicBean.theme != null}" value="#{topicBean.theme.discipline.name}">
+					<f:param name="idDiscipline" value="#{topicBean.theme.discipline.id}"/>
+				</h:commandLink>
+				<h:outputText rendered="#{topicBean.theme != null}" value=" > " />
+
+			</sec:ifNotGranted>
+
+			<sec:ifAllGranted roles="ROLE_WORKFLOW_ONLY">
+				<h:commandLink  action="#{workflowBean.pageWorkflow}" title="Pendências de Aprovação"
+					rendered="#{topicBean.theme != null}" value="Pendências de Aprovação">
+				</h:commandLink>
+				<h:outputText rendered="#{topicBean.theme != null}" value=" > " />
+			</sec:ifAllGranted>
+
+			<h:outputText rendered="#{topicBean.theme != null}" value="#{topicBean.theme.name}" />
+		</h:form>
+	</ui:define>
+
+	<ui:define name="body">
+		<ui:include src="/pages/secure/manager/topic/modal.xhtml" />
+		<ui:include src="/pages/secure/manager/topic/modalMessage.xhtml" />
+		
+		<h:form id="formTopic">
+			
+			<!-- Botão para incluir um novo tópico -->
+			
+			<sec:ifAnyGranted roles="ROLE_ADMINISTRATOR">
+				<a4j:commandButton image="/images/secure/btnAddTopic.jpg" alt="Cadastrar" title="Cadastrar" action="#{topicBean.clear}"
+					oncomplete="#{rich:component('panelSave')}.show();" styleClass="toolBarLink" render="outPnlTopic" execute="@this"/>
+				<br /><br />
+			</sec:ifAnyGranted>
+			
+			<sec:ifAnyGranted roles="ROLE_TOPIC_MODIFY">
+				<a4j:commandButton image="/images/secure/btnAddTopic.jpg" alt="Cadastrar" title="Cadastrar" action="#{topicBean.clear}"
+					oncomplete="#{rich:component('panelSave')}.show();" rendered="#{topicBean.topic.theme.startWorflow == false}"
+					styleClass="toolBarLink" render="outPnlTopic" execute="@this"/>
+				<br /><br />
+			</sec:ifAnyGranted>
+			
+			<rich:messages id="outMsgMessage" errorClass="diverror" infoClass="divsucess" layout="list" globalOnly="true">
+				<f:facet name="errorMarker"><h:graphicImage url="/images/secure/icons/icone-error.gif"/></f:facet>
+				<f:facet name="infoMarker"><h:graphicImage url="/images/secure/icons/icone-success.png"/></f:facet>
+			</rich:messages>
+			
+			<br />
+			<rich:dataTable value="#{topicBean.topics}" var="record" rows="20" style="width:940px" id="dtTable">
+			
+				<!-- Apenas o administrador poderá alterar as ordens dos tópicos a qualquer estágio -->
+				<sec:ifAllGranted roles="ROLE_ADMINISTRATOR">
+				
+					<rich:column style="width:50px; text-align:center;">
+						<a4j:commandButton actionListener="#{ topicBean.savePositionDown }" data="#{record.id}" rendered="#{ record.position lt topicBean.pagesSize }"
+							image="/images/secure/icons/icone-down.png" style="border:0" title="Baixo" render="dtTable"/>
+							
+						<h:graphicImage url="/images/public/spacer.gif" width="4px"/>
+						
+						<a4j:commandButton actionListener="#{ topicBean.savePositionUp }" data="#{record.id}" rendered="#{record.position > 1}"
+							image="/images/secure/icons/icone-up.png" style="border:0" title="Cima" render="dtTable"/>
+					</rich:column>
+					
+				</sec:ifAllGranted>
+				
+				<!-- Somente usuários com role ROLE_TOPIC_MODIFY podem alterar ordem dos tópicos que não estiverem no workflow (ou que esteja lockado pra ele)  -->
+				<sec:ifAnyGranted roles="ROLE_TOPIC_MODIFY">
+					<sec:ifNotGranted roles="ROLE_ADMINISTRATOR">
+					
+						<rich:column style="width:50px; text-align:center;">
+							<a4j:commandButton actionListener="#{ topicBean.savePositionDown }" data="#{record.id}" rendered="#{(record.position lt topicBean.pagesSize) and ((record.theme.startWorflow == false) or (record.userLocked))}"
+								image="/images/secure/icons/icone-down.png" style="border:0" title="Baixo" render="dtTable"/>
+								
+							<h:graphicImage url="/images/public/spacer.gif" width="4px"/>
+							
+							<a4j:commandButton actionListener="#{ topicBean.savePositionUp }" data="#{record.id}" rendered="#{(record.position > 1) and ((record.theme.startWorflow == false) or (record.userLocked))}"
+								image="/images/secure/icons/icone-up.png" style="border:0" title="Cima" render="dtTable"/>
+						</rich:column>
+						
+					</sec:ifNotGranted>
+				</sec:ifAnyGranted>
+			
+				<rich:column width="200">
+					<f:facet name="header"> <h:outputText value="Tópico" /> </f:facet>
+					<h:outputText value="#{record.name}" />
+				</rich:column>
+				
+				<rich:column width="200">
+					<f:facet name="header"> <h:outputText value="Tema" /> </f:facet>
+					<h:outputText value="#{record.theme.name}" />
+				</rich:column>
+				
+				<rich:column width="100">
+					<f:facet name="header"> <h:outputText value="Autor" /> </f:facet>
+					<h:outputText value="#{record.author.name}" />
+				</rich:column>
+				
+				<sec:ifAnyGranted roles="ROLE_ADMINISTRATOR,ROLE_TOPIC_MODIFY">
+					<rich:column style="text-align:center;" width="50">
+						<f:facet name="header"> <h:outputText value="Ativo" /> </f:facet>
+						
+						<a4j:commandButton actionListener="#{topicBean.disableTopic}" data="#{record.id}" rendered="#{record.enabled}"
+							image="/images/secure/icons/icone-enable.png" style="border:0" title="Desativar" render="dtTable" />
+							
+						<a4j:commandButton actionListener="#{topicBean.enableTopic}" data="#{record.id}" rendered="#{record.enabled == false}"
+							image="/images/secure/icons/icone-disable.png" style="border:0" title="Ativar" render="dtTable" />
+							
+					</rich:column>
+				</sec:ifAnyGranted>
+				
+				<rich:column width="70" style="text-align:center;">
+					<f:facet name="header"> <h:outputText value="Criação" /> </f:facet>
+					<h:outputText value="#{record.created}"> <f:convertDateTime type="date" dateStyle="short" pattern="dd/MM/yyyy" /> </h:outputText>
+				</rich:column>
+
+				<rich:column width="80" style="text-align:center;">
+					<f:facet name="header"> <h:outputText value="Ação" /> </f:facet>
+					
+					<sec:ifAnyGranted roles="ROLE_ADMINISTRATOR,ROLE_TOPIC_MODIFY">
+					
+						<sec:ifAllGranted roles="ROLE_ADMINISTRATOR">
+							<a4j:commandButton image="/images/secure/icons/icone-edit.png" style="border:0"  title="Editar" execute="@this"
+								oncomplete="#{rich:component('panelSave')}.show();" render="outPnlTopic">
+								<f:setPropertyActionListener target="#{topicBean.topic}" value="#{record}" />
+							</a4j:commandButton>
+							
+							<h:graphicImage url="/images/public/spacer.gif" width="5px" />
+								
+							<a4j:commandButton oncomplete="#{rich:component('panelMessage')}.show();" execute="@this"
+								image="/images/secure/icons/icone-remove.png" title="Remover" style="border:0">
+								<f:setPropertyActionListener target="#{topicBean.topic}" value="#{record}" />	
+							</a4j:commandButton>
+								
+						</sec:ifAllGranted>
+						
+						<sec:ifNotGranted roles="ROLE_ADMINISTRATOR">
+						
+							<a4j:commandButton
+								rendered="#{record.theme.startWorflow == false or record.userLocked}" 
+								image="/images/secure/icons/icone-edit.png" style="border:0"  title="Editar" execute="@this"
+								oncomplete="#{rich:component('panelSave')}.show();" render="outPnlTopic">
+								<f:setPropertyActionListener target="#{topicBean.topic}" value="#{record}" />
+							</a4j:commandButton>
+							
+							<h:graphicImage url="/images/public/spacer.gif" width="5px" />
+							
+							<a4j:commandButton 
+								rendered="#{record.theme.startWorflow == false}"
+								oncomplete="#{rich:component('panelMessage')}.show();" execute="@this"
+								image="/images/secure/icons/icone-remove.png" title="Remover" style="border:0">
+								<f:setPropertyActionListener target="#{topicBean.topic}" value="#{record}" />	
+							</a4j:commandButton>
+						</sec:ifNotGranted>
+						
+					</sec:ifAnyGranted>
+					
+					<sec:ifAnyGranted roles="ROLE_ADMINISTRATOR,ROLE_PAGE_VIEW,,ROLE_PAGE_MODIFY">
+					
+						<h:commandLink  action="#{pageBean.getPageByTopic}" title="Página">
+							<h:graphicImage value="/images/secure/icons/icone-paginas.png" alt="Tema" />
+							<f:param name="idTopic" id="idTopic" value="#{record.id}"/>
+						</h:commandLink>
+						
+					</sec:ifAnyGranted>
+					
+				</rich:column>
+				<f:facet name="footer">
+					<rich:dataScroller renderIfSinglePage="false" />
+				</f:facet>
+			</rich:dataTable>
+		</h:form>
+	</ui:define>
+
+</ui:composition>
+</html>

@@ -1,0 +1,89 @@
+body {
+	font-family:Arial, Helvetica, sans-serif;
+	font-size: 13px;
+	color:#4e4e4e;
+	}
+
+html, body, #wrap {height: 100%;}
+body > #wrap {height: auto; min-height: 100%; }
+
+a:focus{ outline: none;}
+
+#content-middle{width:100%;
+  	height: auto !important;
+  	height: 100%;
+	min-height: 100%;
+	margin: 0 auto;
+	overflow: hidden !important;
+	overflow: visible;
+	background:url(../img/bg-top-email.jpg) center top no-repeat;
+	padding-bottom: 35px;  /* deve ser a mesma altura do rodapé */
+	}
+
+/* Topo */
+#content-middle div#top-middle{
+	width:100%;
+	margin: 0 auto;
+	}
+#top-middle div#topo, #top-middle div#descricao{
+	width:750px;
+	margin: 0 auto;
+	padding:0 53px 0 53px;
+	}
+
+#top-middle div#topo{height:67px;}
+#top-middle div#topo img.marge{ margin:0 15px 0 15px;}
+
+/* Fim Topo */
+
+/* Conteúdo */
+#content-middle div#middle{
+	width:857px;
+	min-height: 560px;
+  	height: auto !important;
+  	height: 560px;
+	margin: 0 auto;
+	overflow: hidden !important;
+	overflow: visible;
+	}
+
+#middle div#conteudo{
+	width:757px;
+	float:left;
+	min-height: 540px;
+  	height: auto !important;
+  	height: 540px;
+	overflow: hidden !important;
+	color:#1d1816;
+	margin: 18px 0px 0 54px;
+	padding-bottom:30px;
+	font-size:11px;
+	}
+
+#conteudo h1{ font-size:18px; margin-top:15px; font-weight:normal;}
+#conteudo hr{ width:600px; height:1px; border:2px #8b8b8b solid; margin:15px 0 15px 0; }
+#conteudo p {width:580px; line-height:18px; margin-bottom:15px;}
+/* Fim Conteúdo */
+
+
+/* Bottom */
+#bottom{
+	font-size:10px;
+	width:100%;
+	height:35px;
+	margin: 0 auto;
+	position: relative;
+    margin-top: -35px; /* A mesma altura do rodapé, o valor deve ser negativo */
+  	clear:both;
+	color:#89898A;
+	font-size:11px;
+	}
+
+#bottom div#bottom-middle{
+	width:730px;
+	height:15px;
+	margin:auto;
+	text-align:right;
+	padding:10px 10px 10px 10px;
+	}
+/* Fim Bottom */
