@@ -1,0 +1,65 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+<ui:composition template="/template/secure/main.xhtml">
+
+<ui:define name="title"><h:outputText value="Perfil" /></ui:define>
+
+<ui:define name="breadcrumb"><h:outputText value="Perfil" /></ui:define>
+
+<ui:define name="body">
+	
+	<ui:include src="/pages/secure/admin/profile/modal.xhtml" />
+	<ui:include src="/pages/secure/admin/profile/modalMessage.xhtml" />
+	
+	<h:form id="frmList" prependId="false">
+		<a4j:commandButton image="/images/secure/btnAddProfile.jpg" alt="Cadastrar" execute="@this"
+			title="Cadastrar" action="#{profileBean.clear}" oncomplete="#{rich:component('panelSave')}.show();"
+			styleClass="toolBarLink" render="outPnl" />
+			
+		<br />
+		<br />
+			
+		<rich:messages id="outMsgMessage" errorClass="diverror" infoClass="divsucess" layout="list" globalOnly="true">
+			<f:facet name="errorMarker"><h:graphicImage url="/images/secure/icons/icone-error.gif"/></f:facet>
+			<f:facet name="infoMarker"><h:graphicImage url="/images/secure/icons/icone-success.png"/></f:facet>
+		</rich:messages>
+		<br />
+		
+		<rich:dataTable value="#{profileBean.profiles}" var="record" rows="20" style="width:940px;" id="dtTable">
+			
+			<rich:column style="width:870px;">
+				<f:facet name="header"><h:outputText value="Perfil" /></f:facet>
+				<h:outputText value="#{record.name}" />
+			</rich:column>
+			
+			<rich:column style="width:70px; text-align:center;">
+			
+				<a4j:commandButton image="/images/secure/icons/icone-edit.png" style="border:0" title="Editar" execute="@this"
+						oncomplete="#{rich:component('panelSave')}.show();" action="#{profileBean.edit}" render="outPnl">
+					<f:setPropertyActionListener target="#{profileBean.profile}" value="#{record}" />		
+				</a4j:commandButton>
+				
+				<h:graphicImage url="/images/public/spacer.gif" width="5px" height="2px" />
+				
+				<a4j:commandButton oncomplete="#{rich:component('panelMessage')}.show();" execute="@this"
+						image="/images/secure/icons/icone-remove.png" style="border:0" title="Remover" rendered="#{record.fixed==false}">
+					<f:setPropertyActionListener target="#{profileBean.profile}" value="#{record}" />	
+				</a4j:commandButton>
+				
+				<h:graphicImage url="/images/public/spacer.gif" width="5px" height="2px" />
+					
+			</rich:column>
+			<f:facet name="footer">
+				<rich:dataScroller renderIfSinglePage="false" />
+			</f:facet>
+		</rich:dataTable>
+	</h:form>
+	
+</ui:define>
+</ui:composition>
+</html>

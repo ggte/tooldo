@@ -1,0 +1,140 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+<ui:composition template="/template/secure/main.xhtml">
+
+<ui:define name="title">Editar Usuário</ui:define>
+<ui:define name="breadcrumb">Editar Usuário</ui:define>
+<ui:define name="head">
+	<script type="text/javascript">
+		  //<![CDATA[
+		  jQuery(document).ready(function() {
+			var selector = "#saveUserForm\\:phonenumber";
+			try {
+				selector = eval("#saveUserForm\\:phonenumber");
+			} catch (e) {}
+			jQuery(selector).mask('(99) 9999-9999');
+		 });
+		//]]>
+	</script>
+</ui:define>
+<ui:define name="body">
+	
+	<rich:messages id="otpMsg1" errorClass="diverror" infoClass="divsucess" layout="list" globalOnly="true">
+		<f:facet name="errorMarker"><h:graphicImage url="/images/secure/icons/icone-error.gif"/></f:facet>
+		<f:facet name="infoMarker"><h:graphicImage url="/images/secure/icons/icone-success.png"/></f:facet>
+	</rich:messages>
+	
+	<h:form id="saveUserForm">
+	
+		<h:panelGrid columns="3">
+			
+			<h:outputLabel value="Nome:" for="name" />
+			<h:inputText label="Nome" id="name" value="#{userBean.user.name}" required="true" styleClass="input_txt" maxlength="100" style="width:395px"><rich:validator/></h:inputText>
+			<rich:message for="name" />
+			
+			<h:outputLabel value="E-mail:" for="email" />
+			<h:inputText label="E-mail" id="email" value="#{userBean.user.email}" required="true" styleClass="input_txt" maxlength="100" style="width:395px"><rich:validator/></h:inputText>
+			<rich:message for="email" />
+			
+			<h:outputLabel value="Telefone:" for="phonenumber" />
+			<h:inputText label="Telefone" id="phonenumber" value="#{userBean.user.phonenumber}" styleClass="input_txt" maxlength="100" style="width:395px"><rich:validator/></h:inputText>
+			<rich:message for="phonenumber" />
+			
+			<h:outputLabel value="Login:" for="username" />
+			<h:inputText label="Usuário" id="username" value="#{userBean.user.username}" required="true" styleClass="input_txt" maxlength="100" style="width:395px"><rich:validator/></h:inputText>
+			<rich:message for="username" />
+			
+			<h:outputLabel value="Senha:" for="password" />
+			<h:inputSecret label="Senha" id="password" value="#{userBean.passwordUser}" required="false" styleClass="input_txt" maxlength="100" style="width:395px"/>
+			<rich:message for="password" />
+			
+			<h:outputLabel value="Confirmae Senha:" for="confirmPassword" />
+			<h:inputSecret label="Confirmar Senha" id="confirmPassword" value="#{userBean.confirmPasswordUser}" required="false" styleClass="input_txt" maxlength="100" style="width:395px"/>
+			<rich:message for="confirmPassword" />
+			
+			<h:outputLabel value="Forçar alteração de senha:" for="changePassword" />
+			<h:selectBooleanCheckbox value="#{userBean.user.changePassword}" id="changePassword" />
+			<rich:message for="changePassword" />
+			
+			<h:outputLabel value="Perfil:" for="selectPerfil" />
+			<h:selectOneMenu label="Perfil" id="selectPerfil" value="#{userBean.user.profile.id}" styleClass="select_box">
+				<f:selectItem itemValue="0" itemLabel="Selecione um perfil" />
+				<f:selectItems value="#{userBean.profileItem}" />
+				<a4j:ajax event="valueChange" render="a4jpanelDiscipline" execute="@this" listener="#{userBean.changeProfile}" />
+			</h:selectOneMenu>
+			
+		</h:panelGrid>
+		
+		<a4j:outputPanel id="a4jpanelDiscipline">
+			
+			<rich:panel rendered="#{userBean.showDiscipline}" id="panelDiscipline">
+			
+				<f:facet name="header"><h:outputText value="Disciplinas" /></f:facet>
+				
+				<h:panelGrid columns="2">
+				
+					<h:panelGrid columns="2">
+						
+						<h:outputLabel value="Curso:" for="selectCourse" />
+						<h:selectOneMenu label="Curso" id="selectCourse" value="#{userBean.courseId}" styleClass="select_box">
+						  	<f:selectItem itemValue="0" itemLabel="Selecione o curso" />
+						  	<f:selectItems value="#{userBean.courseItem}" />
+						  	<a4j:ajax event="valueChange" render="selectDiscipline" execute="@this" listener="#{userBean.loadDisciplineByCourse}" />
+						</h:selectOneMenu>
+						
+						<h:outputLabel value="Disciplina:" for="selectDiscipline" />
+						<h:selectOneMenu readonly="#{empty userBean.disciplinesItem}" label="Disciplina" id="selectDiscipline" value="#{userBean.disciplineId}" styleClass="select_box">
+						  	<f:selectItem itemValue="0" itemLabel="Selecione a disciplina" />
+						  	<f:selectItems value="#{userBean.disciplinesItem}" />
+						</h:selectOneMenu>
+						
+					</h:panelGrid>
+					
+					<a4j:commandButton action="#{userBean.addDiscipline}" 
+						execute="panelDiscipline" render="dtTableDiscipline" 
+						image="/images/secure/icons/icone-add.png" 
+						style="border:0" title="Adicionar Disciplina"/>
+					
+				</h:panelGrid>
+				
+				<rich:dataTable value="#{userBean.user.disciplines}" var="record" style="width: 550px" id="dtTableDiscipline" >
+									
+					<rich:column style="width: 250px">
+						<f:facet name="header"><h:outputText value="Disciplina" /></f:facet>
+						<h:outputText value="#{record.name}" />
+					</rich:column>
+					
+					<rich:column style="width: 250px">
+						<f:facet name="header"><h:outputText value="Curso" /></f:facet>
+						<h:outputText value="#{record.course.name}" />
+					</rich:column>
+					
+					<rich:column style="width: 50px">
+						<a4j:commandButton action="#{userBean.removeDiscipline}" render="dtTableDiscipline" 
+							image="/images/secure/icons/icone-remove.png" style="border:0" title="Remover" execute="@this">
+							<f:setPropertyActionListener target="#{userBean.discipline}" value="#{record}" />
+						</a4j:commandButton>
+					</rich:column>
+					
+					<f:facet name="footer">
+						<rich:dataScroller renderIfSinglePage="false"/>
+					</f:facet>
+					
+				</rich:dataTable>
+				
+			</rich:panel>	
+		
+		</a4j:outputPanel>
+		
+		<h:commandButton value="Salvar" action="#{userBean.save}" />
+	
+	</h:form>
+
+</ui:define>
+</ui:composition>
+</html>

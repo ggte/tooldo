@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+
+<ui:composition>
+
+		<rich:popupPanel modal="true" id="panelAlternatives" width="600" height="700">
+			
+	        <f:facet name="header"><h:outputText value="Alternativa"/></f:facet>
+	        
+	        <f:facet name="controls">
+	        	<h:graphicImage value="/images/common/close.png" styleClass="hidelink" onclick="#{rich:component('panelAlternatives')}.hide(); return false;"/>
+	        </f:facet>
+	        
+	       	<h:form id="modalAlternative" prependId="true">
+	       	
+		       	<rich:messages id="otpMsg1" errorClass="diverror" infoClass="divsucess" layout="list" >
+					<f:facet name="errorMarker"><h:graphicImage url="/images/secure/icons/icone-error.gif"/></f:facet>
+					<f:facet name="infoMarker"><h:graphicImage url="/images/secure/icons/icone-success.png"/></f:facet>
+				</rich:messages>
+				
+		       	<a4j:outputPanel id="outPnlAlternative" ajaxRendered="true">
+			       	<table border="0" cellpadding="5" cellspacing="1" width="100%">
+			       		<tr>
+			       			<td align="center">
+			       				<rich:panel>
+					       			<f:facet name="header"><h:outputText value="Questão" /></f:facet>
+			       					<table border="0" cellpadding="5" cellspacing="1" width="100%">
+						       			<tr>
+							       			<td align="right">
+							       				<strong><h:outputText value="Enunciado:" /></strong>
+							       			</td>
+							       			<td align="left">
+						       					<h:inputText styleClass="input_txt" label="Questão" value="#{questionContentBean.question.question}" />
+						       				</td>
+							       		</tr>
+							       		<tr>
+							       			<td align="right">
+							       				<strong><h:outputText value="Arquivo de Imagem:" /></strong>
+							       			</td>
+							       			<td align="left">
+
+						       					<rich:fileUpload fileUploadListener="#{questionContentBean.uploadListener}"
+						       						rendered="#{questionContentBean.question.image == null}"
+							       				 	cancelEntryControlLabel="Cancelar" clearControlLabel="Limpar" addControlLabel="Adicionar"
+									                maxFilesQuantity="1" id="imageFileUpload" listHeight="50px"
+									                immediateUpload="false" acceptedTypes="jpg, gif, png" allowFlash="false" >
+									            </rich:fileUpload>
+
+												<a4j:mediaOutput element="img" cacheable="false" session="false" rendered="#{questionContentBean.question.image != null}"
+													createContent="#{questionContentBean.paintImage}" mimeType="#{questionContentBean.question.image.mime}"/>
+
+												<h:graphicImage url="/images/public/spacer.gif" width="8px" rendered="#{questionContentBean.question.image != null}"/>
+
+												<a4j:commandButton style="border:0px;vertical-align:middle;margin-bottom=13px;"
+													rendered="#{questionContentBean.question.image != null}"
+													actionListener="#{questionContentBean.removeImage}" value="Remover Imagem"
+													title="Remover Imagem" image="/images/secure/btn_excluir.gif"/>
+						       				</td>
+							       		</tr>
+
+							       	</table>
+			       				</rich:panel>
+			       			</td>
+			       		</tr>
+			       		<tr>
+					    <td align="center" colspan="2">
+				       		<rich:panel>
+					       		<f:facet name="header">
+					       			<h:outputText value="Adicionar ou editar alternativas" />
+					       		</f:facet>
+					       		<table border="0" cellpadding="5" cellspacing="1" width="100%">
+						       		<tr>
+						       			<td align="right">
+						       				<strong><h:outputText value="Alternativa:" /></strong>
+						       			</td>
+						       			<td align="left">
+						       				<h:inputText styleClass="input_txt" id="alName" label="Alternativa" value="#{questionContentBean.alternative.alternative}" />
+						       			</td>
+						       		</tr>
+						       		<tr>
+						       			<td align="right">
+						       				<strong><h:outputText value="Comentário:" /></strong>
+						       			</td>
+						       			<td align="left">
+						       				<h:inputText styleClass="input_txt" id="alComments" label="Comentário" value="#{questionContentBean.alternative.comments}" maxlength="240">
+						       					<f:validateLength maximum="240" />
+						       				</h:inputText>
+						       			</td>
+						       		</tr>
+						       		<tr>
+						       			<td align="right">
+						       				<strong><h:outputText value="Correta?" /></strong>
+						       			</td>
+						       			<td align="left">
+						       				<h:selectOneRadio label="Correta" id="alCorrect" value="#{questionContentBean.alternative.correct}">
+						       					<f:selectItem itemLabel="Sim" itemValue="#{true}"/>
+						       					<f:selectItem itemLabel="Não" itemValue="#{false}"/>
+						       				</h:selectOneRadio>
+						       				<h:graphicImage url="/images/public/spacer.gif" width="5px" height="2px" />
+						       				<a4j:commandButton action="#{questionContentBean.addAlternative}" data="#{obj}"
+														image="/images/secure/icons/icone-add.png" style="border:0" title="Adicionar"/>
+						       			</td>
+						       		</tr>
+						       	</table>
+						       	<rich:dataTable value="#{questionContentBean.question.alternatives}" var="obj" rows="5"
+										width="400" id="dtTableAlternative" rowKeyVar="row">
+										<rich:column
+											width="280">
+											<f:facet name="header">
+												<h:outputText value="Questão" />
+											</f:facet>
+											<h:outputText value="#{obj.alternative}" />
+										</rich:column>
+										<rich:column
+											width="50">
+											<f:facet name="header">
+												<h:outputText value="Correta" />
+											</f:facet>
+											<h:graphicImage alt="Certa" rendered="#{obj.correct}"
+												value="/images/secure/icons/icone-enable.png" />
+											<h:graphicImage alt="Errada" rendered="#{obj.correct == false}"
+												value="/images/secure/icons/icone-error.gif" />
+										</rich:column>
+										<rich:column width="80">
+											<f:facet name="header">
+												<h:outputText value="Ação" />
+											</f:facet>
+											<a4j:commandButton image="/images/secure/icons/icone-edit.png" style="border:0"
+												title="Editar" data="#{row}" actionListener="#{questionContentBean.editAlternative}" />
+											<h:graphicImage url="/images/public/spacer.gif" width="5px" height="2px" />
+											<a4j:commandButton actionListener="#{questionContentBean.removeAlternative}" data="#{obj}"
+												image="/images/secure/icons/icone-remove.png" style="border:0" title="Remover"/>
+										</rich:column>
+
+									</rich:dataTable>
+					       	</rich:panel>
+				       		</td>
+				       	</tr>
+			       		<tr>
+			       			<td align="center">
+			       				<h:commandButton id="btnCancelModalA" value="Cancelar" oncomplete="Richfaces.hideModalPanel('panelAlternatives');"></h:commandButton>
+			       				<h:graphicImage url="/images/public/spacer.gif" width="10px"/>
+			       				<a4j:commandButton id="btnSaveModalA" oncomplete="Richfaces.hideModalPanel('panelAlternatives');" action="#{questionContentBean.addQuestion}" value="Salvar" reRender="dtTableQuestion"></a4j:commandButton>
+			       			</td>
+			       		</tr>
+			       	</table>
+		       	</a4j:outputPanel>
+	       	</h:form>
+	    </rich:popupPanel>
+
+</ui:composition>
+</html>

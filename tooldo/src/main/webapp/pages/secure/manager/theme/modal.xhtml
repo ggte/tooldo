@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+
+<ui:composition>
+	<rich:popupPanel modal="true" id="panelSaveTheme" width="385" height="340">
+        
+        <f:facet name="header"><h:outputText value="Cadastro de Temas"/></f:facet>
+        
+        <f:facet name="controls">
+        	<h:graphicImage value="/images/common/close.png" styleClass="hidelink" onclick="#{rich:component('panelSaveTheme')}.hide(); return false;"/>
+        </f:facet>
+		
+		<h:form id="formSaveTheme">
+		
+			<rich:messages id="otpMsg" errorClass="diverror" infoClass="divsucess" layout="list" >
+				<f:facet name="errorMarker"><h:graphicImage url="/images/secure/icons/icone-error.gif"/></f:facet>
+				<f:facet name="infoMarker"><h:graphicImage url="/images/secure/icons/icone-success.png"/></f:facet>
+			</rich:messages>
+		
+			<h:panelGrid columns="2" id="panelGridSaveTheme">
+			
+				<h:outputText value="Disciplina: " />
+				<h:outputText value="#{themeBean.theme.discipline.name}" />
+				
+				<h:outputText value="Autor: " />
+				<h:outputText value="#{themeBean.theme.author.name}" />
+				
+				<h:outputText value="Nome: " />
+				<h:inputText label="Nome" value="#{themeBean.theme.name}" required="true" styleClass="input_txt" maxlength="100"/>
+				
+				<h:outputText value="Descrição:" />
+				<h:inputText label="Descrição" value="#{themeBean.theme.description}" styleClass="input_txt" maxlength="200" />
+				
+				<h:outputText value="Cor:" />
+				<h:selectOneMenu value="#{themeBean.theme.cssFile}">
+ 					<f:selectItem itemValue="style-cinza.css" itemLabel="Cinza" />
+ 					<f:selectItem itemValue="style-azul.css" itemLabel="Azul" />
+ 					<f:selectItem itemValue="style-laranja.css" itemLabel="Laranja" />
+ 					<f:selectItem itemValue="style-verde.css" itemLabel="Verde" />
+ 					<f:selectItem itemValue="style-roxo.css" itemLabel="Roxo" />
+ 				</h:selectOneMenu>
+				
+				<h:outputText value="Ativo: " />
+				<h:selectOneRadio label="Ativo" required="false" value="#{themeBean.theme.enabled}" id="enabled" >
+  					<f:selectItem itemLabel="Sim" itemValue="#{true}"/>
+  					<f:selectItem itemLabel="Não" itemValue="#{false}"/>
+  				</h:selectOneRadio>
+     			
+			</h:panelGrid>
+			
+			<h:commandButton value="Salvar" action="#{themeBean.save}" execute="formSaveTheme" id="btnSaveTheme" />
+		
+		</h:form>
+		
+    </rich:popupPanel>
+    
+</ui:composition>
+</html>

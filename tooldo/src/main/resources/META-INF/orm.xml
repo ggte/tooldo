@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings xmlns="http://java.sun.com/xml/ns/persistence/orm" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm orm_1_0.xsd" version="1.0">
+
+	<entity class="net.escritoriodigital.unicamp.redefor.model.content.AlternativeQuestion" />
+	<entity class="net.escritoriodigital.unicamp.redefor.model.content.Content" />
+	<entity class="net.escritoriodigital.unicamp.redefor.model.content.QuestionContent" />
+	<entity class="net.escritoriodigital.unicamp.redefor.model.content.RoadMapContent" />
+	<entity class="net.escritoriodigital.unicamp.redefor.model.content.TypeContent" />
+
+	<entity class="net.escritoriodigital.unicamp.redefor.model.secure.User" />
+	<entity class="net.escritoriodigital.unicamp.redefor.model.secure.Profile" />
+	<entity class="net.escritoriodigital.unicamp.redefor.model.secure.Role" />
+
+	<entity class="net.escritoriodigital.unicamp.redefor.model.course.Course" />
+
+	<entity class="net.escritoriodigital.unicamp.redefor.model.discipline.Discipline" />
+
+	<entity class="net.escritoriodigital.unicamp.redefor.model.page.Page" />
+
+	<entity class="net.escritoriodigital.unicamp.redefor.model.theme.Theme" />
+
+	<entity class="net.escritoriodigital.unicamp.redefor.model.topic.Topic" />
+	<entity class="net.escritoriodigital.workflow.model.template.WorkflowTemplate" />
+	<entity class="net.escritoriodigital.workflow.model.template.PhaseTemplate" />
+	<entity class="net.escritoriodigital.workflow.model.template.StageTemplate" />
+	<entity class="net.escritoriodigital.workflow.model.entity.WorkflowEntity" />
+	<entity class="net.escritoriodigital.workflow.model.entity.PhaseEntity" />
+	<entity class="net.escritoriodigital.workflow.model.entity.StageEntity" />
+	<entity class="net.escritoriodigital.workflow.model.entity.HistoryWorkflowEntity" />
+
+</entity-mappings>

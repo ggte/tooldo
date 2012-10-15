@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+
+<ui:composition>
+
+	<rich:popupPanel modal="true" id="panelQuestion" width="500" height="430">
+	
+        <f:facet name="header"><h:outputText value="Questões"/></f:facet>
+        <f:facet name="controls">
+        	<h:graphicImage value="/images/common/close.png" styleClass="hidelink" 
+        		onclick="#{rich:component('panelQuestion')}.hide(); return false;"/>
+        </f:facet>
+        
+       	<h:form id="modalQuestion" prependId="false">
+	       	
+	       	<rich:messages id="otpMsgQ" errorClass="diverror" infoClass="divsucess" layout="list" >
+				<f:facet name="errorMarker"><h:graphicImage url="/images/secure/icons/icone-error.gif"/></f:facet>
+				<f:facet name="infoMarker"><h:graphicImage url="/images/secure/icons/icone-success.png"/></f:facet>
+			</rich:messages>
+			
+	       	<a4j:outputPanel id="outPnlQuestion" ajaxRendered="true">
+		       	<table>
+		       		<tr>
+		       			<td align="right">
+		       				<a4j:commandButton oncomplete="#{rich:component('panelAlternatives')}.show();"
+								action="#{questionContentBean.clear}" execute="@this"
+								style="border:0px;vertical-align:middle;" value="Adicionar Questão"
+								image="/images/secure/icons/icone-add-question.png" title="Adicionar Questão"/>
+		       			</td>
+		       		</tr>
+		       		<tr>
+		       			<td align="center" >
+		       				 <rich:dataTable value="#{contentBean.content.questions}" var="obj" rows="10" 
+		       				 	style="width:470px;" id="dtTableQuestion" rowKeyVar="row">
+								
+								<rich:column style="width:280px;">
+									<f:facet name="header"><h:outputText value="Questão" /></f:facet>
+									<h:outputText value="#{obj.question}"/>
+								</rich:column>
+								
+								<rich:column width="80">
+									<a4j:commandButton image="/images/secure/icons/icone-edit.png" style="border:0" oncomplete="Richfaces.showModalPanel('panelAlternatives');"
+										title="Editar" data="#{row}" ajaxSingle="true" render="outPnlAlternative" actionListener="#{questionContentBean.editQuestion}"/>
+									<h:graphicImage url="/images/public/spacer.gif" width="5px" height="2px" />
+									<a4j:commandButton actionListener="#{questionContentBean.removeQuestion}" data="#{obj}" render="dtTableQuestion"
+										image="/images/secure/icons/icone-remove.png" ajaxSingle="true"   style="border:0" title="Remover"/>
+								</rich:column>
+								
+								<f:facet name="footer">
+									<rich:dataScroller renderIfSinglePage="false"/>
+								</f:facet>
+								
+							</rich:dataTable>
+
+		       			</td>
+		       		</tr>
+		       		<tr>
+		       			<td align="center">
+		       				<h:commandButton id="btnCancelModalQ" value="Cancelar" 
+		       					oncomplete="Richfaces.hideModalPanel('panelQuestion');"/>
+		       					
+		       				<h:graphicImage url="/images/public/spacer.gif" width="10px"/>
+		       				
+		       				<a4j:commandButton id="btnSaveModalQ" 
+		       					oncomplete="#{rich:component('panelQuestion')}.hide();" value="Salvar"/>
+		       			</td>
+		       		</tr>
+		       	</table>
+	       	</a4j:outputPanel>
+	       	
+       	</h:form>
+    </rich:popupPanel>
+</ui:composition>
+</html>

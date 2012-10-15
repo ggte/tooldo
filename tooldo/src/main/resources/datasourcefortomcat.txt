@@ -1,0 +1,15 @@
+<Resource name="jdbc/RedeforDB" auth="Container" type="javax.sql.DataSource"
+               maxActive="100" maxIdle="20" maxWait="100"
+               username="root" password="root" driverClassName="com.mysql.jdbc.Driver"
+               url="jdbc:mysql://localhost:3306/UNICAMP_REDEFOR?useUnicode=true&amp;characterEncoding=UTF-8"/>
+               
+               
+/Users/andrefabbro/DEV/workspaces/eclipse-jee-indigo/.metadata/.plugins/org.eclipse.wst.server.core
+
+
+<Context docBase="unicamp-redefor" path="/unicamp-redefor" reloadable="false" source="org.eclipse.jst.jee.server:unicamp-redefor">
+      	<Resource auth="Container" driverClassName="com.mysql.jdbc.Driver" 
+      		maxActive="100" maxIdle="20" maxWait="100" name="jdbc/RedeforDB" password="root" 
+      		type="javax.sql.DataSource" 
+      		url="jdbc:mysql://localhost:3306/UNICAMP_REDEFOR?useUnicode=true&amp;characterEncoding=UTF-8" username="root"/>
+</Context>

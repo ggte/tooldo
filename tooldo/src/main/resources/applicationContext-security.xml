@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:sec="http://www.springframework.org/schema/security" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+      http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+      http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.1.xsd">
+      
+	<sec:global-method-security
+		secured-annotations="enabled" />
+
+	<bean id="loggerListener"
+		class="org.springframework.security.authentication.event.LoggerListener" />
+
+	<bean id="authenticationDataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
+		<property name="resourceRef"><value>false</value></property>
+		<property name="jndiName"><value>java:comp/env/jdbc/tooldo</value></property>
+	</bean>
+
+	<bean id="authenticationManager"
+		class="org.springframework.security.authentication.ProviderManager">
+		<property name="providers">
+			<list>
+				<ref bean="daoAuthenticationProvider" />
+				<ref bean="anonymousProvider" />
+			</list>
+		</property>
+	</bean>
+
+	<bean id="accessDecisionManager"
+		class="org.springframework.security.access.vote.AffirmativeBased">
+		<property name="decisionVoters">
+			<list>
+				<bean class="org.springframework.security.access.vote.RoleVoter" />
+				<bean class="org.springframework.security.access.vote.AuthenticatedVoter" />
+			</list>
+		</property>
+	</bean>
+	<bean id="securityContextFilter"
+		class="org.springframework.security.web.context.SecurityContextPersistenceFilter">
+		<property name="securityContextRepository" ref="securityContextRepository" />
+	</bean>
+
+	<bean id="securityContextRepository"
+		class="org.springframework.security.web.context.HttpSessionSecurityContextRepository" />
+
+	<bean id="logoutFilter"
+		class="org.springframework.security.web.authentication.logout.LogoutFilter">
+		<constructor-arg value="/pages/secure/authentication.jsf" />
+		<constructor-arg>
+			<list>
+				<bean
+					class="org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler" />
+			</list>
+		</constructor-arg>
+	</bean>
+
+	<bean id="formLoginFilter" class="org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter">
+		<property name="authenticationManager" ref="authenticationManager" />
+		<property name="filterProcessesUrl" value="/j_spring_security_check" />
+		<property name="authenticationSuccessHandler">
+			<!-- bean class="org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler">
+				<property name="defaultTargetUrl" value="/pages/secure/main.jsf" />
+			</bean -->
+			<bean class="net.escritoriodigital.unicamp.redefor.filter.CustomSavedRqstAwareAuthSuccessHandler">
+				<property name="alwaysUseDefaultTargetUrl" value="true"/>
+				<property name="defaultTargetUrl" value="/pages/secure/main.jsf" />
+			</bean>
+		</property>
+		<property name="authenticationFailureHandler">
+			<bean
+				class="org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler">
+				<constructor-arg value="/pages/secure/authentication.jsf" />
+			</bean>
+		</property>
+		<property name="sessionAuthenticationStrategy">
+			<bean
+				class="org.springframework.security.web.authentication.session.SessionFixationProtectionStrategy" />
+		</property>
+	</bean>
+
+	<bean id="requestCacheFilter"
+		class="org.springframework.security.web.savedrequest.RequestCacheAwareFilter" />
+
+	<bean id="servletApiFilter"
+		class="org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter" />
+
+	<bean id="anonFilter"
+		class="org.springframework.security.web.authentication.AnonymousAuthenticationFilter">
+		<property name="key" value="SomeUniqueKeyForThisApplication" />
+		<property name="userAttribute" value="anonymousUser,ROLE_ANONYMOUS" />
+	</bean>
+
+	<bean id="sessionMgmtFilter"
+		class="org.springframework.security.web.session.SessionManagementFilter">
+		<constructor-arg ref="securityContextRepository" />
+	</bean>
+
+	<bean id="exceptionTranslationFilter"
+		class="org.springframework.security.web.access.ExceptionTranslationFilter">
+		<property name="authenticationEntryPoint" ref="authenticationEntryPoint" />
+		<property name="accessDeniedHandler" ref="accessDeniedHandler" />
+	</bean>
+
+	<bean id="authenticationEntryPoint"
+		class="org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint">
+		<property name="loginFormUrl" value="/pages/secure/authentication.jsf" />
+	</bean>
+
+	<bean id="accessDeniedHandler"
+		class="org.springframework.security.web.access.AccessDeniedHandlerImpl">
+		<property name="errorPage" value="/accessDenied.jsp" />
+	</bean>
+
+
+	<alias name="filterChainProxy" alias="springSecurityFilterChain" />
+
+	<bean id="filterChainProxy" class="org.springframework.security.web.FilterChainProxy">
+		<sec:filter-chain-map path-type="ant">
+			<sec:filter-chain pattern="/**"
+				filters="securityContextFilter, logoutFilter, formLoginFilter, requestCacheFilter,
+                 servletApiFilter, anonFilter, sessionMgmtFilter, exceptionTranslationFilter, filterSecurityInterceptor" />
+		</sec:filter-chain-map>
+	</bean>
+
+	<bean id="filterSecurityInterceptor"
+		class="org.springframework.security.web.access.intercept.FilterSecurityInterceptor">
+		<property name="securityMetadataSource">
+			<sec:filter-security-metadata-source>
+				
+				<sec:intercept-url pattern="/pages/secure/admin/**"
+					access="IS_AUTHENTICATED_FULLY, ROLE_ADMINISTRATOR" />
+					
+				<sec:intercept-url pattern="/pages/secure/profile/**"
+					access="ROLE_ADMINISTRATOR" />
+					
+				<sec:intercept-url pattern="/pages/secure/course/**"
+					access="ROLE_ADMINISTRATOR" />
+					
+				<sec:intercept-url pattern="/pages/secure/user/**"
+					access="ROLE_ADMINISTRATOR" />
+					
+				<sec:intercept-url pattern="/pages/secure/manager/**"
+					access="IS_AUTHENTICATED_FULLY, ROLE_ADMINISTRATOR" />
+					
+				<sec:intercept-url pattern="/pages/secure/authentication.jsf"
+					access="IS_AUTHENTICATED_ANONYMOUSLY" />
+					
+				<sec:intercept-url pattern="/pages/secure/resetPassword.jsf"
+					access="IS_AUTHENTICATED_ANONYMOUSLY" />
+					
+				<sec:intercept-url pattern="/pages/secure/main.jsf"
+					access="IS_AUTHENTICATED_FULLY" />
+					
+				<sec:intercept-url pattern="/index.jsp"
+					access="IS_AUTHENTICATED_FULLY" />
+					
+			</sec:filter-security-metadata-source>
+		</property>
+		<property name="authenticationManager" ref="authenticationManager" />
+		<property name="accessDecisionManager" ref="accessDecisionManager" />
+	</bean>
+
+	<bean id="daoAuthenticationProvider"
+		class="org.springframework.security.authentication.dao.DaoAuthenticationProvider">
+		<property name="passwordEncoder">
+			<bean
+				class="org.springframework.security.authentication.encoding.Md5PasswordEncoder" />
+		</property>
+		<property name="userDetailsService" ref="daoUserDetailsService" />
+	</bean>
+
+	<bean id="anonymousProvider"
+		class="org.springframework.security.authentication.AnonymousAuthenticationProvider">
+		<property name="key" value="SomeUniqueKeyForThisApplication" />
+	</bean>
+
+	<bean id="daoUserDetailsService"
+		class="org.springframework.security.core.userdetails.jdbc.JdbcDaoImpl">
+		<property name="dataSource" ref="authenticationDataSource" />
+		<property name="usersByUsernameQuery">
+			<value>SELECT USERNAME, PASSWORD, ENABLED FROM RFR_USER WHERE
+				USERNAME = ? </value>
+		</property>
+		<property name="authoritiesByUsernameQuery">
+			<value>SELECT U.USERNAME, R.NAME FROM RFR_USER U,
+				RFR_PROFILE P,
+				RFR_GRANTED_PROFILE_ROLES GPR, RFR_ROLE R
+				WHERE U.FK_RFR_PROFILE = P.ID
+				AND P.ID = GPR.FK_RFR_PROFILE
+				AND GPR.FK_RFR_ROLE = R.ID AND U.USERNAME = ?
+			</value>
+		</property>
+	</bean>
+</beans>

@@ -1,0 +1,112 @@
+*{
+	margin: 0;
+	padding: 0;
+	/* border: 0; */
+	background: none;
+}
+
+html, body, #wrap {height: 100%;}
+body > #wrap {height: auto; min-height: 100%; }
+
+/* blsidebar_flotante */
+#blsidebar_flotante{
+	float:left;
+	min-height: 429px;
+  	height: auto !important;
+  	height: 429px;
+	margin-left:4px;
+	font-size:11px;
+	text-align:left;
+	overflow:hidden;
+	}
+
+#blsidebar_flotante h1{ font-size:14px; color:#4f4f4f; margin:18px 0 15px  10px;}
+#blsidebar_flotante ul {
+	list-style-type: none;
+	width:135px;
+	margin: 0 0 0 10px;
+	padding: 0 5px 0 0;
+	float:left;
+}
+#blsidebar_flotante ul li{
+	min-height:15px;
+	height:15px;
+	height:auto !important;
+	margin:0 0 10px 0;
+	float:left;
+	width:130px;
+	}
+#blsidebar_flotante ul li a {
+	text-decoration: none;
+	color: #4f4f4f;
+	float:left;
+	padding: 0 0 8px 0;
+}
+#blsidebar_flotante ul li a:hover, #blsidebar_flotante ul li a:focus, #blsidebar_flotante ul li a:active { color:#3c3215;}
+#blsidebar_flotante ul li ul {
+	list-style-type: none;
+	margin:  0 0 2px;
+	padding: 0 5px 0 0;
+	display: none;
+	float:right;
+	width:120px;
+}
+#blsidebar_flotante ul li ul li{
+	min-height:15px;
+	height:15px;
+	height:auto !important;
+	padding:5px 0 0 0;
+	float:left;
+	}
+#blsidebar_flotante ul li ul li a {
+	text-decoration: none;
+	color:#3c3215;
+	float:left;
+}
+#blsidebar_flotante ul li ul li a:hover {/* font-weight:bold; */}
+
+#blsidebarflt_lat {float:left;height:429px;width:11px;}
+#blsidebarflt_lat img{border:none;}
+#blsidebarflt_main{
+	float:left;
+	overflow:none;
+	width:144px;
+	min-height: 429px;
+  	height: auto !important;
+  	height: 429px;
+	background:url(../img/bg-menu.jpg) top left no-repeat;
+	}
+
+/* Fim blsidebar_flotante */
+
+input, textarea {
+	border:1px solid #CCCCCC;
+	font-size:11px;
+	padding:3px;
+}
+
+.correct-test-label {
+	color: green;
+}
+
+.incorrect-test-label {
+	color: red;
+}
+
+.contentWrapClass ul, .contentWrapClass ol {
+	padding: 6px 0 8px 30px;
+}
+
+.mainMenu {
+	font-weight: bold;
+}
+
+.ulselected, .ulnotselected {
+	font-style: italic;	
+}
+
+ins {
+	color: green;
+	font-style: italic;
+	text-decoration: none;
+}

@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:sec="http://www.springframework.org/security/facelets/tags">
+
+<ui:composition>
+	
+	<a4j:repeat value="#{contentBean.content.questions}" var="q" id="questionsRepeat" rowKeyVar="row">
+        
+        <sec:ifAllGranted roles="ROLE_ADMINISTRATOR">
+	   		<a4j:commandButton image="/images/secure/btn_excluir.png" 
+	          	style="border:0; margin-top: 5px; margin-left: 570px; position: absolute; z-index: 12;"
+	       		oncomplete="#{rich:component('panelMessage')}.show();" execute="@this" title="Excluir Questão">
+				<f:setPropertyActionListener target="#{contentBean.question}" value="#{q}" />
+			</a4j:commandButton>
+		</sec:ifAllGranted>
+		
+		<sec:ifNotGranted roles="ROLE_ADMINISTRATOR">
+	   		<a4j:commandButton image="/images/secure/btn_excluir.png" 
+	   			rendered="#{(contentBean.content.page.locked == true and contentBean.content.page.userLocked == true) || (contentBean.content.page.topic.theme.startWorflow == false)}"
+	          	style="border:0; margin-top: 5px; margin-left: 570px; position: absolute; z-index: 12;"
+	       		oncomplete="#{rich:component('panelMessage')}.show();" execute="@this" title="Excluir Questão">
+				<f:setPropertyActionListener target="#{contentBean.question}" value="#{q}" />
+			</a4j:commandButton>
+		</sec:ifNotGranted>
+		
+        
+        <rich:collapsiblePanel header="Questão #{row + 1}" switchType="client" id="questionDetailsPanel" 
+        	style="width: 600px;" expanded="true">
+            
+            <rich:editor id="question_content" value="#{q.question}" 
+				width="580" height="100" toolbar="custom">
+				<f:facet name="config">
+                    filebrowserUploadUrl: '${facesContext.externalContext.requestContextPath}/ckeditor/uploader?Type=File',
+					filebrowserImageUploadUrl: '${facesContext.externalContext.requestContextPath}/ckeditor/uploader?Type=Image',
+					filebrowserFlashUploadUrl: '${facesContext.externalContext.requestContextPath}/ckeditor/uploader?Type=Flash',
+					extraPlugins: 'equation',
+					toolbar_custom: [
+                        { name: 'document', items : [ 'Source','NewPage','Preview' ] },
+                        { name: 'clipboard', items : [ 'Cut','Copy','Paste','PasteText','PasteFromWord','-','Undo','Redo' ] },
+                        { name: 'editing', items : [ 'Find','Replace','-','SelectAll','-','Scayt' ] },
+                        { name: 'insert', items : [ 'equation','Image','Flash','Table','HorizontalRule','Smiley','SpecialChar','PageBreak','Iframe' ] }, 
+                        '/',
+                        { name: 'styles', items : [ 'Styles','Format' ] },
+                        { name: 'basicstyles', items : [ 'Bold','Italic','Strike','-','RemoveFormat' ] },
+                        { name: 'paragraph', items : [ 'NumberedList','BulletedList','-','Outdent','Indent','-','Blockquote' ] },
+                        { name: 'links', items : [ 'Link','Unlink','Anchor' ] },
+                        { name: 'tools', items : [ 'Maximize' ] }
+                    ]
+            	</f:facet>
+			</rich:editor>
+            
+            <a4j:outputPanel id="alternativesQuestionPanel">
+            	<a4j:repeat value="#{q.alternatives}" var="a" id="alternativesRepeat" rowKeyVar="alrow">
+            		
+            		<sec:ifAllGranted roles="ROLE_ADMINISTRATOR">
+				   		<a4j:commandButton image="/images/secure/btn_excluir.png" 
+	            			style="border:0; margin-top: 5px; margin-left: 553px; position: absolute; z-index: 11;" render="alternativesQuestionPanel"
+			        		execute="questionDetailsPanel" title="Excluir Alternativa" action="#{contentBean.removeAlternative}">
+			        		<f:setPropertyActionListener target="#{contentBean.question}" value="#{q}" />
+							<f:setPropertyActionListener target="#{contentBean.alternative}" value="#{a}" />
+						</a4j:commandButton>
+					</sec:ifAllGranted>
+					
+					<sec:ifNotGranted roles="ROLE_ADMINISTRATOR">
+						<a4j:commandButton image="/images/secure/btn_excluir.png" 
+	            			style="border:0; margin-top: 5px; margin-left: 553px; position: absolute; z-index: 11;" render="alternativesQuestionPanel"
+			        		rendered="#{(contentBean.content.page.locked == true and contentBean.content.page.userLocked == true) || (contentBean.content.page.topic.theme.startWorflow == false)}"
+   							execute="questionDetailsPanel" title="Excluir Alternativa" action="#{contentBean.removeAlternative}">
+			        		<f:setPropertyActionListener target="#{contentBean.question}" value="#{q}" />
+							<f:setPropertyActionListener target="#{contentBean.alternative}" value="#{a}" />
+						</a4j:commandButton>
+					</sec:ifNotGranted>
+            		
+            		
+            		<rich:panel id="questionDetailsPanel" style="width: 574px; margin-top: 5px;">
+            			<f:facet name="header"><h:outputText value="Alternativa #{alrow + 1}" style="font-weight:bold" /></f:facet>
+            		
+	            		<h:panelGrid columns="2" id="alternativeShowGrid">
+			       			
+			       			<h:outputLabel value="Alternativa:" for="alName" />
+			       			<h:inputText styleClass="input_txt" id="alName" label="Alternativa" value="#{a.alternative}" />
+			       			
+			       			<h:outputLabel value="Comentário:" for="alComments" />
+			       			<h:inputText styleClass="input_txt" id="alComments" label="Comentário" value="#{a.comments}" maxlength="240"/>
+			       			
+			       			<h:outputLabel value="Correta?" for="alCorrect" />
+			       			<h:selectOneRadio label="Correta" id="alCorrect" value="#{a.correct}" onclick="onClickRadioAlternative(this);">
+								<f:selectItem itemLabel="Sim" itemValue="#{true}"/>
+								<f:selectItem itemLabel="Não" itemValue="#{false}"/>
+							</h:selectOneRadio>
+							
+			       		</h:panelGrid>
+		       		
+		       		</rich:panel>
+            		
+            	</a4j:repeat>
+            </a4j:outputPanel>
+            
+            <sec:ifAllGranted roles="ROLE_ADMINISTRATOR">
+		   		<a4j:commandButton image="/images/secure/icons/icone-add-question.png" style="border:0" 
+					action="#{contentBean.addAlternative}" render="alternativesQuestionPanel"
+					title="Adicionar Alternativa" execute="questionDetailsPanel">
+					<f:setPropertyActionListener target="#{contentBean.question}" value="#{q}" />
+				</a4j:commandButton>
+			</sec:ifAllGranted>
+			
+			<sec:ifNotGranted roles="ROLE_ADMINISTRATOR">
+				<a4j:commandButton image="/images/secure/icons/icone-add-question.png" style="border:0" 
+					rendered="#{(contentBean.content.page.locked == true and contentBean.content.page.userLocked == true) || (contentBean.content.page.topic.theme.startWorflow == false)}"
+   					action="#{contentBean.addAlternative}" render="alternativesQuestionPanel"
+					title="Adicionar Alternativa" execute="questionDetailsPanel">
+					<f:setPropertyActionListener target="#{contentBean.question}" value="#{q}" />
+				</a4j:commandButton>
+			</sec:ifNotGranted>
+            
+        </rich:collapsiblePanel>
+        
+    </a4j:repeat>
+   	
+   	<sec:ifAllGranted roles="ROLE_ADMINISTRATOR">
+   		<h:commandButton id="btnAddQuestionAdmin" value="Incluir Nova Questão" onclick="javascript:loadTextArea();"
+   			execute="formContenManager" action="#{contentBean.addQuestion}" />
+	</sec:ifAllGranted>
+	
+	<sec:ifNotGranted roles="ROLE_ADMINISTRATOR">
+		<h:commandButton id="btnAddQuestionUser" value="Incluir Nova Questão" onclick="javascript:loadTextArea();"
+			rendered="#{(contentBean.content.page.locked == true and contentBean.content.page.userLocked == true) || (contentBean.content.page.topic.theme.startWorflow == false)}"
+   			execute="formContenManager" action="#{contentBean.addQuestion}" />
+	</sec:ifNotGranted>
+    
+</ui:composition>
+</html>

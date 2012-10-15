@@ -1,0 +1,121 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:sec="http://www.springframework.org/security/facelets/tags">
+<ui:composition template="/template/secure/main.xhtml">
+
+	<ui:define name="title">
+		<sec:ifAnyGranted roles="ROLE_ADMINISTRATOR">
+			<h:outputText rendered="#{disciplineBean.course != null}" value="#{disciplineBean.course.name}" />
+			<h:outputText rendered="#{disciplineBean.course != null}" value=" > " />
+		</sec:ifAnyGranted>
+		<h:outputText value="Disciplina" />
+	</ui:define>
+
+	<ui:define name="breadcrumb">
+		<h:outputText rendered="#{disciplineBean.titlePage != null}" value="#{disciplineBean.titlePage}" />
+	</ui:define>
+
+	<ui:define name="body">
+		<ui:include src="/pages/secure/admin/discipline/modal.xhtml" />
+		<ui:include src="/pages/secure/admin/discipline/modalMessage.xhtml" />
+		<h:form id="frmDisciplies" prependId="false">
+			
+			<sec:ifAnyGranted roles="ROLE_ADMINISTRATOR,ROLE_DISCIPLINE_MODIFY">
+				
+				<a4j:commandButton image="/images/secure/btnAddDiscipline.jpg" execute="@this"
+					alt="Cadastrar" title="Cadastrar" action="#{disciplineBean.clear}"
+					oncomplete="#{rich:component('panelSaveDiscipline')}.show();"
+					styleClass="toolBarLink" ajaxSingle="true" render="outPnlDiscipline"/>
+				<br />
+				<br />
+			</sec:ifAnyGranted>
+			
+			<rich:messages id="outMsgMessage" errorClass="diverror" infoClass="divsucess" layout="list" globalOnly="true">
+				 <f:facet name="errorMarker">
+            		<h:graphicImage url="/images/secure/icons/icone-error.gif"/>
+			      </f:facet>
+			     <f:facet name="infoMarker">
+            		<h:graphicImage url="/images/secure/icons/icone-success.png"/>
+				</f:facet>
+			</rich:messages>
+			<br />
+			<a4j:region>
+				<rich:dataTable value="#{disciplineBean.disciplines}" var="record" rows="20" style="width: 940px;" id="dtDisciplines">
+					
+					<rich:column sortBy="#{record.name}">
+						<f:facet name="header"><h:outputText value="Disciplina" /></f:facet>
+						<h:outputText value="#{record.name}" />
+					</rich:column>
+					
+					<rich:column sortBy="#{record.course.name}">
+						<f:facet name="header"><h:outputText value="Curso" /></f:facet>
+						<h:outputText value="#{record.course.name}" />
+					</rich:column>
+					
+					<rich:column sortBy="#{record.owner.name}">
+						<f:facet name="header"><h:outputText value="Responsável" /></f:facet>
+						<h:outputText value="#{record.owner.name}" />
+					</rich:column>
+					
+					<sec:ifAnyGranted roles="ROLE_ADMINISTRATOR,ROLE_DISCIPLINE_MODIFY">
+						<rich:column style="text-align:center;" width="50" sortBy="#{record.enabled}">
+							<f:facet name="header"><h:outputText value="Ativo" /></f:facet>
+							
+							<a4j:commandButton actionListener="#{disciplineBean.disableDiscipline}" data="#{record.id}" rendered="#{record.enabled}"
+								image="/images/secure/icons/icone-enable.png" style="border:0" title="Desativar" render="dtDisciplines" />
+							
+							<a4j:commandButton actionListener="#{disciplineBean.enableDiscipline}" data="#{record.id}" rendered="#{record.enabled == false}"
+								image="/images/secure/icons/icone-disable.png" style="border:0" title="Ativar" render="dtDisciplines" />
+								
+						</rich:column>
+					</sec:ifAnyGranted>
+					
+					<rich:column style="text-align:center;" width="70" sortBy="#{record.created}">
+						<f:facet name="header"><h:outputText value="Criação" /></f:facet>
+						<h:outputText value="#{record.created}"><f:convertDateTime type="date" dateStyle="short" pattern="dd/MM/yyyy" /></h:outputText>
+					</rich:column>
+
+					<rich:column width="100" style="text-align:center;">
+
+						<f:facet name="header"><h:outputText value="Ação" /></f:facet>
+
+						<sec:ifAnyGranted roles="ROLE_ADMINISTRATOR,ROLE_DISCIPLINE_MODIFY">
+							
+							<a4j:commandButton image="/images/secure/icons/icone-edit.png" style="border:0" title="Editar"
+								actionListener="#{disciplineBean.getDisciplineById}" oncomplete="#{rich:component('panelSaveDiscipline')}.show();" 
+									data="#{record.id}" render="outPnlDiscipline" ajaxSingle="true" />
+							
+							<h:graphicImage url="/images/public/spacer.gif" width="5px" height="2px" />
+							
+							<a4j:commandButton actionListener="#{disciplineBean.getDisciplineById}" 
+								data="#{record.id}" oncomplete="#{rich:component('panelMessage')}.show();"
+								image="/images/secure/icons/icone-remove.png" style="border:0" title="Remover"/>
+								
+							<h:graphicImage url="/images/public/spacer.gif" width="5px" height="2px" />
+						</sec:ifAnyGranted>
+
+						<sec:ifAnyGranted roles="ROLE_ADMINISTRATOR,ROLE_THEME_VIEW,ROLE_THEME_MODIFY">
+							<h:commandLink  action="#{themeBean.getThemeByDiscipline}" title="Tema">
+								<h:graphicImage value="/images/secure/icons/icone-temas.png" alt="Tema" />
+								<f:param name="idDiscipline" id="idDiscipline" value="#{record.id}"/>
+							</h:commandLink>
+						</sec:ifAnyGranted>
+
+					</rich:column>
+
+					<f:facet name="footer">
+						<rich:dataScroller id="dsDisciplines" renderIfSinglePage="false" maxPages="10"/>
+					</f:facet>
+
+				</rich:dataTable>
+			</a4j:region>
+		</h:form>
+	</ui:define>
+
+</ui:composition>
+</html>

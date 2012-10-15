@@ -1,0 +1,108 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+	
+<ui:composition template="/template/public/mobile.xhtml">
+
+	<ui:define name="title">TOOLDO :: <h:outputText value=" #{publicBean.titlePage}" /></ui:define>
+	<ui:define name="discipline"><h:outputText value="#{publicBean.theme.discipline.name}" /></ui:define>
+	<ui:define name="theme"><h:outputText value="#{publicBean.theme.name}" /></ui:define>
+	<ui:define name="topic"><h:outputText value="#{publicBean.page.topic.name}" /></ui:define>
+	<ui:define name="titleBody"><h:outputText value="#{publicBean.page.name}" /></ui:define>
+	
+	<ui:define name="topics">
+		<h:form>
+           	<ul data-role="listview">
+	           	<ui:repeat var="topic" value="#{publicBean.theme.topics}">
+	                <li data-role="list-divider"><h:outputText value="» #{topic.name}" /></li>
+	                  	<ui:repeat var="page" value="#{topic.pages}">
+						<li>
+							<h:commandLink action="#{publicBean.loadContentByPage}" styleClass="navitens">
+								<f:param name="pageId" value="#{page.id}"/>
+								<h:outputText value="» #{page.name}"/>
+							</h:commandLink>
+						</li>
+	                  	</ui:repeat>
+	            </ui:repeat>
+           </ul>
+		</h:form>
+	</ui:define>
+
+	<ui:define name="body">
+		<h:form>
+			
+			<h:outputText value="#{publicBean.contentLatexRenderized}" escape="false" rendered="#{publicBean.page.content.typeContent.id != 4}"/>
+			
+			<a4j:outputPanel id="conentQuestions" rendered="#{publicBean.page.content.typeContent.id == 4}">
+        		
+        		<a4j:repeat value="#{publicBean.page.content.questions}" var="q" id="questionsRepeat" rowKeyVar="row" rendered="#{publicBean.page.content.typeContent.id == 4}">
+						
+					<a4j:mediaOutput element="img" cacheable="false" session="false" rendered="#{q.image != null}" createContent="#{questionContentBean.paintImageDynamicFromPublic}" value="#{q.image.file}" mimeType="#{q.image.mime}" />
+						
+					<h:outputText value="#{q.questionLatexRenderized}" escape="false" />
+						
+					<a4j:outputPanel rendered="#{publicBean.showTestResult}" layout="block" style="border-style:none;">
+						<h:graphicImage url="/includes/img/correct.png" style="float:left; padding:3px 8px;" rendered="#{q.correct}"/>
+						<h:graphicImage url="/includes/img/incorrect.png" style="float:left; padding:3px 8px;" rendered="#{!q.correct}"/>
+						<h:outputText value="Alternativa Escolhida: "/>
+						<strong><h:outputText value="#{q.alternative}"/></strong> <br/>
+						<h:outputText value="Comentários: " rendered="#{q.alternativeComments != ''}"/>
+						<strong><h:outputText value="#{q.alternativeComments}"/></strong>
+					</a4j:outputPanel>
+           				
+           			<h:selectOneRadio value="#{q.alternative}" layout="pageDirection" rendered="#{!publicBean.showTestResult}">
+           				<f:selectItems value="#{q.alternativeItens}" />
+           			</h:selectOneRadio>
+           			
+				</a4j:repeat>
+
+           		<h:commandButton action="#{questionContentBean.executeTestFromPublic}" value="Executar Teste" rendered="#{publicBean.page.content.typeContent.id == 4 and !publicBean.showTestResult}"/>
+           		<h:commandButton action="#{questionContentBean.restartTestFromPublic}" value="Reiniciar Teste" rendered="#{publicBean.page.content.typeContent.id == 4 and publicBean.showTestResult}"/>
+
+        	</a4j:outputPanel>
+
+		</h:form>
+
+	</ui:define>
+
+	<ui:define name="footer">
+		<h:form>
+			<ul>
+				<li>
+					<h:commandLink action="#{publicBean.loadContentByPostion}" title="Anterior" rendered="#{publicBean.hasPrev}">
+						<f:param name="position" id="positionPrev" value="#{publicBean.page.position}"/>
+						<f:param name="idTopic" id="idTopicPrev" value="#{publicBean.page.topic.id}"/>
+						<f:param name="isNext" id="isNextPrev" value="#{false}"/>
+						<span class="ui-btn-inner" style="padding: 0; margin: 0; border-top-width: 0px;">
+							<span class="ui-icon ui-icon-arrow-l ui-icon-shadow">
+								<h:graphicImage url="/images/public/spacer.gif" width="15px" height="1px" />
+							</span>
+							<span class="ui-btn-text" style="padding-left: 3px;">Anterior</span>
+						</span>
+					</h:commandLink>
+				</li>
+				<li style="text-align: center; font-size: 12px;">
+					<h:outputText value="Visualizando página #{publicBean.page.position} de #{publicBean.page.topic.totalPages}" />
+				</li>
+				<li>
+					<h:commandLink action="#{publicBean.loadContentByPostion}" title="Próximo" rendered="#{publicBean.hasNext}">
+						<f:param name="position" id="positionNext" value="#{publicBean.page.position}"/>
+						<f:param name="idTopic" id="idTopicNext" value="#{publicBean.page.topic.id}"/>
+						<f:param name="isNext" id="isNextNext" value="#{true}"/>
+						<span class="ui-btn-inner" style="padding: 0; margin: 0; border-top-width: 0px;">
+							<span class="ui-btn-text">Próxima</span>
+							<span class="ui-icon ui-icon-arrow-r ui-icon-shadow">
+								<h:graphicImage url="/images/public/spacer.gif" width="19px" height="1px" />
+							</span>
+						</span>
+					</h:commandLink>
+				</li>
+	       	</ul>
+		</h:form>
+	</ui:define>
+
+</ui:composition>
+</html>

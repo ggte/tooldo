@@ -1,0 +1,122 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:sec="http://www.springframework.org/security/facelets/tags">
+<ui:composition template="/template/secure/main.xhtml">
+
+<ui:define name="title">Pendências para aprovação</ui:define>
+<ui:define name="breadcrumb">Pendências de Aprovação</ui:define>
+
+<ui:define name="body">
+
+	<rich:messages id="outMsgMessage" errorClass="diverror" infoClass="divsucess" layout="list" globalOnly="true">
+		<f:facet name="errorMarker"><h:graphicImage url="/images/secure/icons/icone-error.gif"/></f:facet>
+		<f:facet name="infoMarker"><h:graphicImage url="/images/secure/icons/icone-success.png"/></f:facet>
+	</rich:messages>
+	
+	<ui:include src="/pages/secure/workflow/modalAccept.xhtml" />
+	<ui:include src="/pages/secure/workflow/modalReadjust.xhtml" />
+	<ui:include src="/pages/secure/workflow/modalHistory.xhtml" />
+
+	<h:form id="frmWorkflow">
+
+		<rich:dataTable value="#{workflowBean.themesWorkflow}" var="record" rows="20" id="dtTable" style="width: 940px;">
+
+			<rich:column style="width: 300px;">
+				<f:facet name="header"><h:outputText value="Tema" /></f:facet>
+				<h:outputText value="#{record.name}" />
+			</rich:column>
+			
+			<rich:column style="width: 300px;">
+				<f:facet name="header"><h:outputText value="Autor" /></f:facet>
+				<h:outputText value="#{record.author.name}" />
+			</rich:column>
+			
+			<rich:column style="width: 200px;">
+				<f:facet name="header"><h:outputText value="Disciplina" /></f:facet>
+				<h:outputText value="#{record.discipline.name}" />
+			</rich:column>
+
+			<rich:column style="width: 150px;">
+				<f:facet name="header"><h:outputText value="Bloqueado por" /></f:facet>
+				<h:outputText value="#{record.lock.name}" />
+			</rich:column>
+			
+			<rich:column style="width: 30px;">
+				<f:facet name="header"><h:outputText value="Histórico" /></f:facet>
+				<a4j:commandButton action="#{workflowBean.getHistoryShow}" execute="@this"
+					oncomplete="#{rich:component('panelHistory')}.show();" image="/images/secure/icons/icone-history.png" 
+					style="border:0" title="Vizualizar Histórico" render="outPnlHistory">
+					<f:setPropertyActionListener target="#{workflowBean.theme}" value="#{record}" />
+				</a4j:commandButton>
+			</rich:column>
+			
+			<rich:column style="width: 150px;">
+
+				<sec:ifAnyGranted roles="ROLE_ADMINISTRATOR, ROLE_WORKFLOW_ONLY, ROLE_WORKFLOW_PUBLISH, ROLE_WORKFLOW_START">
+					<a4j:commandButton rendered="#{record.userLocked}" execute="@this"
+							action="#{workflowBean.clearComments}"
+							oncomplete="#{rich:component('panelWorkflowAccept')}.show();" 
+							image="/images/secure/icons/icone-accept.png" style="border:0" title="Aprovar" 
+							render="outPnlWorkflowAccept">
+						<f:setPropertyActionListener target="#{workflowBean.theme}" value="#{record}" />
+					</a4j:commandButton>
+				</sec:ifAnyGranted>
+
+				<sec:ifAnyGranted roles="ROLE_ADMINISTRATOR, ROLE_WORKFLOW_READJUST">
+					<a4j:commandButton rendered="#{record.userLocked and record.readjust}" 
+							action="#{workflowBean.clearComments}"
+							image="/images/secure/icons/icone-readjust.png" execute="@this"
+							oncomplete="#{rich:component('panelWorkflowReadjust')}.show();" 
+							style="border:0" title="Readequar" render="outPnlWorkflowReadjust">
+						<f:setPropertyActionListener target="#{workflowBean.theme}" value="#{record}" />
+					</a4j:commandButton>
+				</sec:ifAnyGranted>
+
+				<sec:ifAnyGranted roles="ROLE_ADMINISTRATOR, ROLE_WORKFLOW_ONLY, ROLE_WORKFLOW_PUBLISH, ROLE_WORKFLOW_START">
+					<a4j:commandButton rendered="#{record.locked == false}" style="border:0;" 
+							action="#{workflowBean.lockTheme}" execute="@this"
+							title="Bloquear Tema" image="/images/secure/icons/icone-lock.png" 
+							render="dtTable">
+						<f:setPropertyActionListener target="#{workflowBean.theme}" value="#{record}" />
+					</a4j:commandButton>
+
+					<a4j:commandButton style="border:0;" execute="@this"
+							rendered="#{record.locked and record.userLocked}" 
+							action="#{workflowBean.unlockTheme}" 
+							title="Desbloquear Tema" image="/images/secure/icons/icone-unlock.png" 
+							render="dtTable">
+						<f:setPropertyActionListener target="#{workflowBean.theme}" value="#{record}" />
+					</a4j:commandButton>
+				</sec:ifAnyGranted>
+
+				<sec:ifAnyGranted roles="ROLE_ADMINISTRATOR, ROLE_TOPIC_MODIFY, ROLE_TOPIC_VIEW">
+					<h:commandLink rendered="#{record.locked and record.userLocked}" 
+						action="#{topicBean.getTopicByTheme}" title="Tópicos">
+						<h:graphicImage value="/images/secure/icons/icone-topicos.png" alt="Tópicos" style="margin-bottom: 3px;"/>
+						<f:param name="idTheme" id="idTheme" value="#{record.id}"/>
+					</h:commandLink>
+				</sec:ifAnyGranted>
+
+				<sec:ifAnyGranted roles="ROLE_ADMINISTRATOR, ROLE_THEME_VIEW, ROLE_THEME_MODIFY">
+					<h:commandLink action="#{publicBean.loadContentByTheme}" title="Visualizar Conteúdo" target="_blank">
+						<f:param name="themeId" value="#{record.id}"/>
+						<h:graphicImage value="/images/secure/icons/icone-view.png" title="Visualizar" style="margin-bottom: 3px; margin-left: 8px;" />
+					</h:commandLink>
+				</sec:ifAnyGranted>
+
+			</rich:column>
+			<f:facet name="footer">
+				<rich:dataScroller id="dsWorkflow" renderIfSinglePage="false" maxPages="10" />
+			</f:facet>
+		</rich:dataTable>
+	</h:form>
+
+</ui:define>
+
+</ui:composition>
+</html>

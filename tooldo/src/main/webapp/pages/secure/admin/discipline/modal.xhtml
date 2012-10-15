@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+
+<ui:composition>
+
+		<rich:popupPanel modal="true" id="panelSaveDiscipline" width="500" height="380" moveable="true">
+	        
+	        <f:facet name="header">
+	            <h:panelGroup><h:outputText value="Cadastro de Disciplina"></h:outputText></h:panelGroup>
+	        </f:facet>
+	        
+	        <f:facet name="controls">
+	            <h:panelGroup id="pngModalSave">
+	                <h:graphicImage value="/images/common/close.png" styleClass="hidelink" onclick="#{rich:component('panelSaveDiscipline')}.hide(); return false;"/>
+	            </h:panelGroup>
+	        </f:facet>
+	        
+	       	<h:form id="modalSaveDiscipline">
+		       	
+		       	<rich:messages id="otpMsg" errorClass="diverror" infoClass="divsucess" layout="list" >
+					<f:facet name="errorMarker"><h:graphicImage url="/images/secure/icons/icone-error.gif"/></f:facet>
+					<f:facet name="infoMarker"><h:graphicImage url="/images/secure/icons/icone-success.png"/></f:facet>
+				</rich:messages>
+				
+		       	<a4j:outputPanel id="outPnlDiscipline" ajaxRendered="false">
+			       	<table>
+			       		<tr>
+			       			<td width="50" align="right"><h:outputText value="Nome: " /></td>
+			       			<td align="left">
+				       			<h:inputText label="Nome" id="name" value="#{disciplineBean.discipline.name}" required="true" styleClass="input_txt" maxlength="100"/>
+			       			</td>
+			       		</tr>
+			       		<tr>
+			       			<td align="right"><h:outputText value="Responsável:" /></td>
+			       			<td align="left">
+			       				<h:selectOneMenu label="Usuário" id="selectOwner" value="#{disciplineBean.discipline.owner.id}" styleClass="select_box">
+			       					<f:selectItems value="#{disciplineBean.usersItem}" />
+			       				</h:selectOneMenu>
+			       			</td>
+			       		</tr>
+			       		<tr>
+			       			<td align="right"><h:outputText value="Curso:" /></td>
+			       			<td align="left">
+			       				<h:selectOneMenu label="Curso" id="selectCourse" value="#{disciplineBean.discipline.course.id}" styleClass="select_box">
+			       					<f:selectItems value="#{disciplineBean.coursesItem}" />
+			       				</h:selectOneMenu>
+			       			</td>
+			       		</tr>
+			       		<tr>
+			       			<td align="right"><h:outputText value="Descrição:" /></td>
+			       			<td align="left"><h:inputText label="Descrição" id="description" value="#{disciplineBean.discipline.description}" styleClass="input_txt" maxlength="200" /></td>
+			       		</tr>
+			       		<tr>
+			       			<td align="right"><h:outputText value="Ativo: " /></td>
+			       			<td align="left">
+			       				<h:selectOneRadio label="Ativo" required="true" id="enabled" value="#{disciplineBean.discipline.enabled}"  >
+			       					<f:selectItem itemLabel="Sim" itemValue="#{true}"/>
+			       					<f:selectItem itemLabel="Não" itemValue="#{false}"/>
+			       				</h:selectOneRadio>
+			       			</td>
+			       		</tr>
+			       		<tr>
+			       			<td align="right"></td>
+			       			<td align="left">
+			       				<a4j:commandButton id="btnSave" value="Salvar"  action="#{disciplineBean.save}" reRender="dtDisciplines" ></a4j:commandButton>
+			       			</td>
+			       		</tr>
+			       	</table>
+		       	</a4j:outputPanel>
+	       	</h:form>
+	    </rich:popupPanel>
+
+</ui:composition>
+</html>

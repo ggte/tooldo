@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+
+<ui:composition>
+	
+	<rich:popupPanel modal="true" id="panelSave" width="600" height="350">
+	        
+		<f:facet name="header"><h:outputText value="Cadastro de Perfil"/></f:facet>
+	        
+			<f:facet name="controls">
+	        	<h:graphicImage value="/images/common/close.png" styleClass="hidelink" onclick="#{rich:component('panelSave')}.hide(); return false;"/>
+	        </f:facet>
+	        
+	       	<h:form id="formSaveProfile">
+		       	
+		       	<rich:messages id="otpMsg" errorClass="diverror" infoClass="divsucess" layout="list" >
+					<f:facet name="errorMarker"><h:graphicImage url="/images/secure/icons/icone-error.gif"/></f:facet>
+					<f:facet name="infoMarker"><h:graphicImage url="/images/secure/icons/icone-success.png"/></f:facet>
+				</rich:messages>
+				
+		       	<a4j:outputPanel id="outPnl" ajaxRendered="false">
+		       		
+		       		<h:panelGrid columns="2">
+		       			
+		       			<h:outputLabel value="Nome: " for="name" />
+		       			<h:inputText label="Nome" id="name" value="#{profileBean.profile.name}" required="true" styleClass="input_txt" maxlength="100" style="width:395px"/>
+				       	
+				       	<h:outputLabel value="Regras: " for="roles" />
+		       			<rich:pickList value="#{profileBean.profile.roles}" id="roles" required="false"
+		       					sourceCaption="Regras Disponíveis" targetCaption="Regras Ativas" 
+		       					listWidth="130px" listHeight="100px" orderable="false">
+                			<f:selectItems value="#{profileBean.roles}" var="role" itemValue="#{role}" itemLabel="${role.description}" />
+                			<!-- f : converter converterId="rolesConverter"  -->
+            			</rich:pickList>
+		       			
+		       		</h:panelGrid>
+		       		
+		       		<h:commandButton value="Salvar" action="#{profileBean.save}" />
+		       	</a4j:outputPanel>
+	       	</h:form>
+	    </rich:popupPanel>
+	
+</ui:composition>
+</html>

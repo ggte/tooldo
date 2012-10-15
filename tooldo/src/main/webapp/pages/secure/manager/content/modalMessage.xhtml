@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+
+<ui:composition template="/template/secure/modalMessage.xhtml">
+		<ui:define name="titleMessage">Excluir Tópico</ui:define>
+		<ui:define name="textMessage">
+			<h:outputText value="Tem certeza que deseja excluir essa questão?"/>
+		</ui:define>
+		<ui:define name="buttonMessage">
+			<h:commandButton value="Excluir" action="#{contentBean.removeQuestion}" execute="formContenManager" onclick="javascript:loadTextArea();" />
+		</ui:define>
+</ui:composition>
+</html>

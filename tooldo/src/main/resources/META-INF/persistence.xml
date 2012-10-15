@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="http://java.sun.com/xml/ns/persistence"
+ 		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ 		xsi:schemaLocation="http://java.sun.com/xml/ns/persistence
+ 		http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd" version="1.0">
+
+  <persistence-unit name="tooldo-pu" transaction-type="RESOURCE_LOCAL">
+    <provider>org.hibernate.ejb.HibernatePersistence</provider>
+
+	<exclude-unlisted-classes>false</exclude-unlisted-classes>
+	
+	<!-- Usar o jta-data-source se for Tomcat como servidor de Aplicação
+	<jta-data-source>java://comp/env/jdbc/tooldo</jta-data-source>
+	<non-jta-data-source>java://comp/env/jdbc/tooldo</non-jta-data-source>
+	-->
+	
+    <properties>
+      <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect"/>
+      
+      <property name="hibernate.connection.datasource" value="java:comp/env/jdbc/tooldo"/>
+       
+<!--
+	  Conexão com datasource (deve-se indentificar no web.xml) - só funciona com o jetty, se for tomcat deve-se usar o jta-data-source
+      <property name="hibernate.connection.datasource" value="java:comp/env/jdbc/tooldo"/>
+      
+      Conexão manual
+	  <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver"/>
+      <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/tooldo?useUnicode=true&amp;characterEncoding=UTF-8"/>
+      <property name="hibernate.connection.username" value="root"/>
+      <property name="hibernate.connection.password" value="root"/>
+-->
+      <property name="hibernate.show_sql" value="false"/>
+      <property name="hibernate.format_sql" value="false"/>
+    </properties>
+  </persistence-unit>
+</persistence>

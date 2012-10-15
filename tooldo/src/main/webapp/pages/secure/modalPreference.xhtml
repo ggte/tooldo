@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+
+<ui:composition>
+		<rich:popupPanel modal="true" onmaskclick="#{rich:component('panelPreference')}.hide()" id="panelPreference" width="500" height="310">
+	        
+	        <f:facet name="header"><h:outputText value="Atualizar Cadastro"></h:outputText></f:facet>
+	        <f:facet name="controls">
+	        	<h:graphicImage value="/images/common/close.png" styleClass="hidelink" onclick="#{rich:component('panelPreference')}.hide(); return false;"/>
+	        </f:facet>
+	        
+	       	<h:form id="modalSavePreference">
+	       		
+		       	<rich:messages id="otpMsgPreference" errorClass="diverror" infoClass="divsucess" layout="list" >
+		       		<f:facet name="errorMarker"><h:graphicImage url="/images/secure/icons/icone-error.gif"/></f:facet>
+		       		<f:facet name="infoMarker"><h:graphicImage url="/images/secure/icons/icone-success.png"/></f:facet>
+				</rich:messages>
+				
+		       	<a4j:outputPanel id="outPnlPreference" ajaxRendered="false">
+		       		
+		       		<script type="text/javascript">
+						  //<![CDATA[
+						  jQuery(document).ready(function() {
+							var selector = "#modalSavePreference\\:prefphonenumber";
+							try {
+								selector = eval("#modalSavePreference\\:prefphonenumber");
+							} catch (e) {}
+							jQuery(selector).mask('(99) 9999-9999');
+						 });
+						//]]>
+					</script>
+		       	
+		       		<h:panelGrid columns="2">
+		       		
+		       			<h:outputText value="Login: " />
+		       			<h:inputText label="Login" id="prefusername" value="#{userBean.currentUser.username}" readonly="true" required="true" styleClass="input_txt" maxlength="100" style="width:395px"/>
+		       			
+		       			<h:outputText value="Email: " />
+		       			<h:inputText label="Email" id="prefemailuser" value="#{userBean.currentUser.email}" readonly="true" required="true" styleClass="input_txt" maxlength="100" style="width:395px"/>
+		       			
+		       			<h:outputText value="Nome: " />
+		       			<h:inputText label="Nome" id="prefname" value="#{userBean.currentUser.name}" required="true" styleClass="input_txt" maxlength="100" style="width:395px">
+		       				<rich:validator />
+		       			</h:inputText>
+		       			
+		       			<h:outputText value="Telefone: " />
+		       			<h:inputText label="Telefone" id="prefphonenumber" value="#{userBean.currentUser.phonenumber}" styleClass="input_txt" maxlength="100" style="width:395px" />
+		       			
+		       			<h:outputText value="Senha: " />
+		       			<h:inputSecret label="Senha" id="prefpassword" value="#{userBean.passwordUser}" required="true" styleClass="input_txt" maxlength="100" style="width:395px">
+		       				<rich:validator />
+		       			</h:inputSecret>
+		       			
+		       			<h:outputText value="Confirma Senha: " />
+		       			<h:inputSecret label="Confirma Senha" id="prefconfirmPassword" value="#{userBean.confirmPasswordUser}" required="true" styleClass="input_txt" maxlength="100" style="width:395px">
+		       				<rich:validator />
+		       			</h:inputSecret>
+		       			
+		       		</h:panelGrid>
+		       		
+		       		<a4j:commandButton value="Salvar" action="#{userBean.savePreference}" execute="modalSavePreference"/>
+		       	
+		       	</a4j:outputPanel>
+	       	</h:form>
+	    </rich:popupPanel>
+</ui:composition>
+</html>
