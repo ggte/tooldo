@@ -10,7 +10,7 @@
 
 	<rich:popupPanel modal="true" onmaskclick="#{rich:component('panelWorkflowReadjust')}.hide();" id="panelWorkflowReadjust" width="438" height="250">
 	        
-		<f:facet name="header"><h:outputText value="Readequar Tema"/></f:facet>
+		<f:facet name="header"><h:outputText value="Readequar Aula"/></f:facet>
 		<f:facet name="controls">
 			<h:graphicImage value="/images/common/close.png" styleClass="hidelink" onclick="#{rich:component('panelWorkflowReadjust')}.hide(); return false;" />
 		</f:facet>
@@ -25,7 +25,7 @@
 			<a4j:outputPanel id="outPnlWorkflowReadjust" ajaxRendered="false">
 				
 				<h:panelGrid columns="1">
-					<h:outputText value="Deseja solicitar readequação do tema #{workflowBean.theme.name} ?" style="font-weight: bold;" />
+					<h:outputText value="Deseja solicitar readequação da aula #{workflowBean.theme.name} ?" style="font-weight: bold;" />
 					<h:outputText value="Comentário:" />
 					<h:inputTextarea style="width:400px;height:100px" value="#{workflowBean.historyComments}" id="comments"/>
 				</h:panelGrid>

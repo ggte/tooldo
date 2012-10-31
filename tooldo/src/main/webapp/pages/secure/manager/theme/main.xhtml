@@ -13,7 +13,7 @@
 		<h:outputText rendered="#{themeBean.discipline != null}" value=" > " />
 		<h:outputText rendered="#{themeBean.discipline != null}" value="#{themeBean.discipline.name}" />
 		<h:outputText rendered="#{themeBean.discipline != null}" value=" > " />
-		<h:outputText value="Temas" />
+		<h:outputText value="Aulas" />
 	</ui:define>
 
 	<ui:define name="breadcrumb">
@@ -64,7 +64,7 @@
 			<rich:dataTable value="#{themeBean.themes}" var="record" rows="20" style="width: 980px;" id="dtTable">
 				
 				<rich:column style="width: 170px;">
-					<f:facet name="header"><h:outputText value="Tema" /></f:facet>
+					<f:facet name="header"><h:outputText value="Aula" /></f:facet>
 					<h:outputText value="#{record.name}" />
 				</rich:column>
 				
@@ -107,7 +107,7 @@
 						<a4j:commandButton style="border:0;" execute="@this"
 								rendered="#{record.lock != null}" 
 								action="#{themeBean.unlockTheme}" 
-								title="Desbloquear Tema" image="/images/secure/icons/icone-unlock.png" 
+								title="Desbloquear Aula" image="/images/secure/icons/icone-unlock.png" 
 								render="dtTable">
 							<f:setPropertyActionListener target="#{themeBean.theme}" value="#{record}" />
 						</a4j:commandButton>

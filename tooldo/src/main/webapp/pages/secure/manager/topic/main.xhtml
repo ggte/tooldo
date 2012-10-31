@@ -113,7 +113,7 @@
 				</rich:column>
 				
 				<rich:column width="200">
-					<f:facet name="header"> <h:outputText value="Tema" /> </f:facet>
+					<f:facet name="header"> <h:outputText value="Aula" /> </f:facet>
 					<h:outputText value="#{record.theme.name}" />
 				</rich:column>
 				
@@ -184,7 +184,7 @@
 					<sec:ifAnyGranted roles="ROLE_ADMINISTRATOR,ROLE_PAGE_VIEW,,ROLE_PAGE_MODIFY">
 					
 						<h:commandLink  action="#{pageBean.getPageByTopic}" title="Página">
-							<h:graphicImage value="/images/secure/icons/icone-paginas.png" alt="Tema" />
+							<h:graphicImage value="/images/secure/icons/icone-paginas.png" alt="Aula" />
 							<f:param name="idTopic" id="idTopic" value="#{record.id}"/>
 						</h:commandLink>
 						

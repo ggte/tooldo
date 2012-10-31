@@ -27,7 +27,7 @@
 		<rich:dataTable value="#{workflowBean.themesWorkflow}" var="record" rows="20" id="dtTable" style="width: 940px;">
 
 			<rich:column style="width: 300px;">
-				<f:facet name="header"><h:outputText value="Tema" /></f:facet>
+				<f:facet name="header"><h:outputText value="Aula" /></f:facet>
 				<h:outputText value="#{record.name}" />
 			</rich:column>
 			
@@ -80,7 +80,7 @@
 				<sec:ifAnyGranted roles="ROLE_ADMINISTRATOR, ROLE_WORKFLOW_ONLY, ROLE_WORKFLOW_PUBLISH, ROLE_WORKFLOW_START">
 					<a4j:commandButton rendered="#{record.locked == false}" style="border:0;" 
 							action="#{workflowBean.lockTheme}" execute="@this"
-							title="Bloquear Tema" image="/images/secure/icons/icone-lock.png" 
+							title="Bloquear Aula" image="/images/secure/icons/icone-lock.png" 
 							render="dtTable">
 						<f:setPropertyActionListener target="#{workflowBean.theme}" value="#{record}" />
 					</a4j:commandButton>
@@ -88,7 +88,7 @@
 					<a4j:commandButton style="border:0;" execute="@this"
 							rendered="#{record.locked and record.userLocked}" 
 							action="#{workflowBean.unlockTheme}" 
-							title="Desbloquear Tema" image="/images/secure/icons/icone-unlock.png" 
+							title="Desbloquear Aula" image="/images/secure/icons/icone-unlock.png" 
 							render="dtTable">
 						<f:setPropertyActionListener target="#{workflowBean.theme}" value="#{record}" />
 					</a4j:commandButton>

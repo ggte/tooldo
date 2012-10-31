@@ -47,7 +47,7 @@
 
 			</sec:ifAllGranted>
 
-			<h:commandLink  action="#{topicBean.getTopicByTheme}" title="Tema"
+			<h:commandLink  action="#{topicBean.getTopicByTheme}" title="Aula"
 				rendered="#{pageBean.topic != null}" value="#{pageBean.topic.theme.name}">
 				<f:param name="idTheme" value="#{pageBean.topic.theme.id}"/>
 			</h:commandLink>

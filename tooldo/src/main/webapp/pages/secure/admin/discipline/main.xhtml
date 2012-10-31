@@ -100,8 +100,8 @@
 						</sec:ifAnyGranted>
 
 						<sec:ifAnyGranted roles="ROLE_ADMINISTRATOR,ROLE_THEME_VIEW,ROLE_THEME_MODIFY">
-							<h:commandLink  action="#{themeBean.getThemeByDiscipline}" title="Tema">
-								<h:graphicImage value="/images/secure/icons/icone-temas.png" alt="Tema" />
+							<h:commandLink  action="#{themeBean.getThemeByDiscipline}" title="Aula">
+								<h:graphicImage value="/images/secure/icons/icone-temas.png" alt="Aula" />
 								<f:param name="idDiscipline" id="idDiscipline" value="#{record.id}"/>
 							</h:commandLink>
 						</sec:ifAnyGranted>
