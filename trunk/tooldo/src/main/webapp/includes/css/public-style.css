@@ -110,3 +110,9 @@ ins {
 	font-style: italic;
 	text-decoration: none;
 }
+
+.contentWrapClass label {
+	color: #6B6C6C;
+	font-size: 13px;
+	line-height: 18px;
+}
