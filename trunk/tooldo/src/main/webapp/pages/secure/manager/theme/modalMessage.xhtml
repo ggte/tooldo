@@ -8,9 +8,9 @@
 
 <ui:composition template="/template/secure/modalMessage.xhtml">
 		
-		<ui:define name="titleMessage">Excluir Tema</ui:define>
+		<ui:define name="titleMessage">Excluir Aula</ui:define>
 		
-		<ui:define name="textMessage"><h:outputText value="Tem certeza que deseja excluir o tema #{themeBean.theme.name} ?"/></ui:define>
+		<ui:define name="textMessage"><h:outputText value="Tem certeza que deseja excluir a aula #{themeBean.theme.name} ?"/></ui:define>
 		
 		<ui:define name="buttonMessage">
 			<h:commandButton value="Excluir" action="#{themeBean.remove}" />

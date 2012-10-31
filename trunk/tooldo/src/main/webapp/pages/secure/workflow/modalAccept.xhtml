@@ -9,7 +9,7 @@
 <ui:composition>
 		<rich:popupPanel modal="true" onmaskclick="#{rich:component('panelWorkflowAccept')}.hide()" id="panelWorkflowAccept" width="438" height="250">
 	        
-	        <f:facet name="header"><h:outputText value="Aprovar Tema"/></f:facet>
+	        <f:facet name="header"><h:outputText value="Aprovar Aula"/></f:facet>
 	        <f:facet name="controls">
 	        	<h:graphicImage value="/images/common/close.png" styleClass="hidelink" onclick="#{rich:component('panelWorkflowAccept')}.hide(); return false;"/>
 	        </f:facet>
@@ -24,7 +24,7 @@
 		       	<a4j:outputPanel id="outPnlWorkflowAccept" ajaxRendered="false">
 		       		
 		       		<h:panelGrid columns="1">
-		       			<h:outputText value="Deseja aprovar o tema #{workflowBean.theme.name} ?" />
+		       			<h:outputText value="Deseja aprovar a aula #{workflowBean.theme.name} ?" />
 		       			<h:outputText value="Comentário:" />
 		       			<h:inputTextarea style="width:400px;height:100px"  value="#{workflowBean.historyComments}" id="comments"/>
 		       		</h:panelGrid>

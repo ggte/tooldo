@@ -8,7 +8,7 @@
 <ui:composition>
 	<rich:popupPanel modal="true" onmaskclick="#{rich:component('modalPanelDuplicateTheme')}.hide()" id="modalPanelDuplicateTheme" width="600" height="100">
 	
-        <f:facet name="header"><h:outputText value="Duplicar Tema"/></f:facet>
+        <f:facet name="header"><h:outputText value="Duplicar Aula"/></f:facet>
         
         <f:facet name="controls">
         	<h:graphicImage value="/images/common/close.png" styleClass="hidelink" 
@@ -17,10 +17,10 @@
         
        	<h:form id="modalPanelDuplicateThemeFrom">
 	       	<a4j:outputPanel id="outDuplicateLinkTheme">
-       			<h:outputText value="Tem certeza de que deseja duplicar o Tema '#{themeBean.theme.name}' ? A duplicata irá substituir o original!" />
+       			<h:outputText value="Tem certeza de que deseja duplicar a Aula '#{themeBean.theme.name}' ? A duplicata irá substituir o original!" />
        			<br /><br />
 	       	</a4j:outputPanel>
-	       	<h:commandButton action="#{themeBean.duplicateTheme}" value="DUPLICAR TEMA" />
+	       	<h:commandButton action="#{themeBean.duplicateTheme}" value="DUPLICAR AULA" />
        	</h:form>
        	
     </rich:popupPanel>
