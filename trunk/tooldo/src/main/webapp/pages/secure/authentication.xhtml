@@ -1,119 +1,118 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:a4j="http://richfaces.org/a4j"
-	xmlns:rich="http://richfaces.org/rich">
-<f:view contentType="text/html">
-<h:head>
-	<meta http-equiv="Content-Type" content="text/xhtml; charset=ISO-8859-1"/>
-	<title>Tooldo</title>
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich">
+    <f:view contentType="text/html">
+        <h:head>
+            <meta http-equiv="Content-Type" content="text/xhtml; charset=ISO-8859-1"/>
+            <title>Tooldo</title>
 
-	<link rel="stylesheet" href="../../includes/css/authentication.css" />
-	<!--[if IE 6]>
-	<link href="${facesContext.externalContext.requestContextPath}/includes/css/ie6.css" rel="stylesheet" media="all" />
+            <link rel="stylesheet" href="../../includes/css/authentication.css" />
+            <!--[if IE 6]>
+            <link href="${facesContext.externalContext.requestContextPath}/includes/css/ie6.css" rel="stylesheet" media="all" />
+    
+            <script src="${facesContext.externalContext.requestContextPath}/includes/js/pngfix.js"></script>
+            <script>
+              /* EXAMPLE */
+              DD_belatedPNG.fix('.logo, .other ul#dashboard-buttons li a');
+    
+            </script>
+            <![endif]-->
+            <!--[if IE 7]>
+            <link href="${facesContext.externalContext.requestContextPath}/includes/css/ie7.css" rel="stylesheet" media="all" />
+            <![endif]-->
 
-	<script src="${facesContext.externalContext.requestContextPath}/includes/js/pngfix.js"></script>
-	<script>
-	  /* EXAMPLE */
-	  DD_belatedPNG.fix('.logo, .other ul#dashboard-buttons li a');
+        </h:head>
+        <h:body>
+            <div id="login">
+                <div id="logoToolDo"></div>
+                <div id="divFrmLogin">
 
-	</script>
-	<![endif]-->
-	<!--[if IE 7]>
-	<link href="${facesContext.externalContext.requestContextPath}/includes/css/ie7.css" rel="stylesheet" media="all" />
-	<![endif]-->
-	
-</h:head>
-<h:body>
-	<div id="login">
-		<div id="divFrmLogin">
+                    <a4j:outputPanel ajaxRendered="true" rendered="#{SPRING_SECURITY_LAST_EXCEPTION != null}" styleClass="boxMsg">
+                        <h:outputText value="#{authenticationBean.errorMessage}" rendered="true" styleClass="label_erro" />
+                    </a4j:outputPanel>
 
-			<a4j:outputPanel ajaxRendered="true" rendered="#{SPRING_SECURITY_LAST_EXCEPTION != null}" styleClass="boxMsg">
-				<h:outputText value="#{authenticationBean.errorMessage}" rendered="true" styleClass="label_erro" />
-			</a4j:outputPanel>
+                    <rich:messages id="outMsgMessage" errorClass="diverror" fatalClass="diverror" infoClass="divsucess" layout="list" >
+                        <f:facet name="errorMarker"><h:graphicImage url="/images/secure/icons/icone-error.gif"/></f:facet>
+                        <f:facet name="infoMarker"><h:graphicImage url="/images/secure/icons/icone-success.png"/></f:facet>
+                        <f:facet name="fatalMarker"><h:graphicImage styleClass="imgMiddle" value="/images/secure/img_login_error.png"/></f:facet>
+                    </rich:messages>
 
-			<rich:messages id="outMsgMessage" errorClass="diverror" fatalClass="diverror" infoClass="divsucess" layout="list" >
-				<f:facet name="errorMarker"><h:graphicImage url="/images/secure/icons/icone-error.gif"/></f:facet>
-			    <f:facet name="infoMarker"><h:graphicImage url="/images/secure/icons/icone-success.png"/></f:facet>
-				<f:facet name="fatalMarker"><h:graphicImage styleClass="imgMiddle" value="/images/secure/img_login_error.png"/></f:facet>
-			</rich:messages>
+                    <h:form id="autheticationForm" prependId="false">
 
-			<h:form id="autheticationForm" prependId="false">
+                        <table border="0" cellpadding="0" cellspacing="0" width="280">
+                            <tr>
+                                <td><h:graphicImage value="/images/secure/tx_login.png" title="Login"/></td>
+                                <td>
+                                    <h:inputText label="Login" id="j_username" value="#{authenticationBean.j_username}" required="true" styleClass="input_txt" >
+                                    </h:inputText>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><h:graphicImage value="/images/secure/tx_senha.png" title="Senha"/></td>
+                                <td>
+                                    <h:inputSecret label="Senha" id="j_password" required="true" value="#{authenticationBean.j_password}" styleClass="input_txt" >
+                                    </h:inputSecret>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" align="right">
+                                    <a4j:commandLink title="Esqueci minha senha"
+                                                     onclick="#{rich:component('panelRestorePassword')}.show()"
+                                                     styleClass="toolBarLink" execute="@this" render="email">
+                                        <h:graphicImage url="/images/secure/esqueci_senha.png" style="vertical-align: middle; margin-right: 20px;"/>
+                                    </a4j:commandLink>
 
-				<table border="0" cellpadding="0" cellspacing="0" width="325">
-					<tr>
-						<td><h:graphicImage value="/images/secure/tx_login.jpg" title="Login"/></td>
-						<td>
-							<h:inputText label="Usuário" id="j_username" value="#{authenticationBean.j_username}" required="true" styleClass="input_txt" >
-							</h:inputText>
-							<h:graphicImage url="/images/public/spacer.gif" width="5px" border="0"/>
-						</td>
-					</tr>
-					<tr>
-						<td><h:graphicImage value="/images/secure/tx_senha.jpg" title="Senha"/></td>
-						<td>
-							<h:inputSecret label="Senha" id="j_password" required="true" value="#{authenticationBean.j_password}" styleClass="input_txt" >
-							</h:inputSecret>
-							<h:graphicImage url="/images/public/spacer.gif" width="5px" border="0"/>
-						</td>
-					</tr>
-					<tr>
-						<td colspan="2">
-						 	<table width="100%">
-						 		<tr><td align="left">
-									    <a4j:commandLink title="Esqueci minha senha"
-											onclick="#{rich:component('panelRestorePassword')}.show()"
-											styleClass="toolBarLink" execute="@this" render="email">
-											<h:outputText value="Esqueci minha senha" />
-										</a4j:commandLink>
-									</td>
-									<td align="right">
-										<h:commandButton id="btnEntrar" action="#{authenticationBean.authenticates}"
-								 		image="/images/secure/btn_login_entrar.jpg" styleClass="border: none; padding: 5px 0;" />
-								 	</td>
-								 </tr>
-							</table>
-						</td>
-					</tr>
-				</table>
-			</h:form>
-		</div>
-	</div>
+                                    <h:commandButton id="btnEntrar" action="#{authenticationBean.authenticates}"
+                                                     image="/images/secure/btn_login_entrar.png" style="border: none;" />
 
-
-		<rich:popupPanel id="panelRestorePassword" width="450" height="250" modal="true" onmaskclick="#{rich:component('panelRestorePassword')}.hide()">
-	        <f:facet name="header">
-	            <h:panelGroup>
-	                <h:outputText value="Esqueci minha senha"></h:outputText>
-	            </h:panelGroup>
-	        </f:facet>
-	        <f:facet name="controls">
-	            <h:panelGroup>
-	                <h:graphicImage value="/images/common/close.png" styleClass="hidelink" id="hidelink" onclick="#{rich:component('panelRestorePassword')}.hide(); return false;"/>
-	            </h:panelGroup>
-	        </f:facet>
-		    <h:form id="modalRestorePassword" prependId="false">
-		    	<h:panelGrid columns="2">
-		    		
-		    		<h:outputLabel for="email" value="Entre com o seu e-mail: " />
-		    		<h:inputText label="Email" id="email" value="#{resetPasswordBean.email}" required="true" styleClass="input_txt" />
-		    		
-		    		<h:graphicImage url="/images/public/spacer.gif" width="5px" border="0"/>
-		    		<h:panelGrid columns="2">
-		    			<a4j:commandButton styleClass="toolBarLink" execute="@this" value="Cancelar" onclick="#{rich:component('panelRestorePassword')}.hide();" />
-			        	<a4j:commandButton styleClass="toolBarLink" value="Confirmar" action="#{resetPasswordBean.send}" onclick="#{rich:component('panelRestorePassword')}.hide();" />
-		    		</h:panelGrid>
-		    		
-		    	</h:panelGrid>
-		        
-			        
-	       		</h:form>
-	    </rich:popupPanel>
+                                </td>
+                            </tr>
+                        </table>
+                    </h:form>
+                </div>
+                <div id="div-bts-footer">
+                    <div class="bts-footer"><a4j:commandLink title="Colabore"><h:graphicImage url="/images/secure/btn_colabore.png"/></a4j:commandLink></div>
+                    <div class="bts-footer"><a4j:commandLink title="Manual"><h:graphicImage url="/images/secure/btn_manual.png"/></a4j:commandLink></div>
+                    <div class="bts-footer"><a4j:commandLink title="Termos de uso"><h:graphicImage url="/images/secure/btn_termos.png"/></a4j:commandLink></div>
+                </div>
+            </div>
 
 
-</h:body>
-</f:view>
+            <rich:popupPanel id="panelRestorePassword" width="450" height="250" modal="true" onmaskclick="#{rich:component('panelRestorePassword')}.hide()">
+                <f:facet name="header">
+                    <h:panelGroup>
+                        <h:outputText value="Esqueci minha senha"></h:outputText>
+                    </h:panelGroup>
+                </f:facet>
+                <f:facet name="controls">
+                    <h:panelGroup>
+                        <h:graphicImage value="/images/common/close.png" styleClass="hidelink" id="hidelink" onclick="#{rich:component('panelRestorePassword')}.hide(); return false;"/>
+                    </h:panelGroup>
+                </f:facet>
+                <h:form id="modalRestorePassword" prependId="false">
+                    <h:panelGrid columns="2">
+
+                        <h:outputLabel for="email" value="Entre com o seu e-mail: " />
+                        <h:inputText label="Email" id="email" value="#{resetPasswordBean.email}" required="true" styleClass="input_txt" />
+
+                        <h:graphicImage url="/images/public/spacer.gif" width="5px" border="0"/>
+                        <h:panelGrid columns="2">
+                            <a4j:commandButton styleClass="toolBarLink" execute="@this" value="Cancelar" onclick="#{rich:component('panelRestorePassword')}.hide();" />
+                            <a4j:commandButton styleClass="toolBarLink" value="Confirmar" action="#{resetPasswordBean.send}" onclick="#{rich:component('panelRestorePassword')}.hide();" />
+                        </h:panelGrid>
+
+                    </h:panelGrid>
+
+
+                </h:form>
+            </rich:popupPanel>
+
+
+        </h:body>
+    </f:view>
 </html>
