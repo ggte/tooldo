@@ -1,0 +1,216 @@
+body {
+    margin: 0 auto;
+    font-family:Arial, Helvetica, sans-serif;
+    font-size: 13px;
+    color:#4e4e4e;
+
+    /* CSS3*/
+    -webkit-text-size-adjust: none;
+    -webkit-font-smoothing: antialiased;
+}
+
+a:focus{ outline: none;}
+
+#fundo-div1 {
+    float: left;
+    background: url("../img/temas/10/bg-top-L-10.jpg") left top repeat-x;
+    height: 294px;
+    width: 50%;
+    position: relative;
+    z-index: 1;
+}
+#fundo-div2 {
+    float: right;
+    background: url("../img/temas/10/bg-top-R-10.jpg") right top repeat-x;
+    height: 294px;
+    width: 50%;
+    position: relative;
+    z-index: 2;
+}
+
+#content-middle{
+    width:100%;
+    height: auto !important;
+    height: 100%;
+    min-height: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    overflow: hidden !important;
+    overflow: visible;
+    position: relative;
+    background:url('../img/temas/10/bg-top-10.jpg') center top no-repeat;
+    padding-bottom: 35px;  /* deve ser a mesma altura do rodap� */
+    z-index: 4;
+}
+
+/* Topo */
+#content-middle div#top-middle{
+    width:100%;
+    margin: 0 auto;
+}
+#top-middle div#topo, #top-middle div#descricao{
+    min-width:800px;
+    width:800px;
+    margin: 0 auto;
+
+}
+
+#top-middle div#topo{height:67px;}
+#top-middle div#descricao{height:144px; color:#8087A5; font-size:14px; font-weight:bold;}
+
+#top-middle div#topo img.marge{ margin:0 15px 0 15px;}
+
+#titulo{
+    float: left;
+    width: 164px;   
+    height: 135px;
+}
+#titulo-fundo{
+    position: absolute;
+    width: 164px;   
+    height: 149px;
+    background:#000;
+    opacity: 0.20;
+    -moz-opacity: 0.20;
+    filter: alpha(opacity=20);
+}
+#texto-titulo{
+    position: relative;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 600;
+    font-size: 20px;
+    color: rgb(102,102,102);
+    padding: 67px 10px 10px 10px;
+}
+#disciplina{
+    font-family: 'Gudea', sans-serif;
+    font-weight: bold;
+    font-size: 17px;
+    color: rgb(102,102,102);
+    float:left;
+    width:328px;
+    height:47px;
+    padding:0 10px 7px 30px;
+    margin: 67px 0 0 0;
+}
+#tema{
+    background:url('../img/temas/10/barra-tema-10.png') left top no-repeat ;
+    float:right; 
+    width:230px;
+    height:68px;
+    margin-top: 67px; 
+    padding:0 0 0 10px; 
+}
+#tema span{
+    float:right;
+    width:220px;
+    font-family: 'Voces', cursive;
+    font-size: 14px;
+    color: rgb(102,102,102);
+}
+/* Fim Topo */
+
+/* Conte�do */
+#content-middle div#middle{
+    float: none;
+    width:828px;
+    min-height: 560px;
+    height: auto !important;
+    height: 560px;
+    margin: 0 auto;
+    margin-top: -19px;
+    overflow: hidden !important;
+    overflow: visible;
+    background:url('../img/bg-top.png') top center no-repeat;
+}
+
+#middle div#conteudo{
+    width:828px;
+    float:none;
+    position: relative;
+    min-height: 540px;
+    height: auto !important;
+    height: 540px;
+    overflow: hidden !important;
+    margin-top: 14px;
+    padding-bottom:30px;
+    background:url('../img/bg-linha.png') top center repeat-y;
+}
+
+#fim-conteudo{
+    background:url('../img/bg-borda.png') bottom center no-repeat;
+    width:828px;
+    margin: 0;
+    float:left;
+    height:48px;
+}
+
+#fim-conteudo div#paginacao{
+    float:right;
+    background:#FFF;
+    height:34px;
+    width:150px;
+    margin: -5px 256px 0 0;
+}
+#paginacao table{ margin-top:3px;}
+#paginacao table tr td.bg{ background:url('../img/bg-txt.png') center center no-repeat; height:27px; width:150px;}
+#paginacao table tr td img{ margin: 0 10px 0 10px;}
+#paginacao table tr td p{color:#aaa; font-size:14px;}
+
+/* Fim Conte�do */
+
+/* Texto */
+#texto{
+    float:right;
+    width:520px;
+    padding:30px 75px 0 35px;
+    font-family: Helvetica, sans-serif;
+    color: rgb(90,90,90);
+    font-size:12px;
+}
+
+#texto h1{
+    font-family: 'Gudea', sans-serif;
+    font-weight: bold;
+    font-size:18px;
+    color: rgb(102,102,102);
+    padding:13px 0 13px 0px;
+    background:url('../img/barra-titulo.jpg') bottom left no-repeat;
+    margin-bottom:45px;
+}
+#texto hr{ height:1px; border-bottom:1px solid #C5C5C5; width:520px; float:left; }
+#texto div#div-p { padding: 15px 15px 15px 15px; text-align:left; width:490px; float:left;}
+#texto div#div-p:hover { background-color:#e8e8e8;}
+#texto div#div-p p, #texto div#div-p a { color:#4e4e4e; text-decoration:none;}
+
+.outro, .outro a, .outro a:hover{
+    font-size:11px;
+    color:#4e4e4e;
+    text-decoration:underline;
+    font-weight:bold;
+}
+#texto #div-txt{ float:left; text-align:justify; line-height:18px;}
+#texto #txt-img{ float:left; padding: 0 15px 15px 0;}
+
+/* Fim Texto */
+
+/* Bottom */
+#bottom{
+    font-size:10px;
+    width:100%;
+    height:35px;
+    margin: 0 auto;
+    position: relative;
+    margin-top: -35px; /* A mesma altura do rodap�, o valor deve ser negativo */
+    color:#89898A;
+    font-size:11px;
+}
+
+#bottom div#bottom-middle{
+    width:800px;
+    height:15px;
+    margin:auto;
+    text-align:right;
+    padding:10px 10px 30px 10px;
+}
+/* Fim Bottom */
