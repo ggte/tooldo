@@ -1,119 +1,112 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
+<f:view contentType="text/html"
+	  xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:a4j="http://richfaces.org/a4j"
-      xmlns:rich="http://richfaces.org/rich">
-    <f:view contentType="text/html">
-        <h:head>
-            <meta http-equiv="Content-Type" content="text/xhtml; charset=ISO-8859-1"/>
+	  xmlns:rich="http://richfaces.org/rich">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/xhtml; charset=ISO-8859-1"/>
+	
+	<title><ui:insert name="title"/></title>
 
-            <title>
-                <h:outputText value="TOOLDO :: "/><ui:insert name="title"/>
-            </title>
+	<ui:insert name="cssFile">
+		<link href="#{facesContext.externalContext.requestContextPath}/includes/css/style-cinza.css" rel="stylesheet" media="all" />
+	</ui:insert>
+	<ui:include src="/template/public/public-style.xhtml"/>
+	<script src="${facesContext.externalContext.requestContextPath}/includes/js/jquery-1.4.2.min.js" language="javascript"></script>
+	<script src="${facesContext.externalContext.requestContextPath}/includes/js/jquery.tooltip.min.js" language="javascript"></script>
 
-            <ui:insert name="cssFile">
-                <link href="#{facesContext.externalContext.requestContextPath}/includes/css/style-cinza.css" rel="stylesheet" media="all" />
-            </ui:insert>
-            <ui:include src="/template/public/public-style.xhtml"/>
-            <script src="${facesContext.externalContext.requestContextPath}/includes/js/jquery-1.4.2.min.js" language="javascript"></script>
-            <script src="${facesContext.externalContext.requestContextPath}/includes/js/jquery.tooltip.min.js" language="javascript"></script>
+	<script src="${facesContext.externalContext.requestContextPath}/includes/js/menu_public.js" language="javascript"></script>
 
-            <script src="${facesContext.externalContext.requestContextPath}/includes/js/menu_public.js" language="javascript"></script>
+	<script  language="javascript">
+		$(document).ready(function() {
+			$("ins").tooltip();
+		});
 
-            <script  language="javascript">
-                $(document).ready(function() {
-                    $("ins").tooltip();
-                });
+		window.onload = setaLinks;
+	</script>
 
-                window.onload = setaLinks;
-            </script>
+</h:head>
+<h:body>
+	<!-- Wrap -->
+	<div id="wrap">
+		<!-- Content-middle -->
+        <div id="content-middle">
 
-        </h:head>
+        <!-- Top -->
+        <div id="top-middle">
+        	<div id="topo">
+        		<h:graphicImage value="/images/public/unicamp.png" />
+        		<h:graphicImage value="/images/public/prpg.png" styleClass="marge" />
+        		<h:graphicImage value="/images/public/redefor.png" styleClass="marge" />
+        		<h:graphicImage value="/images/public/secretaria_educacao.png" />
+        	</div><!-- Fim Top -->
+        	
+        <div id="descricao">
+        	<div id="titulo"> <ui:insert name="title-img-discipline"> <h:graphicImage value="/images/public/tit-matematica.png" /> </ui:insert> </div>
+			<div id="disciplina"><h:outputText value="Disciplina: " /> <ui:insert name="discipline"> #{publicBean.theme.discipline.name} </ui:insert> </div>
+			<div id="tema">Tema: <span> <ui:insert name="theme"> #{publicBean.theme.name} </ui:insert> </span></div>
+			</div><!-- Fim Descricao -->
+		</div> <!-- Fim Top-middle -->
 
-        <h:body>
+		<div id="middle">
+			<div id="conteudo">
+				<div id="blsidebar_flotante">
+					<div id="blsidebarflt_main" style="display:block;">
+					
+						<ui:insert name="menuLeft">
+              			
+              				<h1>TÃ³picos :</h1>
+              				<h:form>
+              				
+              					<rich:list var="obj" value="#{publicBean.topics}" rows="10">
+              					
+              						<a href="javascript: void(0);" onclick="$(this).parent().find('ul').toggle()" class="mainMenu">
+              							<h:outputText value="#{obj.name}"/>
+              						</a>
+              						
+              						<rich:list var="obj2" value="#{obj.pagesEnabled}" rows="10" style="display:none;">
+              							<h:commandLink action="#{publicBean.loadContent}" title="#{obj2.name}" style="margin: 0 0 0 10px">
+							            	<h:outputText value="#{obj2.name}"/>
+											<f:param name="idPage" id="idPage" value="#{obj2.id}"/>
+										</h:commandLink>
+              						</rich:list>
+              						
+              					</rich:list>
+				        
+			        		</h:form>
+						</ui:insert>
 
-            <!-- Fundo Cabeçalho Lado Esquerdo -->
-            <div id="fundo-div1"></div>
+					</div>
+                 	<a id="blsidebarflt_lat" href="#"><img alt="Abrir sidebar" src="img/bt-seta.jpg" /></a>
+                </div><!-- Fim Menu -->
+                
+                <div id="texto">
+					<ui:insert name="titleBody">
+						<h1>
+							<h:outputText value="TÃ³pico: " rendered="#{publicBean.page.topic.name != null}" />
+							<h:outputText value="#{publicBean.page.topic.name}" rendered="#{publicBean.page.topic.name != null}" />
+						</h1>
+					</ui:insert>
+					<ui:insert name="body"/>
+                </div>
 
-            <!-- Fundo Cabeçalho Lado Direito -->
-            <div id="fundo-div2"></div>
+             </div><!-- Fim conteudo -->
+             <div id="fim-conteudo">
+             	<ui:insert name="footer">&nbsp;</ui:insert>
+             </div>
+         </div><!-- Fim Middle -->
+    </div><!-- Fim Content-Middle -->
 
-            <!-- Wrap -->
-            <div id="wrap">
-                <!-- Content-middle -->
-                <div id="content-middle">
+    </div><!-- Fim WRAP -->
 
-                    <!-- Top -->
-                    <div id="top-middle">
-                        <!-- Fim Top -->
+    <div id="bottom"><!-- Bottom -->
+        <div id="bottom-middle"><!-- Bottom-middle -->
+           	<p>Escritorio Digital 2010</p>
+        </div><!-- Fim Bottom-middle -->
+    </div><!-- Fim Bottom -->
 
-                        <div id="descricao">
-                            <div id="titulo">
-                                <div id="titulo-fundo"></div>
-                                <div id="texto-titulo">
-
-                                    <ui:insert name="title-text-discipline"> <h:outputText value="#{publicBean.theme.discipline.course.name}" /> </ui:insert>
-
-                                </div>
-                            </div>
-                            <div id="disciplina"><h:outputText value="Disciplina: " /> <ui:insert name="discipline"> #{publicBean.theme.discipline.name} </ui:insert> </div>
-                            <div id="tema"><span><h:outputText value="Aula: " /> <ui:insert name="theme"> #{publicBean.theme.name} </ui:insert> </span></div>
-                        </div><!-- Fim Descricao -->
-                    </div> <!-- Fim Top-middle -->
-
-                    <div id="middle">
-                        <div id="conteudo">
-                            <div id="blsidebar_flotante">
-                                <div id="blsidebarflt_main" style="display:block;">
-
-                                    <ui:insert name="menuLeft">
-                                        <h:form>
-                                            <rich:list var="obj" value="#{publicBean.topics}" rows="10">
-                                                <a href="javascript: void(0);" onclick="$(this).parent().find('ul').toggle()" class="mainMenu">
-                                                    <h:outputText value="#{obj.name}"/>
-                                                </a>
-
-                                                <rich:list var="obj2" value="#{obj.pagesEnabled}" rows="10" style="display:none;">
-                                                    <h:commandLink action="#{publicBean.loadContent}" title="#{obj2.name}" style="margin: 0 0 0 10px">
-                                                        <h:outputText value="#{obj2.name}"/>
-                                                        <f:param name="idPage" id="idPage" value="#{obj2.id}"/>
-                                                    </h:commandLink>
-                                                </rich:list>
-
-                                            </rich:list>
-                                        </h:form>
-                                    </ui:insert>
-                                </div>
-                            </div><!-- Fim Menu -->
-
-                            <div id="texto">
-                                <ui:insert name="titleBody">
-                                    <h1>
-                                        <h:outputText value="Tópico: " rendered="#{publicBean.page.topic.name != null}" />
-                                        <h:outputText value="#{publicBean.page.topic.name}" rendered="#{publicBean.page.topic.name != null}" />
-                                    </h1>
-                                </ui:insert>
-                                <ui:insert name="body"/>
-                            </div>
-
-                        </div><!-- Fim conteudo -->
-                        <div id="fim-conteudo">
-                            <ui:insert name="footer">&nbsp;</ui:insert>
-                        </div>
-                    </div><!-- Fim Middle -->
-                </div><!-- Fim Content-Middle -->
-
-
-
-                <div id="bottom"><!-- Bottom -->
-                    <div id="bottom-middle"><!-- Bottom-middle -->
-                        <h:graphicImage url="/images/public/logoInferior.png" alt="ToolDo" style="border:0px"/>
-                    </div><!-- Fim Bottom-middle -->
-                </div><!-- Fim Bottom -->
-            </div><!-- Fim WRAP -->
-        </h:body>
-    </f:view>
-</html>
+</h:body>
+</f:view>
