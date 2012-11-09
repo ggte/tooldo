@@ -10,7 +10,7 @@
         <ui:define name="discipline"><h:outputText value="#{publicBean.theme.discipline.name}" /></ui:define>
         <ui:define name="theme"><h:outputText value="#{publicBean.theme.name}" /></ui:define>
 
-        <ui:define name="title-text-discipline"> <h:outputText value="#{publicBean.theme.discipline.course.name}" /> </ui:define>
+        <ui:define name="title-text-discipline"> <h:outputText value="#{publicBean.theme.discipline.course.name.toUpperCase()}" /> </ui:define>
 
         <ui:define name="cssFile">
             <link href="#{facesContext.externalContext.requestContextPath}/includes/css/fonts.css" rel="stylesheet" media="all" />
