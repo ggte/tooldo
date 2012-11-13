@@ -7,7 +7,7 @@
 	xmlns:rich="http://richfaces.org/rich">
 
 <ui:composition>
-	<rich:popupPanel modal="true" id="panelSaveTheme" width="385" height="340">
+	<rich:popupPanel modal="true" id="panelSaveTheme" width="385" height="380">
         
         <f:facet name="header"><h:outputText value="Cadastro de Aulas"/></f:facet>
         
@@ -36,20 +36,24 @@
 				<h:outputText value="Descrição:" />
 				<h:inputText label="Descrição" value="#{themeBean.theme.description}" styleClass="input_txt" maxlength="200" />
 				
-				<h:outputText value="Cor:" />
-				<h:selectOneMenu value="#{themeBean.theme.cssFile}">
- 					<f:selectItem itemValue="style-tema-01.css" itemLabel="Tema1" />
-                                        <f:selectItem itemValue="style-tema-02.css" itemLabel="Tema2" />
-                                        <f:selectItem itemValue="style-tema-03.css" itemLabel="Tema3" />
-                                        <f:selectItem itemValue="style-tema-04.css" itemLabel="Tema4" />
-                                        <f:selectItem itemValue="style-tema-05.css" itemLabel="Tema5" />
-                                        <f:selectItem itemValue="style-tema-06.css" itemLabel="Tema6" />
-                                        <f:selectItem itemValue="style-tema-07.css" itemLabel="Tema7" />
-                                        <f:selectItem itemValue="style-tema-08.css" itemLabel="Tema8" />
-                                        <f:selectItem itemValue="style-tema-09.css" itemLabel="Tema9" />
-                                        <f:selectItem itemValue="style-tema-10.css" itemLabel="Tema10" />
+				<h:outputText value="Tema:" />
+                                <h:selectOneMenu value="#{themeBean.theme.cssFile}">
+ 					<f:selectItem itemValue="style-tema-01" itemLabel="Tema1" />
+                                        <f:selectItem itemValue="style-tema-02" itemLabel="Tema2" />
+                                        <f:selectItem itemValue="style-tema-03" itemLabel="Tema3" />
+                                        <f:selectItem itemValue="style-tema-04" itemLabel="Tema4" />
+                                        <f:selectItem itemValue="style-tema-05" itemLabel="Tema5" />
+                                        <f:selectItem itemValue="style-tema-06" itemLabel="Tema6" />
+                                        <f:selectItem itemValue="style-tema-07" itemLabel="Tema7" />
+                                        <f:selectItem itemValue="style-tema-08" itemLabel="Tema8" />
+                                        <f:selectItem itemValue="style-tema-09" itemLabel="Tema9" />
+                                        <f:selectItem itemValue="style-tema-10" itemLabel="Tema10" />
+                                        <f:ajax event="change" render="imagem-tema" />
  				</h:selectOneMenu>
-				
+                                
+                                <h:outputText value="Visualização:" />
+				<h:graphicImage id="imagem-tema" styleClass="imagem-tema" url="/includes/img/temas/#{themeBean.theme.cssFile}/layout.jpg"/>
+                                
 				<h:outputText value="Ativo: " />
 				<h:selectOneRadio label="Ativo" required="false" value="#{themeBean.theme.enabled}" id="enabled" >
   					<f:selectItem itemLabel="Sim" itemValue="#{true}"/>

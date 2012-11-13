@@ -15,7 +15,7 @@
             </title>
 
             <ui:insert name="cssFile">
-                <link href="#{facesContext.externalContext.requestContextPath}/includes/css/style-cinza.css" rel="stylesheet" media="all" />
+                <link href="#{facesContext.externalContext.requestContextPath}/includes/css/style-tema-01.css" rel="stylesheet" media="all" />
             </ui:insert>
             <ui:include src="/template/public/public-style.xhtml"/>
             <script src="${facesContext.externalContext.requestContextPath}/includes/js/jquery-1.4.2.min.js" language="javascript"></script>
@@ -55,7 +55,7 @@
                                 <div id="titulo-fundo"></div>
                                 <div id="texto-titulo">
 
-                                    <ui:insert name="title-text-discipline"> <h:outputText value="#{publicBean.theme.discipline.course.name}" /> </ui:insert>
+                                    <ui:insert name="title-text-discipline"> <h:outputText value="#{publicBean.theme.discipline.course.name.toUpperCase()}" /> </ui:insert>
 
                                 </div>
                             </div>
