@@ -93,3 +93,9 @@ span.rich-messages-marker, span.rich-messages-marker0 *{margin:0 5px 0 0;vertica
 	#conjunto_tags .tags{margin:5px; float:left; padding:3px; border:2px solid #CCC}
 	#conjunto_tags .spanTagsRight{background:url(../../images/secure/xit.gif) right; width:10px; height:10px; float:left; margin:3px 5px 0 0}
 	#conjunto_tags .spanTagsLeft{background:url(../../images/secure/xit.gif) left; width:10px; height:10px; float:left; margin:3px 5px 0 0}
+        
+.imagem-tema{
+    border: 1px solid #CCC;
+    width: 250px;
+    height: 141px;
+}

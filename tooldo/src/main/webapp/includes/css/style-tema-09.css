@@ -13,7 +13,7 @@ a:focus{ outline: none;}
 
 #fundo-div1 {
     float: left;
-    background: url("../img/temas/09/bg-top-L-09.jpg") left top repeat-x;
+    background: url("../img/temas/style-tema-09/bg-top-L-09.jpg") left top repeat-x;
     height: 294px;
     width: 50%;
     position: relative;
@@ -21,7 +21,7 @@ a:focus{ outline: none;}
 }
 #fundo-div2 {
     float: right;
-    background: url("../img/temas/09/bg-top-R-09.jpg") right top repeat-x;
+    background: url("../img/temas/style-tema-09/bg-top-R-09.jpg") right top repeat-x;
     height: 294px;
     width: 50%;
     position: relative;
@@ -38,7 +38,7 @@ a:focus{ outline: none;}
     overflow: hidden !important;
     overflow: visible;
     position: relative;
-    background:url('../img/temas/09/bg-top-09.jpg') center top no-repeat;
+    background:url('../img/temas/style-tema-09/bg-top-09.jpg') center top no-repeat;
     padding-bottom: 35px;  /* deve ser a mesma altura do rodap� */
     z-index: 4;
 }
@@ -94,7 +94,7 @@ a:focus{ outline: none;}
     margin: 67px 0 0 0;
 }
 #tema{
-    background:url('../img/temas/09/barra-tema-09.png') left top no-repeat ;
+    background:url('../img/temas/style-tema-09/barra-tema-09.png') left top no-repeat ;
     float:right; 
     width:230px;
     height:68px;
