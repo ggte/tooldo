@@ -56,6 +56,12 @@ public class Course extends ModelBase {
 	public String getName() {
 		return name;
 	}
+        /**
+	 * @return the name
+	 */
+	public String getNameUpperCase() {
+		return name.toUpperCase();
+	}
 	/**
 	 * @param name the name to set
 	 */
