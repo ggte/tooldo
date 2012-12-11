@@ -1,83 +1,85 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:a4j="http://richfaces.org/a4j"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:sec="http://www.springframework.org/security/facelets/tags">
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:sec="http://www.springframework.org/security/facelets/tags">
 
-<ui:composition template="/template/public/main.xhtml">
-	<ui:define name="title">Visualização :: <h:outputText value=" #{contentBean.page.topic.theme.discipline.course.name}" /></ui:define>
-	<ui:define name="discipline"><h:outputText value=" #{contentBean.page.topic.theme.discipline.name}" /></ui:define>
-	<ui:define name="theme"><h:outputText value=" #{contentBean.page.topic.theme.name}" /></ui:define>
+    <ui:composition template="/template/public/main.xhtml">
+        <ui:define name="title">Visualização :: <h:outputText value=" #{contentBean.page.topic.theme.discipline.course.name}" /></ui:define>
+        <ui:define name="discipline"><h:outputText value=" #{contentBean.page.topic.theme.discipline.name}" /></ui:define>
+        <ui:define name="theme"><h:outputText value=" #{contentBean.page.topic.theme.name}" /></ui:define>
 
-	<ui:define name="title-img-discipline"> <h:graphicImage value="/images/public/#{contentBean.imageTitle}" /> </ui:define>
+        <ui:define name="title-text-discipline"> <h:outputText value="#{contentBean.page.topic.theme.discipline.course.nameUpperCase}" /> </ui:define>
 
-	<ui:define name="cssFile">
-		<link href="#{facesContext.externalContext.requestContextPath}/includes/css/public-style.css" rel="stylesheet" media="all" />
-		<link href="#{facesContext.externalContext.requestContextPath}/includes/css/#{contentBean.page.topic.theme.cssFile}" rel="stylesheet" media="all" />
-	</ui:define>
+        <ui:define name="cssFile">
+            <link href="#{facesContext.externalContext.requestContextPath}/includes/css/fonts.css" rel="stylesheet" media="all" />
+            <link href="#{facesContext.externalContext.requestContextPath}/includes/css/public-style.css" rel="stylesheet" media="all" />
+            <link href="#{facesContext.externalContext.requestContextPath}/includes/css/#{contentBean.page.topic.theme.cssFile}.css" rel="stylesheet" media="all" />
+        </ui:define>
 
-	<ui:define name="menuLeft">
-		<h4><h:outputText value="Tópico: " /></h4>
-		<h3><h:outputText value="#{contentBean.page.topic.name}" /></h3>
-	</ui:define>
+        <ui:define name="menuLeft">
+            <ul>
+                <li><a class="mainMenu"><h:outputText value="» #{contentBean.page.topic.name}" /></a></li>
+            </ul>
+        </ui:define>
 
-	<ui:define name="titleBody">
-		<h1><h:outputText value="#{contentBean.content.page.name}" /></h1>
-	</ui:define>
+        <ui:define name="titleBody">
+            <h1><h:outputText value="#{contentBean.content.page.name}" /></h1>
+        </ui:define>
 
-	<ui:define name="body">
+        <ui:define name="body">
 
-		<div id="div-txt">
-        	<h:form>
-	        	<a4j:outputPanel id="outPanelContent">
+            <div id="div-txt">
+                <h:form>
+                    <a4j:outputPanel id="outPanelContent">
 
-	        		<rich:messages id="outMsgMessage" errorClass="diverror" infoClass="divsucess" layout="list" globalOnly="true">
-	        			<f:facet name="errorMarker"><h:graphicImage url="/images/secure/icons/icone-error.gif"/></f:facet>
-	        			<f:facet name="infoMarker"><h:graphicImage url="/images/secure/icons/icone-success.png"/></f:facet>
-					</rich:messages>
+                        <rich:messages id="outMsgMessage" errorClass="diverror" infoClass="divsucess" layout="list" globalOnly="true">
+                            <f:facet name="errorMarker"><h:graphicImage url="/images/secure/icons/icone-error.gif"/></f:facet>
+                            <f:facet name="infoMarker"><h:graphicImage url="/images/secure/icons/icone-success.png"/></f:facet>
+                        </rich:messages>
 
-		        	<a4j:outputPanel layout="block" id="conentWrap" style="width:540px;height:640px;overflow:hidden" styleClass="contentWrapClass">
+                        <a4j:outputPanel layout="block" id="conentWrap" style="width:540px;height:640px;overflow:hidden" styleClass="contentWrapClass">
 
-		        		<h:outputText value="#{contentBean.content.content}" escape="false" rendered="#{contentBean.content.typeContent.id != 4}"/>
+                            <h:outputText value="#{contentBean.content.content}" escape="false" rendered="#{contentBean.content.typeContent.id != 4}"/>
 
-		        		<a4j:outputPanel id="contentQuestions" rendered="#{contentBean.content.typeContent.id == 4}">
+                            <a4j:outputPanel id="contentQuestions" rendered="#{contentBean.content.typeContent.id == 4}">
 
-							<a4j:repeat value="#{contentBean.content.questions}" var="q" id="questionsRepeat" rowKeyVar="row" rendered="#{contentBean.content.typeContent.id == 4}">
-								
-								<a4j:mediaOutput element="img" cacheable="false" session="false" rendered="#{q.image != null}"
-									createContent="#{questionContentBean.paintImageDynamic}" value="#{q.image.file}" mimeType="#{q.image.mime}" />
-								
-								<h:outputText value="#{q.question}" escape="false" />
-								
-								<a4j:outputPanel rendered="#{contentBean.showTestResult}" layout="block" style="border-style:none;">
-									<h:graphicImage url="/includes/img/correct.png" style="float:left; padding:3px 8px;" rendered="#{q.correct}"/>
-									<h:graphicImage url="/includes/img/incorrect.png" style="float:left; padding:3px 8px;" rendered="#{!q.correct}"/>
-									<h:outputText value="Alternativa Escolhida: "/>
-									<strong><h:outputText value="#{q.alternative}"/></strong><br/>
-									<h:outputText value="Comentários: " rendered="#{q.alternativeComments != ''}"/>
-									<strong><h:outputText value="#{q.alternativeComments}"/></strong>
-								</a4j:outputPanel>
+                                <a4j:repeat value="#{contentBean.content.questions}" var="q" id="questionsRepeat" rowKeyVar="row" rendered="#{contentBean.content.typeContent.id == 4}">
 
-	            				<h:selectOneRadio value="#{q.alternative}" layout="pageDirection" rendered="#{!contentBean.showTestResult}">
-	            					<f:selectItems value="#{q.alternativeItens}" />
-	            				</h:selectOneRadio>
-	            				
-								<h1></h1>
-							</a4j:repeat>
-							
-	            			<h:commandButton action="#{questionContentBean.executeTest}" value="Executar Teste" rendered="#{contentBean.content.typeContent.id == 4 and !contentBean.showTestResult}"/>
-	            			<h:commandButton action="#{questionContentBean.restartTest}" value="Reiniciar Teste" rendered="#{contentBean.content.typeContent.id == 4 and contentBean.showTestResult}"/>
+                                    <a4j:mediaOutput element="img" cacheable="false" session="false" rendered="#{q.image != null}"
+                                                     createContent="#{questionContentBean.paintImageDynamic}" value="#{q.image.file}" mimeType="#{q.image.mime}" />
 
-		        		</a4j:outputPanel>
+                                    <h:outputText value="#{q.question}" escape="false" />
 
-		        	</a4j:outputPanel>
-	        	</a4j:outputPanel>
-        	</h:form>
-        </div>
+                                    <a4j:outputPanel rendered="#{contentBean.showTestResult}" layout="block" style="border-style:none;">
+                                        <h:graphicImage url="/includes/img/correct.png" style="float:left; padding:3px 8px;" rendered="#{q.correct}"/>
+                                        <h:graphicImage url="/includes/img/incorrect.png" style="float:left; padding:3px 8px;" rendered="#{!q.correct}"/>
+                                        <h:outputText value="Alternativa Escolhida: "/>
+                                        <strong><h:outputText value="#{q.alternative}"/></strong><br/>
+                                        <h:outputText value="Comentários: " rendered="#{q.alternativeComments != ''}"/>
+                                        <strong><h:outputText value="#{q.alternativeComments}"/></strong>
+                                    </a4j:outputPanel>
 
-	</ui:define>
+                                    <h:selectOneRadio value="#{q.alternative}" layout="pageDirection" rendered="#{!contentBean.showTestResult}">
+                                        <f:selectItems value="#{q.alternativeItens}" />
+                                    </h:selectOneRadio>
 
-</ui:composition>
+                                    <h1></h1>
+                                </a4j:repeat>
+
+                                <h:commandButton action="#{questionContentBean.executeTest}" value="Executar Teste" rendered="#{contentBean.content.typeContent.id == 4 and !contentBean.showTestResult}"/>
+                                <h:commandButton action="#{questionContentBean.restartTest}" value="Reiniciar Teste" rendered="#{contentBean.content.typeContent.id == 4 and contentBean.showTestResult}"/>
+
+                            </a4j:outputPanel>
+
+                        </a4j:outputPanel>
+                    </a4j:outputPanel>
+                </h:form>
+            </div>
+
+        </ui:define>
+
+    </ui:composition>
 </html>
