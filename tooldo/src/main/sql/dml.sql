@@ -29,8 +29,8 @@ INSERT INTO `RFR_ROLE` (`ID`, `NAME`, `DESCRIPTION`) VALUES
 (3, 'ROLE_COURSE_MODIFY', 'Curso: Editar'),
 (4, 'ROLE_DISCIPLINE_VIEW', 'Disciplina: Visualizar'),
 (5, 'ROLE_DISCIPLINE_MODIFY', 'Disciplina: Editar'),
-(6, 'ROLE_THEME_VIEW', 'Tema: Visualizar'),
-(7, 'ROLE_THEME_MODIFY', 'Tema: Editar'),
+(6, 'ROLE_THEME_VIEW', 'Aula: Visualizar'),
+(7, 'ROLE_THEME_MODIFY', 'Aula: Editar'),
 (8, 'ROLE_TOPIC_VIEW', 'Tópico: Visualizar'),
 (9, 'ROLE_TOPIC_MODIFY', 'Tópico: Editar'),
 (10, 'ROLE_PAGE_VIEW', 'Página: Visualizar'),
@@ -61,15 +61,15 @@ INSERT INTO `RFR_PROFILE` (`ID`, `NAME`, `FIXED`) VALUES
 -- Dumping data for table `rfr_user`
 --
 INSERT INTO `RFR_USER` (`ID`, `EMAIL`, `NAME`, `PHONENUMBER`, `USERNAME`, `PASSWORD`, `CREATED`, `ENABLED`, `FK_RFR_PROFILE`) VALUES
-(1,'andre.fabbro@escritoriodigital.net','Adminstrador','(19) 9305-6495','administrador','698dc19d489c4e4db73e28a713eab07b','2010-07-08','1',1),
-(2,'profautor@teste.com','Professor Autor','','profautor','698dc19d489c4e4db73e28a713eab07b','2010-08-23','1',2),
-(3,'preprod@teste.com','Pré Produtor','','preprod','698dc19d489c4e4db73e28a713eab07b','2010-08-23','1',4),
-(4,'revisort@teste.com','Revisor Ortográfico','','revisort','698dc19d489c4e4db73e28a713eab07b','2010-08-23','1',5),
-(5,'prodobj@teste.com','Produtor de Objetos','','prodobj','698dc19d489c4e4db73e28a713eab07b','2010-08-23','1',11),
-(6,'revisobj@teste.com','Revisor de Objetos','','revisobj','698dc19d489c4e4db73e28a713eab07b','2010-08-23','1',7),
-(7,'revprod@teste.com','Revisor de Produção','','revprod','698dc19d489c4e4db73e28a713eab07b','2010-08-23','1',6),
-(8,'revinav@teste.com','Revisor de Navegação','','revinav','698dc19d489c4e4db73e28a713eab07b','2010-08-23','1',8),
-(9,'profcoord@teste.com','Professor Coordenador','','profcoord','698dc19d489c4e4db73e28a713eab07b','2010-08-23','1',3);
+(1,'admin@teste.com','Adminstrador','','administrador','aa2f7cb364be095fbe508b4cae4e103a','2010-07-08','1',1),
+(2,'profautor@teste.com','Professor Autor','','profautor','aa2f7cb364be095fbe508b4cae4e103a','2010-08-23','1',2),
+(3,'preprod@teste.com','Pré Produtor','','preprod','aa2f7cb364be095fbe508b4cae4e103a','2010-08-23','1',4),
+(4,'revisort@teste.com','Revisor Ortográfico','','revisort','aa2f7cb364be095fbe508b4cae4e103a','2010-08-23','1',5),
+(5,'prodobj@teste.com','Produtor de Objetos','','prodobj','aa2f7cb364be095fbe508b4cae4e103a','2010-08-23','1',11),
+(6,'revisobj@teste.com','Revisor de Objetos','','revisobj','aa2f7cb364be095fbe508b4cae4e103a','2010-08-23','1',7),
+(7,'revprod@teste.com','Revisor de Produção','','revprod','aa2f7cb364be095fbe508b4cae4e103a','2010-08-23','1',6),
+(8,'revinav@teste.com','Revisor de Navegação','','revinav','aa2f7cb364be095fbe508b4cae4e103a','2010-08-23','1',8),
+(9,'profcoord@teste.com','Professor Coordenador','','profcoord','aa2f7cb364be095fbe508b4cae4e103a','2010-08-23','1',3);
 
 --
 -- Dumping data for table `rfr_granted_profile_roles`
@@ -122,11 +122,7 @@ INSERT INTO `RFR_WORKFLOW_STAGE_TEMPLATE` (`ID`, `NAME`, `DESCRIPTION`, `REQUIRE
 --
 
 INSERT INTO `RFR_COURSE` (`ID`, `NAME`, `DESCRIPTION`, `CREATED`, `ENABLED`) VALUES
-(1, 'Educação Física', 'Curso de Educação Física', '2010-01-01', '1'),
-(2, 'Física', 'Curso de Física', '2010-01-01', '1'),
-(3, 'História', 'Curso de História', '2010-01-01', '1'),
-(4, 'Língua Portuguesa', 'Curso de Língua Portuguesa', '2010-01-01', '1'),
-(5, 'Matemática', 'Curso de Matemática', '2010-01-01', '1');
+(1, 'Teste', 'Curso de Teste', '2010-01-01', '1');
 
 --
 -- Dumping data for table `rfr_type_content`
